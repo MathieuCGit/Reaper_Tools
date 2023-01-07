@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<index version="1" name="MathieuC Tools" commit="10453bd3a5dd06b587e8c886da72922abdd92d20">
+  <category name="Arrange View">
+    <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 This script aims to reproduce the folder separation in a way Logic X does it.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Draw separator on folder track\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 This script aimes to provide a mechanism similar to the one in LogicProX to separate folders in the Arrange View.\par}
+{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Options\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Actually you have to customize your preferences directly into the script.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\b {\f1 TRACK_HEIGHT}} This {\b MUST} be {\b AT LEAST} 2 pixels higher than the size defined in Preferences > Apparence > Media > "Hide labels for items when item take lane height is less than". You also have to uncheck "draw labels above items, rather than within items" {\i Default value is {\b {\f1 28}}} but I got better result with 20pixels.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Default 6 and dafault 5 theme TRACK_HEIGHT=25.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab 25 Also works with Jane, Funktion.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab iLogic V2 = 28\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab iLogic V3 = 24\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Flat Madness and CubeXD= 22\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\b {\f1 TRACK_COLOR_SINGLE}} Do you want all the item folder to get the same color ? Otherwise, default folder track color will be used. {\i Default is {\b {\f1 0}}}\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\b {\f1 TRACK_COLOR}} Use RGB color code. {\i Default is {\b {\f1 \{111,121,131\}}}}\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\b {\f1 TRACK_COLOR_DARKER_STEP}} This is the amount of darkness yo uwant to apply to default track color. 0 means NO darkness. {\i Default is {\b {\f1 25}}}\par}
+{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/MC_VariousScripts">Github repository</link>
+      </metadata>
+      <version name="0.0.2" author="Mathieu CONAN" time="2023-01-07T19:44:49Z">
+        <changelog><![CDATA[Fix : check for already existing data on folder track now check every kind of data and not only MIDI.]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Arrange%20View/MC_ALaLogic_TCP-folder-separator.lua</source>
+      </version>
+    </reapack>
+    <reapack name="MC_Move-edit-cursor-to-the-end-of-time-selection-while-playing.lua" type="script" desc="Move edit cursor to the end of time selection while playing">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 This script aims to improve video derush by constantly moving edit cursor at the end of time selecion while playing.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Move edit cursor to the end of time selection while playing\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 This script aimes to replace edit cursor at the end time selection while we are playing.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 I mainly use it to improve video derush as it let me keep playing and create regions and if I stop, it restart from the end of my newly created region (which match with time selection here).\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 It runs in background (reaper.defer()) and acts as a toggle. So it constantly replace the cursor while playing.\par}
+{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/MC_VariousScripts">Github repository</link>
+      </metadata>
+      <version name="0.0.1" author="Mathieu CONAN" time="2023-01-07T19:44:49Z">
+        <changelog><![CDATA[Initial release]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Arrange%20View/MC_Move-edit-cursor-to-the-end-of-time-selection-while-playing.lua</source>
+      </version>
+    </reapack>
+    <reapack name="MC_persistent_Rename-items-to-folder-and-track-name-item-number.lua" type="script" desc="Rename items to folder and track name item position number in the track">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 This script aims to rename item with folder name (if track is in folder) - track name - item position in the track\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 WARNING : it's a persistent script, continuously running in background.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 USER OPTIONS\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\b {\f1 SHOW_PARENT_FOLDER}} If this option is set to 1 folder name will appear in item name. 0 to not show the folder name\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\b {\f1 SHOW_TRACK_NAME}} If this option is set to 1 track name will appear in item name. 0 to not show the track name\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\b {\f1 SHOW_ITEM_NBR}} If this option is set to 1 item number will appear in item name. 0 to not show the item number\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/MC_VariousScripts">Github repository</link>
+      </metadata>
+      <version name="0.0.3" author="Mathieu CONAN" time="2023-01-07T19:44:49Z">
+        <changelog><![CDATA[Fix better rendering in renaming with underscore position.]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Arrange%20View/MC_persistent_Rename-items-to-folder-and-track-name-item-number.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="Chords tool/ReaCAT">
+    <reapack name="ReaCAT.lua" type="script" desc="ReaCAT - Reaper Chord Adding Tool - Chord Track">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 ReaCAT aims to provide a tool to perform and use chords in Reaper. It consists mainly in analysis chords in different ways and adding them in different places (text event, notation chords, item text note...). it's a MIDI tool, you can't find chords from audio with it.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Minimal Reaper version is 6.73 with SWS pre-release 2.13.1 (https://www.sws-extension.org/download/pre-release/)\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/Reaper_Tools/tree/main/Chords%20tool/ReaCAT">Github repository</link>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2023-01-07T19:44:49Z">
+        <changelog><![CDATA[Initial release]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Chords%20tool/ReaCAT/ReaCAT.lua</source>
+        <source file="Analyzer.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Chords%20tool/ReaCAT/Analyzer.lua</source>
+        <source file="Collector.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Chords%20tool/ReaCAT/Collector.lua</source>
+        <source file="SharpOrFlat.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Chords%20tool/ReaCAT/SharpOrFlat.lua</source>
+        <source file="WriteData.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Chords%20tool/ReaCAT/WriteData.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="MIDI Editor">
+    <reapack name="MC_MIDI-Editor_set-time-selection-to-item-length.lua" type="script" desc="MIDI Editor - Set time selection to item length">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Load this script as a midi editor one. Set mouse modifier to "MIDI ruler" > ctrl+double click > use this script\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/MC_VariousScripts">Github repository</link>
+      </metadata>
+      <version name="0.0.1" author="Mathieu CONAN" time="2023-01-07T19:44:49Z">
+        <changelog><![CDATA[initial release]]></changelog>
+        <source main="midi_editor">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/MIDI%20Editor/MC_MIDI-Editor_set-time-selection-to-item-length.lua</source>
+      </version>
+    </reapack>
+  </category>
+</index>
