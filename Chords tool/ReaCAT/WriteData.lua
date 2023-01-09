@@ -92,31 +92,102 @@ WriteData = {
 	return is_a_chord
 	end
 
+
+	--- Get the number of selected note in a MIDI take.
+	--@tparam take take is a Reaper take
+	--@treturn int is the number of selected notes
+	function nbr_selected_notes(take)
+		local numSel=0
+		if take ~= nil then
+			_, notes, _, _ = reaper.MIDI_CountEvts(take) -- count all notes(events)
+			if notes > 0 then
+				for i=0, notes-1 do
+					_, sel,_,_,_,_,_,_ = reaper.MIDI_GetNote(take, i)
+					if sel == true then
+						numSel=numSel+1
+					end
+				end
+			end
+
+			--if no notes are selected, it's the same as if all notes were selected
+			-- if numSel == 0 then
+				-- numSel = notes
+			-- end
+		end
+		return numSel
+	end
+
 --- PUBLIC METHODS
 -- @section public methods
 
 	--- Remove existing chord items on "CHORDS" track.
 	--@tparam number nbr_sel_items is the number of selected items on track.
+	--
+	-- @note 
+	--    TODO: The start and end location for note selection should be in Collector class
 	function WriteData:del_existing_chord_items(nbr_sel_items)
 		--chords text items are on the CHORDS track, we select it.
 		track = get_track_by_name("CHORDS")
 		
-		--we need the start position of the first item in selection
-		first_item = reaper.GetSelectedMediaItem(0, 0)
-		if not first_item then return end
-		start_first_item=reaper.GetMediaItemInfo_Value( first_item, "D_POSITION" )
-
-		for i=0, nbr_sel_items-1 do
-			item = reaper.GetSelectedMediaItem(0, i)
-			start_cur_item=reaper.GetMediaItemInfo_Value( item, "D_POSITION" )
-			len_cur_item=reaper.GetMediaItemInfo_Value( item, "D_LENGTH" )
-			end_last_item=start_cur_item+len_cur_item
+		local cur_start=0
+		local cur_end=0
+		-- TODO: the following function should be integrated into Collector.lua
+		--Check if MIDI editor is opened and if notes are selected into active midi take
+		if reaper.MIDIEditor_GetActive() then 
+			ME_opened=true
+			--we get the current take
+			take=reaper.MIDIEditor_GetTake(reaper.MIDIEditor_GetActive())
+			--we check if notes are selected
+			_, notes, _, _ = reaper.MIDI_CountEvts(take) -- count all notes(events)
+			if notes > 0 then
+				--find start of the selection in active MIDI take
+				for i=notes-1, 0,-1  do
+					_, sel,_,startppqpos,_,_,_,_ = reaper.MIDI_GetNote(take, i)
+					if sel  then cur_start=startppqpos end
+				end
+				
+				if cur_start ~=nil then 
+					cur_start= reaper.MIDI_GetProjTimeFromPPQPos( take, cur_start )--convert ppq into seconds 
+				end
+				
+				--find end of the selection in active MIDI take
+				for i=0, notes-1 do
+					_, sel,_,_,endppqpos,_,_,_ = reaper.MIDI_GetNote(take, i)
+					if sel and cur_end < endppqpos then cur_end=endppqpos end
+				end
+				
+				if cur_end ~=nil then
+					cur_end= reaper.MIDI_GetProjTimeFromPPQPos( take, cur_end )--convert ppq into seconds
+				end
+			end
+			
 		end
-
+		
+			
+		--if no notes are selected into the active MIDI take, we based our removal stuff on item context.
+		if cur_start ==0 and cur_end==0 then
+			--we need the start position of the first item in selection
+			first_item = reaper.GetSelectedMediaItem(0, 0)
+			if not first_item then return end
+			start_first_item=reaper.GetMediaItemInfo_Value( first_item, "D_POSITION" )
+		
+			for i=0, nbr_sel_items-1 do
+				item = reaper.GetSelectedMediaItem(0, i)
+				start_cur_item=reaper.GetMediaItemInfo_Value( item, "D_POSITION" )
+				len_cur_item=reaper.GetMediaItemInfo_Value( item, "D_LENGTH" )
+				end_last_item=start_cur_item+len_cur_item
+			end
+		else
+		--else we use the start and end position from the active MIDI take note selection
+			start_first_item=cur_start
+			start_cur_item=cur_start
+			end_last_item=cur_end
+		end
+		
 		if track then
 			--we will loop throught the entire track 
 			nbr_item_on_track= reaper.CountTrackMediaItems(track)
-			--we have to iterate backwards to avoid missing index in the loop.
+			--we have to iterate backwards to avoid missing index in the loop as we potentialy remove item(s) on each loop
 			for i=nbr_item_on_track-1,0,-1 do
 
 				item=reaper.GetTrackMediaItem( track, i)

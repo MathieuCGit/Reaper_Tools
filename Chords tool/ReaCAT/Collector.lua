@@ -142,7 +142,7 @@ function Collector:get_pitch_array(take)
 					pitch_array[i]={pitch = pitch,startppqpos=startppqpos,endppqpos=endppqpos}
 				end
 			end
-		else --otherwise there are no notes selected so we put every notes in the take into pitch_array
+		else --otherwise there is no note selected so we put every notes of the take into pitch_array
 			for i=0, notes - 1 do
 				_, _, _, startppqpos, endppqpos, _, pitch, _ = reaper.MIDI_GetNote( take, i )
 				pitch_array[i]={pitch = pitch,startppqpos=startppqpos,endppqpos=endppqpos}
@@ -168,7 +168,7 @@ function Collector:chord_pos(indexed_pitch_array,take)
 	
 	--Put a chord index into pitch_array
 	pos_idx=1 -- Here is the first chord index
-	human_input=119 -- while a human inputs notes, startppqpos and endppqpos aren't as precise as quantized inputs. Default reaper ppqn = 960, means 960 midi ticks per quarter note. 120 is 960 / 8, means thirty-two notes of precision. So if the inputed notes are separate by less than a 32th notes (119), we consider them as part of the same chord.
+	human_input=119 -- while a human inputs notes, startppqpos and endppqpos aren't as precise as quantized inputs. Default reaper ppqn = 960, means 960 midi ticks per quarter note. 120 is 960 / 8, means thirty-two notes of precision. So if the inputed notes are separated by less than a 32th notes (119), we consider them as part of the same chord.
 	for i=1, #sorted_by_startppqpos -1 do
 		sorted_by_startppqpos[i].pos_idx=pos_idx
 		if sorted_by_startppqpos[i+1].startppqpos-human_input > sorted_by_startppqpos[i].startppqpos then
