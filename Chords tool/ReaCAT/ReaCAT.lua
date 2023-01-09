@@ -31,7 +31,7 @@
 	package.path =string.format(basedir.."?.lua")
 
 	--load desire modules
-	require 'lib.dbg'
+	--require 'lib.dbg'
 	require 'Analyzer'
 	require 'Collector'
 	require 'SharpOrFlat'
