@@ -133,8 +133,7 @@ WriteData = {
 		local cur_end=0
 		-- TODO: the following function should be integrated into Collector.lua
 		--Check if MIDI editor is opened and if notes are selected into active midi take
-		if reaper.MIDIEditor_GetActive() then 
-			ME_opened=true
+		if reaper.MIDIEditor_GetActive() then
 			--we get the current take
 			take=reaper.MIDIEditor_GetTake(reaper.MIDIEditor_GetActive())
 			--we check if notes are selected
@@ -193,7 +192,7 @@ WriteData = {
 				item=reaper.GetTrackMediaItem( track, i)
 				start_cur_item=reaper.GetMediaItemInfo_Value( item, "D_POSITION" )
 
-				if start_cur_item >= start_first_item and start_cur_item <= end_last_item then
+				if start_cur_item >= start_first_item and start_cur_item < end_last_item then
 					reaper.DeleteTrackMediaItem(track, item)
 				end
 
@@ -347,9 +346,6 @@ WriteData = {
 		end
 	end
 
-	function WriteData:text_item_size_fit()
-	
-	end
 
 -----------------------------
 -- Define Class Constructor

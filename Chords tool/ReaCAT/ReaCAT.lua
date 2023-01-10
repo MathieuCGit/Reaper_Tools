@@ -7,7 +7,7 @@
 --    [nomain] Collector.lua
 --    [nomain] SharpOrFlat.lua
 --    [nomain] WriteData.lua
--- @changelog Initial release
+-- @changelog Initial release 2
 -- @link Github repository https://github.com/MathieuCGit/Reaper_Tools/tree/main/Chords%20tool/ReaCAT
 -- @about ReaCAT aims to provide a tool to perform and use chords in Reaper. It consists mainly in analysis chords in different ways and adding them in different places (text event, notation chords, item text note...). it's a MIDI tool, you can't find chords from audio with it.
 --
@@ -31,7 +31,7 @@
 	package.path =string.format(basedir.."?.lua")
 
 	--load desire modules
-	--require 'lib.dbg'
+	require 'lib.dbg'
 	require 'Analyzer'
 	require 'Collector'
 	require 'SharpOrFlat'
