@@ -1,25 +1,22 @@
---[[
-Description: Rename items to folder and track name item position number in the track
-Author: Mathieu CONAN   
-Version: 0.0.3
-Changelog:  Fix better rendering in renaming with underscore position.
-Link: Github repository https://github.com/MathieuCGit/MC_VariousScripts
-About: This script aims to rename item with folder name (if track is in folder) - track name - item position in the track
-    # WARNING : it's a persistent script, continuously running in background.
-
-
-    ### USER OPTIONS
-
-    **``SHOW_PARENT_FOLDER``**
-    If this option is set to 1 folder name will appear in item name. 0 to not show the folder name
-
-    **``SHOW_TRACK_NAME``**
-    If this option is set to 1 track name will appear in item name. 0 to not show the track name
-
-    **``SHOW_ITEM_NBR``**
-    If this option is set to 1 item  number will appear in item name. 0 to not show the item number
-
---]]
+-- @description Rename items to folder and track name item position number in the track
+-- @author Mathieu CONAN   
+-- @version 0.3
+-- @changelog:  Fix better rendering in renaming with underscore position.
+-- @link Github repository https://github.com/MathieuCGit/MC_VariousScripts
+-- @about This script aims to rename item with folder name (if track is in folder) - track name - item position in the track
+--    # WARNING : it's a persistent script, continuously running in background.
+--
+--    ### USER OPTIONS
+--
+--    **``SHOW_PARENT_FOLDER``**
+--    If this option is set to 1 folder name will appear in item name. 0 to not show the folder name
+--
+--    **``SHOW_TRACK_NAME``**
+--    If this option is set to 1 track name will appear in item name. 0 to not show the track name
+--
+--    **``SHOW_ITEM_NBR``**
+--    If this option is set to 1 item  number will appear in item name. 0 to not show the item number
+--
 
 --
 --[[ USER OPTIONS ]]

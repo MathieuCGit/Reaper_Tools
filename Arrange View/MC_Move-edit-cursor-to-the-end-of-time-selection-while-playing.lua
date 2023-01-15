@@ -1,21 +1,18 @@
---[[--
-Description: Move edit cursor to the end of time selection while playing
-Author: Mathieu CONAN   
-Version: 0.0.1
-Changelog: Initial release
-Link: Github repository https://github.com/MathieuCGit/MC_VariousScripts
-About: This script aims to improve video derush by constantly moving edit cursor at the end of time selecion while playing.
-
-   ### Move edit cursor to the end of time selection while playing
-
-   This script aimes to replace edit cursor at the end time selection while we are playing.
-   
-   I mainly use it to improve video derush as it let me keep playing and create regions and if I stop, it restart from the end of my newly created region (which match with time selection here).
-   
-   It runs in background (reaper.defer()) and acts as a toggle. So it constantly replace the cursor while playing.
-
-   ---
-]]--
+-- @description Move edit cursor to the end of time selection while playing
+-- @author Mathieu CONAN   
+-- @Version 0.1
+-- @changelog Initial release
+-- @link Github repository https://github.com/MathieuCGit/MC_VariousScripts
+-- @about This script aims to improve video derush by constantly moving edit cursor at the end of time selecion while playing.
+--
+--   ### Move edit cursor to the end of time selection while playing
+--
+--   This script aimes to replace edit cursor at the end time selection while we are playing.
+--
+--   I mainly use it to improve video derush as it let me keep playing and create regions and if I stop, it restart from the end of my newly created region (which match with time selection here).
+--
+--   It runs in background (reaper.defer()) and acts as a toggle. So it constantly replace the cursor while playing.
+--
 
 
 --
