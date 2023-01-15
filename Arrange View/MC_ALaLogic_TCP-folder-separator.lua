@@ -1,6 +1,6 @@
 -- @description Draw separator on folder track - aka A la Logic X
 -- @author Mathieu CONAN   
--- @version: 0.2
+-- @version 0.2
 -- @changelog Fix : check for already existing data on folder track now check every kind of data and not only MIDI.
 -- @link Github repository https://github.com/MathieuCGit/MC_VariousScripts
 -- @about This script aims to reproduce the folder separation in a way Logic X does it.
