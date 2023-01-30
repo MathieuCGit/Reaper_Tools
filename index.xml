@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="2a87110651f1887d78aa02aac080fed30d514d3a">
+<index version="1" name="MathieuC Tools" commit="dcde332d041a34854af143ee60183d10a2e7ebea">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -110,6 +110,20 @@
       </metadata>
       <version name="0.1" author="Mathieu CONAN" time="2023-01-15T20:42:07Z">
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/1da3757948d8cb0f9711b43783da26a5c0269b6e/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-crusor-pos.lua</source>
+      </version>
+    </reapack>
+    <reapack name="MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-item-and-curosr-pos.lua" type="script" desc="Vertical zoom minimize folder keep track lock height doesn't care about cursor position (means operate for all arranvge view lenght) and doesn't care about items on track or not.">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Author URI: https://forum.cockos.com/member.php?u=153781\par}
+}
+]]></description>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2023-01-30T22:47:57Z">
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/dcde332d041a34854af143ee60183d10a2e7ebea/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-item-and-curosr-pos.lua</source>
       </version>
     </reapack>
   </category>
