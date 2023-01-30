@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="1da3757948d8cb0f9711b43783da26a5c0269b6e">
+<index version="1" name="MathieuC Tools" commit="2a87110651f1887d78aa02aac080fed30d514d3a">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -22,7 +22,6 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 {\b {\f1 TRACK_COLOR_SINGLE}} Do you want all the item folder to get the same color ? Otherwise, default folder track color will be used. {\i Default is {\b {\f1 0}}}\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 {\b {\f1 TRACK_COLOR}} Use RGB color code. {\i Default is {\b {\f1 \{111,121,131\}}}}\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 {\b {\f1 TRACK_COLOR_DARKER_STEP}} This is the amount of darkness yo uwant to apply to default track color. 0 means NO darkness. {\i Default is {\b {\f1 25}}}\par}
-{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
 }
 ]]></description>
         <link rel="website" href="https://github.com/MathieuCGit/MC_VariousScripts">Github repository</link>
@@ -30,6 +29,10 @@
       <version name="0.0.2" author="Mathieu CONAN" time="2023-01-07T19:44:49Z">
         <changelog><![CDATA[Fix : check for already existing data on folder track now check every kind of data and not only MIDI.]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Arrange%20View/MC_ALaLogic_TCP-folder-separator.lua</source>
+      </version>
+      <version name="0.2" author="Mathieu CONAN" time="2023-01-15T20:53:07Z">
+        <changelog><![CDATA[Fix : check for already existing data on folder track now check every kind of data and not only MIDI.]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/2a87110651f1887d78aa02aac080fed30d514d3a/Arrange%20View/MC_ALaLogic_TCP-folder-separator.lua</source>
       </version>
     </reapack>
     <reapack name="MC_Move-edit-cursor-to-the-end-of-time-selection-while-playing.lua" type="script" desc="Move edit cursor to the end of time selection while playing">
@@ -43,7 +46,6 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 This script aimes to replace edit cursor at the end time selection while we are playing.\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 I mainly use it to improve video derush as it let me keep playing and create regions and if I stop, it restart from the end of my newly created region (which match with time selection here).\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 It runs in background (reaper.defer()) and acts as a toggle. So it constantly replace the cursor while playing.\par}
-{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
 }
 ]]></description>
         <link rel="website" href="https://github.com/MathieuCGit/MC_VariousScripts">Github repository</link>
@@ -51,6 +53,10 @@
       <version name="0.0.1" author="Mathieu CONAN" time="2023-01-07T19:44:49Z">
         <changelog><![CDATA[Initial release]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Arrange%20View/MC_Move-edit-cursor-to-the-end-of-time-selection-while-playing.lua</source>
+      </version>
+      <version name="0.1" author="Mathieu CONAN" time="2023-01-15T20:52:09Z">
+        <changelog><![CDATA[Initial release]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/4069b7162d5895d9391fda27ebd9b3985f15c11e/Arrange%20View/MC_Move-edit-cursor-to-the-end-of-time-selection-while-playing.lua</source>
       </version>
     </reapack>
     <reapack name="MC_persistent_Rename-items-to-folder-and-track-name-item-number.lua" type="script" desc="Rename items to folder and track name item position number in the track">
@@ -72,6 +78,10 @@
       <version name="0.0.3" author="Mathieu CONAN" time="2023-01-07T19:44:49Z">
         <changelog><![CDATA[Fix better rendering in renaming with underscore position.]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Arrange%20View/MC_persistent_Rename-items-to-folder-and-track-name-item-number.lua</source>
+      </version>
+      <version name="0.3" author="Mathieu CONAN" time="2023-01-15T20:52:09Z">
+        <changelog><![CDATA[:  Fix better rendering in renaming with underscore position.]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/4069b7162d5895d9391fda27ebd9b3985f15c11e/Arrange%20View/MC_persistent_Rename-items-to-folder-and-track-name-item-number.lua</source>
       </version>
     </reapack>
     <reapack name="MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked.lua" type="script" desc="Vertical zoom minimize folder keep track lock height take care of cursor position (means if no item at cursor pos track will be minimized).">
@@ -117,12 +127,12 @@
         <link rel="website" href="https://github.com/MathieuCGit/Reaper_Tools/tree/main/Chords%20tool/ReaCAT">Github repository</link>
       </metadata>
       <version name="0.1" author="Mathieu CONAN" time="2023-01-07T19:44:49Z">
-        <changelog><![CDATA[Initial release 2]]></changelog>
-        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/25c9a5ce9d140201637ab47d8f217e97c0b74c45/Chords%20tool/ReaCAT/ReaCAT.lua</source>
-        <source file="Analyzer.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/25c9a5ce9d140201637ab47d8f217e97c0b74c45/Chords%20tool/ReaCAT/Analyzer.lua</source>
-        <source file="Collector.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/25c9a5ce9d140201637ab47d8f217e97c0b74c45/Chords%20tool/ReaCAT/Collector.lua</source>
-        <source file="SharpOrFlat.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/25c9a5ce9d140201637ab47d8f217e97c0b74c45/Chords%20tool/ReaCAT/SharpOrFlat.lua</source>
-        <source file="WriteData.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/25c9a5ce9d140201637ab47d8f217e97c0b74c45/Chords%20tool/ReaCAT/WriteData.lua</source>
+        <changelog><![CDATA[Initial release]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Chords%20tool/ReaCAT/ReaCAT.lua</source>
+        <source file="Analyzer.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Chords%20tool/ReaCAT/Analyzer.lua</source>
+        <source file="Collector.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Chords%20tool/ReaCAT/Collector.lua</source>
+        <source file="SharpOrFlat.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Chords%20tool/ReaCAT/SharpOrFlat.lua</source>
+        <source file="WriteData.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Chords%20tool/ReaCAT/WriteData.lua</source>
       </version>
     </reapack>
   </category>
