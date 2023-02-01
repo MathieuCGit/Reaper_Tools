@@ -78,10 +78,10 @@ function Main()
 	end
 	
 		
-	heightToRemove=math.floor(minimumTrackHeight*nbrOfTrackWithOutItems)
+	heightToRemove=math.floor(minimumTrackHeight*nbrOfTracks)
 	height,width=sizeOfArrangeView()
 	newHeight=height-heightToRemove
-	sizeOfEachTrack=math.floor(newHeight/nbrOfTrackWithItems)
+	sizeOfEachTrack=math.floor(newHeight/nbrOfTracks)
 	
 	for i=0,nbrOfTracks-1 do
 		track=reaper.GetTrack( 0, i)
