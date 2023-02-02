@@ -1,5 +1,5 @@
 -- @description Vertical zoom minimize folder keep track lock height doesn't care about cursor position (means operate for all arranvge view lenght) and doesn't care about items on track or not.
--- @version 0.1
+-- @version 0.2
 -- @author Mathieu CONAN
 -- @about Author URI: https://forum.cockos.com/member.php?u=153781
 -- @licence GPL v3
@@ -44,44 +44,29 @@ function Main()
 	local nbrOfTracks=reaper.CountTracks(0)
 	local trackInfoArray={}
 	local minimumTrackHeight=minimumTrackHeight()
-	local nbrOfTrackWithItems=0
-	local nbrOfTrackWithOutItems=0
 	
 	for i=0,nbrOfTracks-1 do
 	
 		track=reaper.GetTrack( 0, i)
-		curPos=reaper.GetCursorPositionEx(0) --current edit cursor position
 
 		--get current track infos
 		lockToggle=reaper.GetMediaTrackInfo_Value( track, "B_HEIGHTLOCK" )--current track lock state
 		trackHeight=reaper.GetMediaTrackInfo_Value( track, "I_TCPH" )--current track height
 		trackNum=reaper.GetMediaTrackInfo_Value( track, "IP_TRACKNUMBER" ) --current track number
 		folderDepth=reaper.GetMediaTrackInfo_Value( track, "I_FOLDERDEPTH" ) --current track folder depth
-		nbrOfItems= reaper.CountTrackMediaItems( track ) --is there item on track
-		
-		if nbrOfItems > 0 then 
-			isThereItem = true
-			nbrOfTrackWithItems=nbrOfTrackWithItems+1
-		else 
-			isThereItem = false
-			nbrOfTrackWithOutItems=nbrOfTrackWithOutItems+1
-		end
 		
 		trackInfoArray[#trackInfoArray+1]=
 		{
 			trackNum=i+1, 
 			trackHeight=trackHeight, 
 			lockState=lockToggle, 
-			folderDepth=folderDepth, 
-			isThereItem=isThereItem
+			folderDepth=folderDepth
 		}
 	end
 	
 		
-	heightToRemove=math.floor(minimumTrackHeight*nbrOfTrackWithOutItems)
 	height,width=sizeOfArrangeView()
-	newHeight=height-heightToRemove
-	sizeOfEachTrack=math.floor(newHeight/nbrOfTrackWithItems)
+	sizeOfEachTrack=math.floor(height/nbrOfTracks)
 	
 	for i=0,nbrOfTracks-1 do
 		track=reaper.GetTrack( 0, i)
