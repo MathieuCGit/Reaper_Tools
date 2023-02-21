@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="9db01184ef31dc09d70b4f0a31acf2191a446359">
+<index version="1" name="MathieuC Tools" commit="a20d47d28fe0897c99fd3c9d4d98dd33f92758ef">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -153,6 +153,24 @@
       </version>
     </reapack>
   </category>
+  <category name="Enveloppes">
+    <reapack name="MC_Edit-selected-env-point.lua" type="script" desc="Envelope - edit selected envelope point (modal window)">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 instead of having to right click a point then go to "set envelope point value..." assign this script to a shortcut and directly get a modal window to change point value. It opens a modal windowsfor each point, sequentialy. I mainly use it to tweak Video processor automation.\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/">Github repository</link>
+      </metadata>
+      <version name="0.0.1" author="Mathieu CONAN" time="2023-02-21T01:28:51Z">
+        <changelog><![CDATA[initial release]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/a20d47d28fe0897c99fd3c9d4d98dd33f92758ef/Enveloppes/MC_Edit-selected-env-point.lua</source>
+      </version>
+    </reapack>
+  </category>
   <category name="MIDI Editor">
     <reapack name="MC_MIDI-Editor_set-time-selection-to-item-length.lua" type="script" desc="MIDI Editor - Set time selection to item length">
       <metadata>
@@ -163,7 +181,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Load this script as a midi editor one. Set mouse modifier to "MIDI ruler" > ctrl+double click > use this script\par}
 }
 ]]></description>
-        <link rel="website" href="https://github.com/MathieuCGit/MC_VariousScripts">Github repository</link>
+        <link rel="website" href="https://github.com/MathieuCGit/Reaper_Tools">Github repository</link>
       </metadata>
       <version name="0.0.1" author="Mathieu CONAN" time="2023-01-07T19:44:49Z">
         <changelog><![CDATA[initial release]]></changelog>
