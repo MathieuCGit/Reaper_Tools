@@ -3,7 +3,7 @@ Description: MIDI Editor - Set time selection to item length
 Author: Mathieu CONAN   
 Version: 0.0.1
 Changelog:  initial release
-Link: Github repository https://github.com/MathieuCGit/MC_VariousScripts
+Link: Github repository https://github.com/MathieuCGit/Reaper_Tools
 About: Load this script as a midi editor one. Set mouse modifier to "MIDI ruler" > ctrl+double click > use this script
 --]]
 
