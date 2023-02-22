@@ -12,6 +12,8 @@ function Main()
 	local env = reaper.GetSelectedEnvelope(0)
 
 	if env then
+		-- Get envelope name
+		 _, env_name = reaper.GetEnvelopeName( env )
 		-- get current take from envolpe informations
 		take, _, _ = reaper.Envelope_GetParentTake( env )
 		--get current item from take informations
@@ -36,7 +38,7 @@ function Main()
 				-- Get the start time of the current point in seconds
 				point_pos=item_start+ptime
 				-- Open a dialog showing actual value and letting user change this value
-				_,new_val =reaper.GetUserInputs( "Set point value", 1, "enter the new value: ", value )
+				_,new_val =reaper.GetUserInputs( "Set point value", 1, "Enter point value : " , value )
 				-- Set the new value to the selected point
 				reaper.SetEnvelopePoint( env, i, ptime, new_val, 0, 0, 0, 0 )
 			end
