@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="a20d47d28fe0897c99fd3c9d4d98dd33f92758ef">
+<index version="1" name="MathieuC Tools" commit="d5cdaf55496e795a7399832515ad8cd531538383">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -168,6 +168,24 @@
       <version name="0.0.1" author="Mathieu CONAN" time="2023-02-21T01:28:51Z">
         <changelog><![CDATA[initial release]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/a20d47d28fe0897c99fd3c9d4d98dd33f92758ef/Enveloppes/MC_Edit-selected-env-point.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="Markers and regions">
+    <reapack name="MC_insert-region-to selected-items-if-no-time-selection.lua" type="script" desc="Regions - insert region to time selection / selected items / razor edit areas">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Insert a region to selected items, time selection and razor edit areas.\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/">Github repository</link>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2023-02-22T17:16:37Z">
+        <changelog><![CDATA[initial release]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/d5cdaf55496e795a7399832515ad8cd531538383/Markers%20and%20regions/MC_insert-region-to%20selected-items-if-no-time-selection.lua</source>
       </version>
     </reapack>
   </category>
