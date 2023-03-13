@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="d5cdaf55496e795a7399832515ad8cd531538383">
+<index version="1" name="MathieuC Tools" commit="6765723c5c3975f81b86f729f08b136205e7a283">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -204,6 +204,22 @@
       <version name="0.0.1" author="Mathieu CONAN" time="2023-01-07T19:44:49Z">
         <changelog><![CDATA[initial release]]></changelog>
         <source main="midi_editor">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/MIDI%20Editor/MC_MIDI-Editor_set-time-selection-to-item-length.lua</source>
+      </version>
+    </reapack>
+    <reapack name="MC_Remove_time-selection_otherwise_close_MIDI-editor.lua" type="script" desc="Remove time selection if exist, otherwise close MIDI editor.">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 In tha active MIDI editor window, this script chekc if a time selection exists. If yes, it remove it. Otherwise, it mimicks the default Reaper behaviour by closing the midi editor window.\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/Reaper_Tools">Github repository</link>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2023-03-13T23:50:33Z">
+        <changelog><![CDATA[initial release]]></changelog>
+        <source main="midi_editor">https://github.com/MathieuCGit/Reaper_Tools/raw/6765723c5c3975f81b86f729f08b136205e7a283/MIDI%20Editor/MC_Remove_time-selection_otherwise_close_MIDI-editor.lua</source>
       </version>
     </reapack>
   </category>
