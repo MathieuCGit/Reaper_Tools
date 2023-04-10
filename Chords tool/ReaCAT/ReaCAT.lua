@@ -1,13 +1,13 @@
 -- @description ReaCAT - Reaper Chord Adding Tool - Chord Track
 -- @author Mathieu CONAN   
--- @version 0.1
+-- @version 0.2-alpha
 -- @provides 
 --    [main] ReaCAT.lua
 --    [nomain] Analyzer.lua
 --    [nomain] Collector.lua
 --    [nomain] SharpOrFlat.lua
 --    [nomain] WriteData.lua
--- @changelog Initial release 2
+-- @changelog Add MergingTool class it allows to detect chords across multiple tracks.
 -- @link Github repository https://github.com/MathieuCGit/Reaper_Tools/tree/main/Chords%20tool/ReaCAT
 -- @about ReaCAT aims to provide a tool to perform and use chords in Reaper. It consists mainly in analysis chords in different ways and adding them in different places (text event, notation chords, item text note...). it's a MIDI tool, you can't find chords from audio with it.
 --
