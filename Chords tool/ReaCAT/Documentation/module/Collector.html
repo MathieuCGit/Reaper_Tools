@@ -18,7 +18,7 @@
 </div>
 <div class="group three">
 <div class="button iconleft"><a href="../module/Analyzer.html" title="Analyzer"><img src="../img/i-left.svg?7653a2d" alt=""/><span>Previous</span></a></div>
-<div class="button iconright"><a href="../module/SharpOrFlat.html" title="SharpOrFlat"><span>Next</span><img src="../img/i-right.svg?7653a2d" alt=""/></a></div>
+<div class="button iconright"><a href="../module/MergingTool.html" title="MergingTool"><span>Next</span><img src="../img/i-right.svg?7653a2d" alt=""/></a></div>
 </div>
 </div>
 <div class="sidebar">
@@ -42,6 +42,7 @@
 <li><a href="../module/dbg.html">dbg</a></li>
 <li><a href="../module/Analyzer.html">Analyzer</a></li>
 <li class="selected"><a href="../module/Collector.html">Collector</a></li>
+<li><a href="../module/MergingTool.html">MergingTool</a></li>
 <li><a href="../module/SharpOrFlat.html">SharpOrFlat</a></li>
 <li><a href="../module/WriteData.html">WriteData</a></li>
 </ul>
@@ -120,23 +121,13 @@ so we made another method</p>
 </td>
 </tr>
 <tr>
-<td class="name"><a href="#Collector.findFirstNoteStartPpq"><var>Collector.findFirstNoteStartPpq</var></a>()</td>
-<td class="doc"><p>This function aims to provide the start of the first note in either in the active take or in current notes selection</p>
-</td>
-</tr>
-<tr>
-<td class="name"><a href="#Collector.findLastNoteEndPpq"><var>Collector.findLastNoteEndPpq</var></a>()</td>
-<td class="doc"><p>This function aims to provide the end of the last note in either in the active take or in current notes selection</p>
-</td>
-</tr>
-<tr>
-<td class="name"><a href="#Collector.nbrOfSelectedNotes"><var>Collector.nbrOfSelectedNotes</var></a>()</td>
+<td class="name"><a href="#Collector.nbr_selected_notes"><var>Collector.nbr_selected_notes</var></a>()</td>
 <td class="doc"><p>Get the number of selected note in a MIDI take</p>
 </td>
 </tr>
 <tr>
-<td class="name"><a href="#Collector.tablelength"><var>Collector.tablelength</var></a>()</td>
-<td class="doc"><p>Get lenght of an indexed table/array</p>
+<td class="name"><a href="#Collector.rebuild_index"><var>Collector.rebuild_index</var></a>()</td>
+<td class="doc"><p>Basic function to rebuild a 2D array index as LUA use tables and tables are not indexed the same way an array is</p>
 </td>
 </tr>
 </table>
@@ -176,73 +167,9 @@ so we made another method.
 </tr>
 </table>
 </dd>
-<dt id="Collector.findFirstNoteStartPpq">
-<span class="icon"></span><var>Collector.findFirstNoteStartPpq</var>(<em>take</em>)
-<a class="permalink" href="#Collector.findFirstNoteStartPpq" title="Permalink to this definition">¶</a>
-</dt>
-<dd>
-<p>This function aims to provide the start of the first note in either in the active take or in current notes selection.</p>
-
-<div class="heading">Parameters</div>
-<table class="parameters">
-<tr>
-<td class="name"><var>take</var></td>
-<td class="types">(<em>take</em>)</td>
-<td class="doc"><p>is tthe active take we want the chords</p>
-</td>
-</tr>
-</table>
-<div class="heading">Return Values</div>
-<table class="returns">
-<tr>
-<td class="name">1.</td>
-<td class="types">(<em>number</em>)</td>
-<td class="doc"><p>ppqPointerAll is the ppq start of the first note in the take</p>
-</td>
-</tr>
-<tr>
-<td class="name">2.</td>
-<td class="types">(<em>number</em>)</td>
-<td class="doc"><p>ppqPointerSel is the ppq start of the first note in the selection if there is a selection</p>
-</td>
-</tr>
-</table>
-</dd>
-<dt id="Collector.findLastNoteEndPpq">
-<span class="icon"></span><var>Collector.findLastNoteEndPpq</var>(<em>take</em>)
-<a class="permalink" href="#Collector.findLastNoteEndPpq" title="Permalink to this definition">¶</a>
-</dt>
-<dd>
-<p>This function aims to provide the end of the last note in either in the active take or in current notes selection.</p>
-
-<div class="heading">Parameters</div>
-<table class="parameters">
-<tr>
-<td class="name"><var>take</var></td>
-<td class="types">(<em>take</em>)</td>
-<td class="doc"><p>is tthe active take we want the chords</p>
-</td>
-</tr>
-</table>
-<div class="heading">Return Values</div>
-<table class="returns">
-<tr>
-<td class="name">1.</td>
-<td class="types">(<em>number</em>)</td>
-<td class="doc"><p>ppqPointerAll is the ppq end of the last note in the take</p>
-</td>
-</tr>
-<tr>
-<td class="name">2.</td>
-<td class="types">(<em>number</em>)</td>
-<td class="doc"><p>ppqPointerSel is the ppq end of the last note in the selection if there is a selection</p>
-</td>
-</tr>
-</table>
-</dd>
-<dt id="Collector.nbrOfSelectedNotes">
-<span class="icon"></span><var>Collector.nbrOfSelectedNotes</var>(<em>take</em>)
-<a class="permalink" href="#Collector.nbrOfSelectedNotes" title="Permalink to this definition">¶</a>
+<dt id="Collector.nbr_selected_notes">
+<span class="icon"></span><var>Collector.nbr_selected_notes</var>(<em>take</em>)
+<a class="permalink" href="#Collector.nbr_selected_notes" title="Permalink to this definition">¶</a>
 </dt>
 <dd>
 <p>Get the number of selected note in a MIDI take.</p>
@@ -265,27 +192,28 @@ so we made another method.
 </tr>
 </table>
 </dd>
-<dt id="Collector.tablelength">
-<span class="icon"></span><var>Collector.tablelength</var>(<em>t</em>)
-<a class="permalink" href="#Collector.tablelength" title="Permalink to this definition">¶</a>
+<dt id="Collector.rebuild_index">
+<span class="icon"></span><var>Collector.rebuild_index</var>(<em>array</em>)
+<a class="permalink" href="#Collector.rebuild_index" title="Permalink to this definition">¶</a>
 </dt>
 <dd>
-<p>Get lenght of an indexed table/array.</p>
+<p>Basic function to rebuild a 2D array index as LUA use tables and tables are not indexed the same way an array is.
+<div class="see">See also <a href="../module/Collector.html#Collector.array2Dsort">Collector.array2Dsort()</a></div>
 
 <div class="heading">Parameters</div>
 <table class="parameters">
 <tr>
-<td class="name"><var>t</var></td>
+<td class="name"><var>array</var></td>
 <td class="types">(<em>tab</em>)</td>
-<td class="doc"><p>i a table</p>
+<td class="doc"><p>is the array you want to rebuild the index</p>
 </td>
 </tr>
 </table>
 <div class="heading">Return Values</div>
 <table class="returns">
 <tr>
-<td class="types">(<em>int</em>)</td>
-<td class="doc"><p>the table's lenght</p>
+<td class="types">(<em>tab</em>)</td>
+<td class="doc"><p>new_array is the array reindexed from 1</p>
 </td>
 </tr>
 </table>
@@ -305,22 +233,17 @@ so we made another method.
 <table class="functions ">
 <tr>
 <td class="name"><a href="#Collector.grid_infos"><var>Collector:grid_infos</var></a>()</td>
-<td class="doc"><p>This function aims to provide various informations about grid (division, number of PPQ per grid divisoin unit)</p>
+<td class="doc"><p>This method aims to provide various informations about grid (division, number of PPQ per grid divisoin unit)</p>
 </td>
 </tr>
 <tr>
 <td class="name"><a href="#Collector.get_pitch_array"><var>Collector:get_pitch_array</var></a>()</td>
-<td class="doc"><p>This function aims to create a pitch indexed array of notes in the active take</p>
+<td class="doc"><p>This method aims to create a pitch indexed array of notes in the active take</p>
 </td>
 </tr>
 <tr>
 <td class="name"><a href="#Collector.chord_pos"><var>Collector:chord_pos</var></a>()</td>
 <td class="doc"><p>This method creates a new field in the indexed_pitch_array containing the chord index position start and end</p>
-</td>
-</tr>
-<tr>
-<td class="name"><a href="#Collector.rebuildindex"><var>Collector:rebuildindex</var></a>()</td>
-<td class="doc"><p>Basic function to rebuild a 2D array index as LUA use table and table are not indexed the same way an array is</p>
 </td>
 </tr>
 </table>
@@ -331,7 +254,7 @@ so we made another method.
 <a class="permalink" href="#Collector.grid_infos" title="Permalink to this definition">¶</a>
 </dt>
 <dd>
-<p>This function aims to provide various informations about grid (division, number of PPQ per grid divisoin unit).</p>
+<p>This method aims to provide various informations about grid (division, number of PPQ per grid divisoin unit).</p>
 <h5>Example</h5>
 <pre><code class="language-lua">for example, if we have a 4/4 metric, grid division is 1.
 </code></pre>
@@ -350,13 +273,13 @@ so we made another method.
 <tr>
 <td class="name">1.</td>
 <td class="types">(<em>int</em>)</td>
-<td class="doc"><p>gridDivision</p>
+<td class="doc"><p>grid_division</p>
 </td>
 </tr>
 <tr>
 <td class="name">2.</td>
 <td class="types">(<em>int</em>)</td>
-<td class="doc"><p>nbrPpqInGridDivision</p>
+<td class="doc"><p>nbr_ppq_in_grid_division</p>
 </td>
 </tr>
 </table>
@@ -366,8 +289,8 @@ so we made another method.
 <a class="permalink" href="#Collector.get_pitch_array" title="Permalink to this definition">¶</a>
 </dt>
 <dd>
-<p>This function aims to create a pitch indexed array of notes in the active take. If no notes are selected, the entire active take notes are put into the array.
-<div class="see">See also <a href="../module/Collector.html#Collector.nbrOfSelectedNotes">Collector.nbrOfSelectedNotes()</a></div>
+<p>This method aims to create a pitch indexed array of notes in the active take. If no notes are selected, the entire active take notes are put into the array.</p>
+<div class="see">See also <a href="../module/Collector.html#Collector.nbr_selected_notes">Collector.nbr_selected_notes()</a></div>
 
 <div class="heading">Parameters</div>
 <table class="parameters">
@@ -412,32 +335,6 @@ so we made another method.
 <tr>
 <td class="types">(<em>tab</em>)</td>
 <td class="doc"><p>sorted_by_startppqpos is a table of chords indexed by their position</p>
-</td>
-</tr>
-</table>
-</dd>
-<dt id="Collector.rebuildindex">
-<span class="icon"></span><var>Collector:rebuildindex</var>(<em>array</em>)
-<a class="permalink" href="#Collector.rebuildindex" title="Permalink to this definition">¶</a>
-</dt>
-<dd>
-<p>Basic function to rebuild a 2D array index as LUA use table and table are not indexed the same way an array is.
-<div class="see">See also <a href="../module/Collector.html#Collector.array2Dsort">Collector.array2Dsort()</a></div>
-
-<div class="heading">Parameters</div>
-<table class="parameters">
-<tr>
-<td class="name"><var>array</var></td>
-<td class="types">(<em>tab</em>)</td>
-<td class="doc"><p>is the array you want to rebuild the index</p>
-</td>
-</tr>
-</table>
-<div class="heading">Return Values</div>
-<table class="returns">
-<tr>
-<td class="types">(<em>tab</em>)</td>
-<td class="doc"><p>new_array is the array reindexed from 1</p>
 </td>
 </tr>
 </table>

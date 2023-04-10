@@ -18,6 +18,8 @@ Here is the reapack link to paste into Extension > Reapack > import repositories
 ### Example 2
 ![MIDI editor and notation view coherent](https://github.com/MathieuCGit/Reaper_Tools/blob/main/Chords%20tool/ReaCAT/Documentation/img/ReaCAT_quick_anim02.gif)
 
+### Example 3
+![Get chords from multiple tracks into one single track](https://github.com/MathieuCGit/Reaper_Tools/blob/main/Chords%20tool/ReaCAT/Documentation/img/ReaCAT_mergingTool.gif)
 
 ---
 
@@ -34,6 +36,12 @@ ReaCAT is coded in a kind of Oriented Object vision. It is divided in lua files.
 The main lua file is **ReaCAT.lua**, it contains basic calls to the classes and can be used easily by end users.
 
 So first of all we use the **Collector** to get context informations, then we use the **Analyzer** which result in a formated string chord like **G7(&flat;9)**, we use the **SharpOrFlat** to set the sharp and flat symbols regarding the key signature context and finally we use the **WriteData** class to put chord symbols where we want.
+
+Here is a schematic view of the processing chain :
+
+```
+script call -> Collector -> Analyzer -> SharpOrFlat (key signature) -> WriteData
+```
 
 ### Analyzer
 

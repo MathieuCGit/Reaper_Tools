@@ -42,6 +42,7 @@
 <li><a href="../module/dbg.html">dbg</a></li>
 <li class="selected"><a href="../module/Analyzer.html">Analyzer</a></li>
 <li><a href="../module/Collector.html">Collector</a></li>
+<li><a href="../module/MergingTool.html">MergingTool</a></li>
 <li><a href="../module/SharpOrFlat.html">SharpOrFlat</a></li>
 <li><a href="../module/WriteData.html">WriteData</a></li>
 </ul>
@@ -205,7 +206,7 @@ so we made another method</p>
 </td>
 </tr>
 <tr>
-<td class="name"><a href="#Analyzer.chordStructureFunc"><var>Analyzer.chordStructureFunc</var></a>()</td>
+<td class="name"><a href="#Analyzer.chord_structure_func"><var>Analyzer.chord_structure_func</var></a>()</td>
 <td class="doc"><p>Get usual name from interval numbers, we got the name from the <strong>intervalReferenceTable</strong> defined at the beginning of the script</p>
 </td>
 </tr>
@@ -215,7 +216,7 @@ so we made another method</p>
 </td>
 </tr>
 <tr>
-<td class="name"><a href="#Analyzer.detectClusterChords"><var>Analyzer.detectClusterChords</var></a>()</td>
+<td class="name"><a href="#Analyzer.detect_cluster"><var>Analyzer.detect_cluster</var></a>()</td>
 <td class="doc"><p>If size of Array is upper than 7 we have a non standard chord, means a cluster</p>
 </td>
 </tr>
@@ -225,22 +226,17 @@ so we made another method</p>
 </td>
 </tr>
 <tr>
-<td class="name"><a href="#Analyzer.findTheRealRoot"><var>Analyzer.findTheRealRoot</var></a>()</td>
+<td class="name"><a href="#Analyzer.find_the_real_root"><var>Analyzer.find_the_real_root</var></a>()</td>
 <td class="doc"><p>This function is the <strong>core analysis</strong> one</p>
 </td>
 </tr>
 <tr>
-<td class="name"><a href="#Analyzer.genericChordParser"><var>Analyzer.genericChordParser</var></a>()</td>
+<td class="name"><a href="#Analyzer.generic_chord_parser"><var>Analyzer.generic_chord_parser</var></a>()</td>
 <td class="doc"><p>This function aims to provide a more conventional displaying for chords</p>
 </td>
 </tr>
 <tr>
-<td class="name"><a href="#Analyzer.getKeySignAtPpq"><var>Analyzer.getKeySignAtPpq</var></a>()</td>
-<td class="doc"><p>Find if we already have a key signature at ppq parameter, +-10 ticks</p>
-</td>
-</tr>
-<tr>
-<td class="name"><a href="#Analyzer.manageStandarException"><var>Analyzer.manageStandarException</var></a>()</td>
+<td class="name"><a href="#Analyzer.manage_standard_exceptions"><var>Analyzer.manage_standard_exceptions</var></a>()</td>
 <td class="doc"><p>This function aims to manage some exception not as usual mathematical scheme but as a human being would</p>
 </td>
 </tr>
@@ -251,17 +247,12 @@ Snippet inspired from the awesome Reaticulate by Jason Tackaberry : <a href="htt
 </td>
 </tr>
 <tr>
-<td class="name"><a href="#Analyzer.removeDuplicates"><var>Analyzer.removeDuplicates</var></a>()</td>
-<td class="doc"><p>This function allow you to remove duplicates entries in an array</p>
-</td>
-</tr>
-<tr>
 <td class="name"><a href="#Analyzer.replace_interval"><var>Analyzer.replace_interval</var></a>()</td>
 <td class="doc"><p>This function aims to replace a given interval value by another in a given array</p>
 </td>
 </tr>
 <tr>
-<td class="name"><a href="#Analyzer.tablelength"><var>Analyzer.tablelength</var></a>()</td>
+<td class="name"><a href="#Analyzer.table_length"><var>Analyzer.table_length</var></a>()</td>
 <td class="doc"><p>Get lenght of an indexed table/array</p>
 </td>
 </tr>
@@ -302,9 +293,9 @@ so we made another method.
 </tr>
 </table>
 </dd>
-<dt id="Analyzer.chordStructureFunc">
-<span class="icon"></span><var>Analyzer.chordStructureFunc</var>(<em>array</em>)
-<a class="permalink" href="#Analyzer.chordStructureFunc" title="Permalink to this definition">¶</a>
+<dt id="Analyzer.chord_structure_func">
+<span class="icon"></span><var>Analyzer.chord_structure_func</var>(<em>array</em>)
+<a class="permalink" href="#Analyzer.chord_structure_func" title="Permalink to this definition">¶</a>
 </dt>
 <dd>
 <p>Get usual name from interval numbers, we got the name from the <strong>intervalReferenceTable</strong> defined at the beginning of the script.</p>
@@ -326,7 +317,7 @@ for convenient displaying, I use the 13th case (8ve) to put the <em>#5</em>.</p>
 <tr>
 <td class="types">(<em>string</em>)</td>
 <td class="doc"><p>stringStruc a formated string like &quot;m7&quot; or &quot;M79&quot;.  <div class="admonition note"><div class="title">Note</div><div class="body"><p>  the value returns by this function is not yet polished and we have a parsing mechanism later.
-<div class="see">See also <a href="../module/Analyzer.html#Analyzer.genericChordParser">Analyzer.genericChordParser()</a></div>
+<div class="see">See also <a href="../module/Analyzer.html#Analyzer.generic_chord_parser">Analyzer.generic_chord_parser()</a></div>
 </div></div>
 </td>
 </tr>
@@ -360,9 +351,9 @@ making quite well the job.</p>
 </tr>
 </table>
 </dd>
-<dt id="Analyzer.detectClusterChords">
-<span class="icon"></span><var>Analyzer.detectClusterChords</var>(<em>array</em>)
-<a class="permalink" href="#Analyzer.detectClusterChords" title="Permalink to this definition">¶</a>
+<dt id="Analyzer.detect_cluster">
+<span class="icon"></span><var>Analyzer.detect_cluster</var>(<em>array</em>)
+<a class="permalink" href="#Analyzer.detect_cluster" title="Permalink to this definition">¶</a>
 </dt>
 <dd>
 <p>If size of Array is upper than 7 we have a non standard chord, means a cluster.
@@ -424,9 +415,9 @@ making quite well the job.</p>
 </tr>
 </table>
 </dd>
-<dt id="Analyzer.findTheRealRoot">
-<span class="icon"></span><var>Analyzer.findTheRealRoot</var>(<em>array</em>)
-<a class="permalink" href="#Analyzer.findTheRealRoot" title="Permalink to this definition">¶</a>
+<dt id="Analyzer.find_the_real_root">
+<span class="icon"></span><var>Analyzer.find_the_real_root</var>(<em>array</em>)
+<a class="permalink" href="#Analyzer.find_the_real_root" title="Permalink to this definition">¶</a>
 </dt>
 <dd>
 <p>This function is the <strong>core analysis</strong> one.
@@ -464,9 +455,9 @@ making quite well the job.</p>
 </tr>
 </table>
 </dd>
-<dt id="Analyzer.genericChordParser">
-<span class="icon"></span><var>Analyzer.genericChordParser</var>(<em>rootNote</em>, <em>chordStructure</em>, <em>lowestNoteName</em>)
-<a class="permalink" href="#Analyzer.genericChordParser" title="Permalink to this definition">¶</a>
+<dt id="Analyzer.generic_chord_parser">
+<span class="icon"></span><var>Analyzer.generic_chord_parser</var>(<em>rootNote</em>, <em>chordStructure</em>, <em>lowestNoteName</em>)
+<a class="permalink" href="#Analyzer.generic_chord_parser" title="Permalink to this definition">¶</a>
 </dt>
 <dd>
 <p>This function aims to provide a more conventional displaying for chords. By design it seems better to separate chords recognition from chord displaying because it lets us more possibilities.</p>
@@ -510,48 +501,9 @@ making quite well the job.</p>
 </tr>
 </table>
 </dd>
-<dt id="Analyzer.getKeySignAtPpq">
-<span class="icon"></span><var>Analyzer.getKeySignAtPpq</var>(<em>take</em>, <em>pos</em>)
-<a class="permalink" href="#Analyzer.getKeySignAtPpq" title="Permalink to this definition">¶</a>
-</dt>
-<dd>
-<p>Find if we already have a key signature at ppq parameter, +-10 ticks.</p>
-<div class="see">See also sharpOrFlat</div>
-
-<div class="heading">Parameters</div>
-<table class="parameters">
-<tr>
-<td class="name"><var>take</var></td>
-<td class="types">(<em>take</em>)</td>
-<td class="doc"><p>is a valid reaper take</p>
-</td>
-</tr>
-<tr>
-<td class="name"><var>pos</var></td>
-<td class="types">(<em>number</em>)</td>
-<td class="doc"><p>is the start of the measure and/or item take in ppqp (generaly 0)</p>
-</td>
-</tr>
-</table>
-<div class="heading">Return Values</div>
-<table class="returns">
-<tr>
-<td class="name">1.</td>
-<td class="types">(<em>int</em>)</td>
-<td class="doc"><p>event id. Returns -1 if no MIDI key signature msg in the take</p>
-</td>
-</tr>
-<tr>
-<td class="name">2.</td>
-<td class="types">(<em>string</em>)</td>
-<td class="doc"><p>event msg containing MIDI raw data message</p>
-</td>
-</tr>
-</table>
-</dd>
-<dt id="Analyzer.manageStandarException">
-<span class="icon"></span><var>Analyzer.manageStandarException</var>(<em>array</em>)
-<a class="permalink" href="#Analyzer.manageStandarException" title="Permalink to this definition">¶</a>
+<dt id="Analyzer.manage_standard_exceptions">
+<span class="icon"></span><var>Analyzer.manage_standard_exceptions</var>(<em>array</em>)
+<a class="permalink" href="#Analyzer.manage_standard_exceptions" title="Permalink to this definition">¶</a>
 </dt>
 <dd>
 <p>This function aims to manage some exception not as usual mathematical scheme but as a human being would.</p>
@@ -559,7 +511,7 @@ making quite well the job.</p>
 <p>As each alteration can be understood in 2 octaves we will work on an array of 24 values.</p>
 </div></div>
 <div class="see">See also <a href="../module/Analyzer.html#Analyzer.find_interval">Analyzer.find_interval()</a></div>
-<div class="see">See also <a href="../module/Analyzer.html#Analyzer.chordStructureFunc">Analyzer.chordStructureFunc()</a></div>
+<div class="see">See also <a href="../module/Analyzer.html#Analyzer.chord_structure_func">Analyzer.chord_structure_func()</a></div>
 
 <div class="heading">Parameters</div>
 <table class="parameters">
@@ -605,31 +557,6 @@ Snippet inspired from the awesome Reaticulate by Jason Tackaberry : <a href="htt
 </tr>
 </table>
 </dd>
-<dt id="Analyzer.removeDuplicates">
-<span class="icon"></span><var>Analyzer.removeDuplicates</var>(<em>array</em>)
-<a class="permalink" href="#Analyzer.removeDuplicates" title="Permalink to this definition">¶</a>
-</dt>
-<dd>
-<p>This function allow you to remove duplicates entries in an array</p>
-
-<div class="heading">Parameters</div>
-<table class="parameters">
-<tr>
-<td class="name"><var>array</var></td>
-<td class="types">(<em>tab</em>)</td>
-<td class="doc"><p>is a one dimension array</p>
-</td>
-</tr>
-</table>
-<div class="heading">Return Values</div>
-<table class="returns">
-<tr>
-<td class="types">(<em>tab</em>)</td>
-<td class="doc"><p>expurgatedArray is an array whitout duplicates entry</p>
-</td>
-</tr>
-</table>
-</dd>
 <dt id="Analyzer.replace_interval">
 <span class="icon"></span><var>Analyzer.replace_interval</var>(<em>array</em>, <em>old</em>, <em>new</em>)
 <a class="permalink" href="#Analyzer.replace_interval" title="Permalink to this definition">¶</a>
@@ -667,9 +594,9 @@ Snippet inspired from the awesome Reaticulate by Jason Tackaberry : <a href="htt
 </tr>
 </table>
 </dd>
-<dt id="Analyzer.tablelength">
-<span class="icon"></span><var>Analyzer.tablelength</var>(<em>t</em>)
-<a class="permalink" href="#Analyzer.tablelength" title="Permalink to this definition">¶</a>
+<dt id="Analyzer.table_length">
+<span class="icon"></span><var>Analyzer.table_length</var>(<em>t</em>)
+<a class="permalink" href="#Analyzer.table_length" title="Permalink to this definition">¶</a>
 </dt>
 <dd>
 <p>Get lenght of an indexed table/array.</p>
@@ -707,7 +634,7 @@ Snippet inspired from the awesome Reaticulate by Jason Tackaberry : <a href="htt
 <table class="fields ">
 <tr>
 <td class="name"><a href="#Analyzer.root"><var>root</var></a></td>
-<td class="doc"><div class="admonition warning"><div class="title">here is the core method @see findTheRealRoot()</div><div class="body"><p></p>
+<td class="doc"><div class="admonition warning"><div class="title">here is the core method @see find_the_real_root()</div><div class="body"><p></p>
 </div></div>
 </td>
 </tr>
@@ -728,7 +655,7 @@ Snippet inspired from the awesome Reaticulate by Jason Tackaberry : <a href="htt
 <a class="permalink" href="#Analyzer.root" title="Permalink to this definition">¶</a>
 </dt>
 <dd>
-<div class="admonition warning"><div class="title">here is the core method @see findTheRealRoot()</div><div class="body"><p></p>
+<div class="admonition warning"><div class="title">here is the core method @see find_the_real_root()</div><div class="body"><p></p>
 </div></div>
 
 </dd>

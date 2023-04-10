@@ -492,6 +492,7 @@ function replace_interval(array,old,new)
 	end
 	return array
 end
+
 	--- Get lenght of an indexed table/array.
 	--@tparam tab t i a table
 	--@treturn int the table's lenght

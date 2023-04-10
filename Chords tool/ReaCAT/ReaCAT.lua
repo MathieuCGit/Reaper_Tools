@@ -34,6 +34,7 @@
 	require 'lib.dbg'
 	require 'Analyzer'
 	require 'Collector'
+	require 'MergingTool'
 	require 'SharpOrFlat'
 	require 'WriteData'
 
@@ -41,7 +42,6 @@
 --[[ CORE ]]--
 --
 function Main()
-
 	--if an item is selected
 	-- TODO: it has to be improve because if more than one item are selected this detection should be into the Collector.lua class.
 	nbr_sel_items= reaper.CountSelectedMediaItems(0)
@@ -49,9 +49,17 @@ function Main()
 	--we clean CHORDS track.
 	write_data=WriteData:new()
 	write_data:del_existing_chord_items(nbr_sel_items)
-
+	
+	--We check if there are items selected across multiple tracks
+	MergingTool=MergingTool:new()
+	is_there_mt=MergingTool:detect_multi_track()
+	
+	--If there are items on multiple tracks, we merge them
+	if is_there_mt == true then
+		MergingTool:merge()
+	end
+	
 	if nbr_sel_items > 0 then
-		
 		for i=0, nbr_sel_items-1 do
 			--we get the selected media item
 			item=reaper.GetSelectedMediaItem( 0, i)
@@ -67,10 +75,6 @@ function Main()
 			if item and reaper.TakeIsMIDI(reaper.GetMediaItemTake(item, 0)) then
 				--we get the take from this selected media item
 				take= reaper.GetMediaItemTake(item, 0)
-			else
-				local msg = "ReaCAT can't detect chord on an audio/text/empty item. Please select a MIDI item."
-				reaper.MB(msg, "Invalid selection", 0)
-				return --exit script
 			end
 
 			--TODO: comment this part

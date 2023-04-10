@@ -41,6 +41,7 @@
 <li><a href="../module/dbg.html">dbg</a></li>
 <li><a href="../module/Analyzer.html">Analyzer</a></li>
 <li><a href="../module/Collector.html">Collector</a></li>
+<li><a href="../module/MergingTool.html">MergingTool</a></li>
 <li><a href="../module/SharpOrFlat.html">SharpOrFlat</a></li>
 <li class="selected"><a href="../module/WriteData.html">WriteData</a></li>
 </ul>
@@ -53,7 +54,7 @@
 </h2>
 <div class="inner">
 <p>ReaCAT - Write Data</p>
-<p>This module aims to write chords where you want to get them inputed into reaper.</p>
+<p>This module aims to write chords symbols where you want to get them inputed into reaper.</p>
 
 </div>
 </div>
@@ -68,7 +69,7 @@
 <div class="heading">Functions</div>
 <table class="functions ">
 <tr>
-<td class="name"><a href="#WriteData.getTrackByName"><var>WriteData.getTrackByName</var></a>()</td>
+<td class="name"><a href="#WriteData.get_track_by_name"><var>WriteData.get_track_by_name</var></a>()</td>
 <td class="doc"><p>Find if a track named <code>name</code> exists</p>
 </td>
 </tr>
@@ -77,12 +78,17 @@
 <td class="doc"><p>This function aims to detect if we deal with a chord symbol or with another kind of string</p>
 </td>
 </tr>
+<tr>
+<td class="name"><a href="#WriteData.nbr_selected_notes"><var>WriteData.nbr_selected_notes</var></a>()</td>
+<td class="doc"><p>Get the number of selected note in a MIDI take</p>
+</td>
+</tr>
 </table>
 </div>
 <dl class="functions">
-<dt id="WriteData.getTrackByName">
-<span class="icon"></span><var>WriteData.getTrackByName</var>(<em>name</em>)
-<a class="permalink" href="#WriteData.getTrackByName" title="Permalink to this definition">¶</a>
+<dt id="WriteData.get_track_by_name">
+<span class="icon"></span><var>WriteData.get_track_by_name</var>(<em>name</em>)
+<a class="permalink" href="#WriteData.get_track_by_name" title="Permalink to this definition">¶</a>
 </dt>
 <dd>
 <p>Find if a track named <code>name</code> exists</p>
@@ -133,6 +139,31 @@
         chord_total_regex_notation=notationEventPrefix..&quot;(&quot;..chord_root..chord_min_sus_5..chord_6_7..chord_alt_5..chord_alt_9..chord_alt_11..chord_alt_13..chord_inverted..&quot;)&quot;
 </code></pre>
 </div></div>
+</td>
+</tr>
+</table>
+</dd>
+<dt id="WriteData.nbr_selected_notes">
+<span class="icon"></span><var>WriteData.nbr_selected_notes</var>(<em>take</em>)
+<a class="permalink" href="#WriteData.nbr_selected_notes" title="Permalink to this definition">¶</a>
+</dt>
+<dd>
+<p>Get the number of selected note in a MIDI take.</p>
+
+<div class="heading">Parameters</div>
+<table class="parameters">
+<tr>
+<td class="name"><var>take</var></td>
+<td class="types">(<em>take</em>)</td>
+<td class="doc"><p>is a Reaper take</p>
+</td>
+</tr>
+</table>
+<div class="heading">Return Values</div>
+<table class="returns">
+<tr>
+<td class="types">(<em>int</em>)</td>
+<td class="doc"><p>is the number of selected notes</p>
 </td>
 </tr>
 </table>
@@ -195,7 +226,8 @@
 <tr>
 <td class="name"><var>nbr_sel_items</var></td>
 <td class="types">(<em>number</em>)</td>
-<td class="doc"><p>is the number of selected items on track.</p>
+<td class="doc"><p>is the number of selected items on track.  <div class="admonition note"><div class="title">Note</div><div class="body"><p>    TODO: The start and end location for note selection should be in Collector class</p>
+</div></div>
 </td>
 </tr>
 </table>
