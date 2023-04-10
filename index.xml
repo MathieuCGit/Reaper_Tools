@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="6765723c5c3975f81b86f729f08b136205e7a283">
+<index version="1" name="MathieuC Tools" commit="43cf9a4ff6afb50d26f8cd76fc0a30c93c94a48f">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -144,20 +144,21 @@
         <link rel="website" href="https://github.com/MathieuCGit/Reaper_Tools/tree/main/Chords%20tool/ReaCAT">Github repository</link>
       </metadata>
       <version name="0.1" author="Mathieu CONAN" time="2023-01-07T19:44:49Z">
-        <changelog><![CDATA[Initial release]]></changelog>
-        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Chords%20tool/ReaCAT/ReaCAT.lua</source>
-        <source file="Analyzer.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Chords%20tool/ReaCAT/Analyzer.lua</source>
-        <source file="Collector.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Chords%20tool/ReaCAT/Collector.lua</source>
-        <source file="SharpOrFlat.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Chords%20tool/ReaCAT/SharpOrFlat.lua</source>
-        <source file="WriteData.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/10453bd3a5dd06b587e8c886da72922abdd92d20/Chords%20tool/ReaCAT/WriteData.lua</source>
+        <changelog><![CDATA[Initial release 2]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/78164057f5d9103396cf288047ca93f0a2e8b866/Chords%20tool/ReaCAT/ReaCAT.lua</source>
+        <source file="Analyzer.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/78164057f5d9103396cf288047ca93f0a2e8b866/Chords%20tool/ReaCAT/Analyzer.lua</source>
+        <source file="Collector.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/78164057f5d9103396cf288047ca93f0a2e8b866/Chords%20tool/ReaCAT/Collector.lua</source>
+        <source file="SharpOrFlat.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/78164057f5d9103396cf288047ca93f0a2e8b866/Chords%20tool/ReaCAT/SharpOrFlat.lua</source>
+        <source file="WriteData.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/78164057f5d9103396cf288047ca93f0a2e8b866/Chords%20tool/ReaCAT/WriteData.lua</source>
       </version>
       <version name="0.2-alpha" author="Mathieu CONAN" time="2023-04-10T21:57:56Z">
         <changelog><![CDATA[Add MergingTool class it allows to detect chords across multiple tracks.]]></changelog>
-        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/8eda00a6c971c1b6b6ee0d024c7e34398b0de532/Chords%20tool/ReaCAT/ReaCAT.lua</source>
-        <source file="Analyzer.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/8eda00a6c971c1b6b6ee0d024c7e34398b0de532/Chords%20tool/ReaCAT/Analyzer.lua</source>
-        <source file="Collector.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/8eda00a6c971c1b6b6ee0d024c7e34398b0de532/Chords%20tool/ReaCAT/Collector.lua</source>
-        <source file="SharpOrFlat.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/8eda00a6c971c1b6b6ee0d024c7e34398b0de532/Chords%20tool/ReaCAT/SharpOrFlat.lua</source>
-        <source file="WriteData.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/8eda00a6c971c1b6b6ee0d024c7e34398b0de532/Chords%20tool/ReaCAT/WriteData.lua</source>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/43cf9a4ff6afb50d26f8cd76fc0a30c93c94a48f/Chords%20tool/ReaCAT/ReaCAT.lua</source>
+        <source file="Analyzer.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/43cf9a4ff6afb50d26f8cd76fc0a30c93c94a48f/Chords%20tool/ReaCAT/Analyzer.lua</source>
+        <source file="Collector.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/43cf9a4ff6afb50d26f8cd76fc0a30c93c94a48f/Chords%20tool/ReaCAT/Collector.lua</source>
+        <source file="MergingTool.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/43cf9a4ff6afb50d26f8cd76fc0a30c93c94a48f/Chords%20tool/ReaCAT/MergingTool.lua</source>
+        <source file="SharpOrFlat.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/43cf9a4ff6afb50d26f8cd76fc0a30c93c94a48f/Chords%20tool/ReaCAT/SharpOrFlat.lua</source>
+        <source file="WriteData.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/43cf9a4ff6afb50d26f8cd76fc0a30c93c94a48f/Chords%20tool/ReaCAT/WriteData.lua</source>
       </version>
     </reapack>
   </category>
