@@ -5,6 +5,7 @@
 --    [main] ReaCAT.lua
 --    [nomain] Analyzer.lua
 --    [nomain] Collector.lua
+--    [nomain] MergingTool.lua
 --    [nomain] SharpOrFlat.lua
 --    [nomain] WriteData.lua
 -- @changelog Add MergingTool class it allows to detect chords across multiple tracks.
@@ -31,7 +32,7 @@
 	package.path =string.format(basedir.."?.lua")
 
 	--load desire modules
-	require 'lib.dbg'
+	--require 'lib.dbg'
 	require 'Analyzer'
 	require 'Collector'
 	require 'MergingTool'
