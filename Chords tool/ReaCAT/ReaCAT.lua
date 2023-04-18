@@ -1,8 +1,8 @@
 -- @description ReaCAT - Reaper Chord Adding Tool - Chord Track
 -- @author Mathieu CONAN   
 -- @version 0.2-alpha
--- @provides 
---    [main] ReaCAT.lua
+-- @provides
+--    [main,midi_editor] ReaCAT.lua
 --    [nomain] Analyzer.lua
 --    [nomain] Collector.lua
 --    [nomain] MergingTool.lua
@@ -15,6 +15,11 @@
 --  Minimal Reaper version is 6.73 with SWS pre-release 2.13.1 (https://www.sws-extension.org/download/pre-release/)
 
 
+-- CONST
+WRITE_CHORD_TRACK=true --create a track named CHORDS containing item text with chord name
+WRITE_TEXT_EVENT_AND_NOTATION=true --add chord name to texte event and notation
+WRITE_TEXT_EVENT=false --add chord name to text even only
+WRITE_NOTATION=false --add chord name to notation only
 
 --- ReaCAT - Reaper Chord Adding Tool
 --
@@ -121,11 +126,25 @@ function Main()
 				if result ~= nil and result ~= current_chord then 
 					chord=sharp_or_flat:apply_keysign(result,take)
 					
-					-- write chords as a text event and a in the notation view
-					write_data:text_event_and_notation(take,chord,chord_start_pos)
+					if WRITE_NOTATION == true then
+						-- write ONLY notation
+						write_data:notation(take,chord,chord_start_pos)
+					end
 					
-					-- write chords in text item on a new track "CHORDS"
-					write_data:text_item(take,chord,chord_start_pos,chord_end_pos)
+					if WRITE_TEXT_EVENT == true then
+						-- write ONLY text event
+						write_data:text_event(take,chord,chord_start_pos)
+					end
+					
+					if WRITE_TEXT_EVENT_AND_NOTATION == true then
+						-- write chords as a text event and a in the notation view
+						write_data:text_event_and_notation(take,chord,chord_start_pos)
+					end
+					
+					if WRITE_CHORD_TRACK == true then
+						-- write chords in text item on a new track "CHORDS"
+						write_data:text_item(take,chord,chord_start_pos,chord_end_pos)
+					end
 				end
 				
 				-- find the start of the next chord
@@ -135,7 +154,7 @@ function Main()
 						chord_start_pos=pitch_array[i].startppqpos
 						break
 					end
-				end		
+				end          
 				
 				-- go to the next chord
 				chord_idx=chord_idx+1
