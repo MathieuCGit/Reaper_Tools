@@ -44,6 +44,7 @@ function Main()
 	local nbrOfTracks=reaper.CountTracks(0)
 	local trackInfoArray={}
 	local minimumTrackHeight=minimumTrackHeight()
+	local nbrOfFolder=0
 	
 	for i=0,nbrOfTracks-1 do
 	
@@ -54,7 +55,7 @@ function Main()
 		trackHeight=reaper.GetMediaTrackInfo_Value( track, "I_TCPH" )--current track height
 		trackNum=reaper.GetMediaTrackInfo_Value( track, "IP_TRACKNUMBER" ) --current track number
 		folderDepth=reaper.GetMediaTrackInfo_Value( track, "I_FOLDERDEPTH" ) --current track folder depth
-		
+	
 		trackInfoArray[#trackInfoArray+1]=
 		{
 			trackNum=i+1, 
@@ -62,11 +63,20 @@ function Main()
 			lockState=lockToggle, 
 			folderDepth=folderDepth
 		}
+		
+		if folderDepth == 1 then
+			nbrOfFolder = nbrOfFolder+1
+		end
 	end
 	
-		
+	--We get the total height of every folder height summed
+	totalFolderHeight=nbrOfFolder*minimumTrackHeight
+	--we get the arrange view dimensions
 	height,width=sizeOfArrangeView()
-	sizeOfEachTrack=math.floor(height/nbrOfTracks)
+	--we remove the folder height from the arrange view height
+	height=height-totalFolderHeight
+	--we get the size of each track
+	sizeOfEachTrack=math.floor(height/(nbrOfTracks-nbrOfFolder))
 	
 	for i=0,nbrOfTracks-1 do
 		track=reaper.GetTrack( 0, i)
@@ -74,7 +84,7 @@ function Main()
 		if trackInfoArray[i+1]["folderDepth"] ~= 1 and trackInfoArray[i+1]["lockState"] ~= 1 then
 			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", sizeOfEachTrack)
 		else
-			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", 1)
+			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", minimumTrackHeight)
 
 		end
 	end
