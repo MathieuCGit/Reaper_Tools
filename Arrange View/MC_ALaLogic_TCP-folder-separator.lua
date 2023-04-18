@@ -1,7 +1,7 @@
 -- @description Draw separator on folder track - aka A la Logic X
 -- @author Mathieu CONAN   
--- @version 0.2
--- @changelog Fix : check for already existing data on folder track now check every kind of data and not only MIDI.
+-- @version 0.3
+-- @changelog add: You can now specify the folder depth (see FOLDER_DEPTH in script header)
 -- @link Github repository https://github.com/MathieuCGit/MC_VariousScripts
 -- @about This script aims to reproduce the folder separation in a way Logic X does it.
 --
@@ -47,6 +47,7 @@ TRACK_COLOR_SINGLE=0
 TRACK_COLOR={111,121,131}
 TRACK_COLOR_DARKER_STEP = 25
 ITEM_LOCK=1
+FOLDER_DEPTH=0 -- if set to 0 only show the top level folder. If set to 1, show folder level 0 and 1, if set to 2, show folder level 0, 1 and 2, etc...
 
 --
 --[[ Various Functions]]
@@ -296,8 +297,9 @@ function Main()
     -- for each track
     track =  reaper.GetTrack( 0, i ) --we get info from the current track
     trackFolderDepth = reaper.GetMediaTrackInfo_Value( track, "I_FOLDERDEPTH") --we check if it's a folder or not
-
-        if trackFolderDepth > 0.0 then -- if we are on a folder track   
+	trackDepth=reaper.GetTrackDepth( track )
+	
+        if trackFolderDepth == 1.0 and trackDepth <= FOLDER_DEPTH then -- if we are on a folder track   
 			deleteEmptyItemsOnTracks(track)--we clean the tracks from empty items
             createLogicXItem(track)-- Once track is cleared from empty items but still has items with MIDI data, we create an empty item
         end
