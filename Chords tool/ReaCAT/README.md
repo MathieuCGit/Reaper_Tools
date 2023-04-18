@@ -40,7 +40,7 @@ So first of all we use the **Collector** to get context informations, then we us
 Here is a schematic view of the processing chain :
 
 ```
-script call -> Collector -> Analyzer -> SharpOrFlat (key signature) -> WriteData
+script call -> MergingTool -> Collector -> Analyzer -> SharpOrFlat (key signature) -> WriteData
 ```
 
 ### Analyzer
@@ -109,6 +109,10 @@ If you got the `pitch_array` you just have to call the class.
 ### Collector
 
 This module aims to get the notes (selected, not selected, all item notes,etc.)in a chord. It only works for the active take passed as an argument.
+
+### MergingTool
+
+This module aims to merge items that lived on separate tracks and merge them onto one track. Analysis will be performed on this track. It can be either a folder track or a new created track.
 
 ### SharpOrFlat
 

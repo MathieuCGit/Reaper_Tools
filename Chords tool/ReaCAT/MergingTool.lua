@@ -2,7 +2,7 @@
 
 --- ReaCAT - Merge items
 --
--- This module aims to merge items that lived on separate tracks and merge them onto one track. Analysis will be performed on this track.
+-- This module aims to merge items that lived on separate tracks and merge them onto one track. Analysis will be performed on this track. It can be either a folder track or a new created track.
 -- @module MergingTool
 
 ----------------
