@@ -1,9 +1,9 @@
 -- @description Vertical zoom minimize folder keep track lock height doesn't care about cursor position (means operate for all arranvge view lenght) and doesn't care about items on track or not.
--- @version 0.3
+-- @version 0.4
 -- @author Mathieu CONAN
 -- @about Author URI: https://forum.cockos.com/member.php?u=153781
 -- @licence GPL v3
--- @changelog improve vertical resizing to better fit he arrange view.
+-- @changelog It now takes care of visibility in TCP.
  
 --
 --[[ FUNCTIONS ]]--
@@ -43,6 +43,7 @@
 function Main()
 
 	local nbrOfTracks=reaper.CountTracks(0)
+	local nbrOfVisibleTracks=0
 	local trackInfoArray={}
 	local minimumTrackHeight=minimumTrackHeight()
 	local nbrOfFolder=0
@@ -56,16 +57,23 @@ function Main()
 		trackHeight=reaper.GetMediaTrackInfo_Value( track, "I_TCPH" )--current track height
 		trackNum=reaper.GetMediaTrackInfo_Value( track, "IP_TRACKNUMBER" ) --current track number
 		folderDepth=reaper.GetMediaTrackInfo_Value( track, "I_FOLDERDEPTH" ) --current track folder depth
+		 --is it shown in TCP !!WARNING : output value is 0.0 or 1.0 NOT true of false
+		isVisibleTCP=reaper.GetMediaTrackInfo_Value( track, "B_SHOWINTCP")
 	
 		trackInfoArray[#trackInfoArray+1]=
 		{
 			trackNum=i+1, 
 			trackHeight=trackHeight, 
 			lockState=lockToggle, 
-			folderDepth=folderDepth
+			folderDepth=folderDepth,
+			isVisibleTCP=isVisibleTCP
 		}
 		
-		if folderDepth == 1 then
+		if isVisibleTCP == 1.0 then
+			nbrOfVisibleTracks=nbrOfVisibleTracks+1
+		end
+		
+		if folderDepth == 1 and isVisibleTCP == 1.0 then
 			nbrOfFolder = nbrOfFolder+1
 		end
 	end
@@ -77,12 +85,12 @@ function Main()
 	--we remove the folder height from the arrange view height
 	height=height-totalFolderHeight
 	--we get the size of each track
-	sizeOfEachTrack=math.floor(height/(nbrOfTracks-nbrOfFolder))
+	sizeOfEachTrack=math.floor(height/(nbrOfVisibleTracks-nbrOfFolder))
 	
 	for i=0,nbrOfTracks-1 do
 		track=reaper.GetTrack( 0, i)
-			
-		if trackInfoArray[i+1]["folderDepth"] ~= 1 and trackInfoArray[i+1]["lockState"] ~= 1 then
+		
+		if trackInfoArray[i+1]["folderDepth"] ~= 1 and trackInfoArray[i+1]["lockState"] ~= 1 and trackInfoArray[i+1]["isVisibleTCP"] == 1.0 then
 			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", sizeOfEachTrack)
 		else
 			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", minimumTrackHeight)
