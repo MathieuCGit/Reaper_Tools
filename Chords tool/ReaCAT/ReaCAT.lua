@@ -2,7 +2,7 @@
 -- @author Mathieu CONAN   
 -- @version 0.2-alpha
 -- @provides
---    [main=main,midi_editor] ReaCAT.lua
+--    [main=main,midi_editor] .
 --    [nomain] Analyzer.lua
 --    [nomain] Collector.lua
 --    [nomain] MergingTool.lua
