@@ -1,10 +1,11 @@
 -- @description Vertical zoom minimize folder keep track lock height doesn't care about cursor position (means operate for all arranvge view lenght) and doesn't care about items on track or not.
--- @version 0.2
+-- @version 0.3
 -- @author Mathieu CONAN
 -- @about Author URI: https://forum.cockos.com/member.php?u=153781
 -- @licence GPL v3
+-- @changelog improve vertical resizing to better fit he arrange view.
  
- --
+--
 --[[ FUNCTIONS ]]--
 --
 
