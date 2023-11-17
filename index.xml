@@ -215,6 +215,38 @@
     </reapack>
   </category>
   <category name="MIDI Editor">
+    <reapack name="MC_hide-velocity-handles-notes.lua" type="script" desc="MIDI Editor - force option &quot;View: Show velocity handles on notes&quot; to off">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 force the MIDI Editor option "View: Show velocity handles on notes" to toggle state off\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/MC_VariousScripts">Github repository</link>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2023-11-17T13:37:47Z">
+        <changelog><![CDATA[initial release]]></changelog>
+        <source main="midi_editor">https://github.com/MathieuCGit/Reaper_Tools/raw/b95d685071326c818b51fa0080f614dc7e0f3df6/MIDI%20Editor/MC_hide-velocity-handles-notes.lua</source>
+      </version>
+    </reapack>
+    <reapack name="MC_hide-velocity-numbers-notes.lua" type="script" desc="MIDI Editor - force option &quot;View: Show velocity numbers on notes&quot; to off">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 force the MIDI Editor option "View: Show velocity numbers on notes" to toggle state off\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/MC_VariousScripts">Github repository</link>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2023-11-17T13:37:47Z">
+        <changelog><![CDATA[initial release]]></changelog>
+        <source main="midi_editor">https://github.com/MathieuCGit/Reaper_Tools/raw/b95d685071326c818b51fa0080f614dc7e0f3df6/MIDI%20Editor/MC_hide-velocity-numbers-notes.lua</source>
+      </version>
+    </reapack>
     <reapack name="MC_MIDI-Editor_set-time-selection-to-item-length.lua" type="script" desc="MIDI Editor - Set time selection to item length">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
