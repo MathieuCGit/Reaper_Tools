@@ -1,11 +1,11 @@
 --[[--
-   * ReaScript Name: MC_Toggle solo track under mouse
+   * ReaScript Name: Toggle solo track under mouse
    * Lua script for Cockos REAPER
    * Author: Mathieu CONAN
    * Author URI: https://forum.cockos.com/member.php?u=153781
    * Licence: GPL v3
    * REAPER: 7.0
-   * version: 0.1
+   * version: 0.2
    * Extensions: None
 --]]
 
