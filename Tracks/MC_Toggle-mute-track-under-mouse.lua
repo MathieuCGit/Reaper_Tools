@@ -5,7 +5,7 @@
    * Author URI: https://forum.cockos.com/member.php?u=153781
    * Licence: GPL v3
    * REAPER: 7.0
-   * version 0.1
+   * version: 0.1
    * Extensions: None
 --]]
 
