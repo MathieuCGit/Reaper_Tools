@@ -1,9 +1,9 @@
 -- @description Vertical zoom minimize folder keep track lock height doesn't care about cursor position (means operate for all arranvge view lenght) and doesn't care about items on track or not.
--- @version 0.4
+-- @version 0.5
 -- @author Mathieu CONAN
 -- @about Author URI: https://forum.cockos.com/member.php?u=153781
 -- @licence GPL v3
--- @changelog It now takes care of visibility in TCP.
+-- @changelog Now takes care of spacer in total arrange view height (Reaper 7 update)
  
 --
 --[[ FUNCTIONS ]]--
@@ -42,11 +42,23 @@
 
 function Main()
 
+
 	local nbrOfTracks=reaper.CountTracks(0)
 	local nbrOfVisibleTracks=0
 	local trackInfoArray={}
 	local minimumTrackHeight=minimumTrackHeight()
 	local nbrOfFolder=0
+	local nbrOfSpacer=0
+	
+	--with Reaper 7, spacer appears and have to be considered
+	retval, buf = reaper.get_config_var_string('trackgapmax') -- get the default spacer height in the preference ini file.
+	if not retval then
+		--if no spacer or reaper version under 7.0
+		spacerHeight=0
+	else
+		--get spacer defaut size
+		spacerHeight= tonumber(buf)
+	end
 	
 	for i=0,nbrOfTracks-1 do
 	
@@ -59,6 +71,13 @@ function Main()
 		folderDepth=reaper.GetMediaTrackInfo_Value( track, "I_FOLDERDEPTH" ) --current track folder depth
 		 --is it shown in TCP !!WARNING : output value is 0.0 or 1.0 NOT true of false
 		isVisibleTCP=reaper.GetMediaTrackInfo_Value( track, "B_SHOWINTCP")
+		
+		-- if there is a spacer above the current track
+		if reaper.GetMediaTrackInfo_Value( track, "I_SPACER" ) == 1 then
+			--we increment the number of spacer
+			nbrOfSpacer=nbrOfSpacer+1
+		end
+		
 	
 		trackInfoArray[#trackInfoArray+1]=
 		{
@@ -84,6 +103,8 @@ function Main()
 	height,width=sizeOfArrangeView()
 	--we remove the folder height from the arrange view height
 	height=height-totalFolderHeight
+	-- we remove the total size of spacer from the arrange view height
+	height= height - (spacerHeight*nbrOfSpacer)
 	--we get the size of each track
 	sizeOfEachTrack=math.floor(height/(nbrOfVisibleTracks-nbrOfFolder))
 	
