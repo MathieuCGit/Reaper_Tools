@@ -1,4 +1,4 @@
--- @description Vertical zoom minimize folder keep track lock height doesn't care about cursor position (means operate for all arranvge view lenght) and doesn't care about items on track or not.
+-- @description Vertical zoom minimizes folders, keeps track lock height, doesn't take care of cursor position (means operate for all arranvge view lenght) AND doesn't take care of tracks without items.
 -- @version 0.5
 -- @author Mathieu CONAN
 -- @about Author URI: https://forum.cockos.com/member.php?u=153781
@@ -72,12 +72,6 @@ function Main()
 		 --is it shown in TCP !!WARNING : output value is 0.0 or 1.0 NOT true of false
 		isVisibleTCP=reaper.GetMediaTrackInfo_Value( track, "B_SHOWINTCP")
 		
-		-- if there is a spacer above the current track
-		if reaper.GetMediaTrackInfo_Value( track, "I_SPACER" ) == 1 then
-			--we increment the number of spacer
-			nbrOfSpacer=nbrOfSpacer+1
-		end
-		
 	
 		trackInfoArray[#trackInfoArray+1]=
 		{
@@ -95,6 +89,11 @@ function Main()
 		if folderDepth == 1 and isVisibleTCP == 1.0 then
 			nbrOfFolder = nbrOfFolder+1
 		end
+		-- if there is a spacer above the current track
+		if reaper.GetMediaTrackInfo_Value( track, "I_SPACER" ) == 1 then
+			--we increment the number of spacer
+			nbrOfSpacer=nbrOfSpacer+1
+		end		
 	end
 	
 	--We get the total height of every folder height summed

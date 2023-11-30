@@ -1,5 +1,5 @@
--- @description Vertical zoom minimize folder keep track lock height don't care about cursor position (means operate for all arranvge view lenght).
--- @version 0.1
+-- @description Vertical zoom minimizes folders, keep track lock height, doesn't take care of cursor position (means operate for all arranvge view lenght) BUT take care of tracks without items.
+-- @version 0.2
 -- @author Mathieu CONAN
 -- @about Author URI: https://forum.cockos.com/member.php?u=153781
 -- @licence GPL v3
@@ -42,15 +42,27 @@
 function Main()
 
 	local nbrOfTracks=reaper.CountTracks(0)
+	local nbrOfVisibleTracks=0	
 	local trackInfoArray={}
 	local minimumTrackHeight=minimumTrackHeight()
 	local nbrOfTrackWithItems=0
 	local nbrOfTrackWithOutItems=0
+	local nbrOfFolder=0
+	local nbrOfSpacer=0
+	
+	--with Reaper 7, spacer appears and have to be considered
+	retval, buf = reaper.get_config_var_string('trackgapmax') -- get the default spacer height in the preference ini file.
+	if not retval then
+		--if no spacer or reaper version under 7.0
+		spacerHeight=0
+	else
+		--get spacer defaut size
+		spacerHeight= tonumber(buf)
+	end
 	
 	for i=0,nbrOfTracks-1 do
 	
 		track=reaper.GetTrack( 0, i)
-		curPos=reaper.GetCursorPositionEx(0) --current edit cursor position
 
 		--get current track infos
 		lockToggle=reaper.GetMediaTrackInfo_Value( track, "B_HEIGHTLOCK" )--current track lock state
@@ -58,13 +70,13 @@ function Main()
 		trackNum=reaper.GetMediaTrackInfo_Value( track, "IP_TRACKNUMBER" ) --current track number
 		folderDepth=reaper.GetMediaTrackInfo_Value( track, "I_FOLDERDEPTH" ) --current track folder depth
 		nbrOfItems= reaper.CountTrackMediaItems( track ) --is there item on track
-		
+		--is it shown in TCP !!WARNING : output value is 0.0 or 1.0 NOT true of false
+		isVisibleTCP=reaper.GetMediaTrackInfo_Value( track, "B_SHOWINTCP")
+
 		if nbrOfItems > 0 then 
-			isThereItem = true
-			nbrOfTrackWithItems=nbrOfTrackWithItems+1
+			areThereItems = true
 		else 
-			isThereItem = false
-			nbrOfTrackWithOutItems=nbrOfTrackWithOutItems+1
+			areThereItems = false
 		end
 		
 		trackInfoArray[#trackInfoArray+1]=
@@ -73,23 +85,56 @@ function Main()
 			trackHeight=trackHeight, 
 			lockState=lockToggle, 
 			folderDepth=folderDepth, 
-			isThereItem=isThereItem
+			areThereItems=areThereItems,
+			isVisibleTCP=isVisibleTCP
 		}
+		
+		if isVisibleTCP == 1.0 then
+			nbrOfVisibleTracks=nbrOfVisibleTracks+1
+		end
+		
+		if folderDepth == 1 and isVisibleTCP == 1.0 then
+			nbrOfFolder = nbrOfFolder+1
+		end
+		
+		if isVisibleTCP == 1.0 and areThereItems == true then
+			nbrOfTrackWithItems=nbrOfTrackWithItems+1
+		end
+		
+		if isVisibleTCP == 1.0 and areThereItems == false then
+			nbrOfTrackWithOutItems=nbrOfTrackWithOutItems+1
+		end
+		
+		-- if there is a spacer above the current track
+		if reaper.GetMediaTrackInfo_Value( track, "I_SPACER" ) == 1 then
+			--we increment the number of spacer
+			nbrOfSpacer=nbrOfSpacer+1
+		end			
+		
 	end
 	
-		
-	heightToRemove=math.floor(minimumTrackHeight*nbrOfTrackWithOutItems)
+
+	--We get the total height of every folder height summed
+	totalFolderHeight=nbrOfFolder*minimumTrackHeight
+	--we get the arrange view dimensions
 	height,width=sizeOfArrangeView()
-	newHeight=height-heightToRemove
-	sizeOfEachTrack=math.floor(newHeight/nbrOfTrackWithItems)
+	--we remove the folder height from the arrange view height
+	height=height-totalFolderHeight
+	-- we remove the total size of spacer from the arrange view height
+	height= height - (spacerHeight*nbrOfSpacer)
+	--we get the size of track without items
+	height = height - (nbrOfTrackWithOutItems*minimumTrackHeight)
+	--we get the size of each track
+	sizeOfEachTrack=math.floor(height/(nbrOfVisibleTracks-(nbrOfFolder+nbrOfTrackWithOutItems)))
 	
 	for i=0,nbrOfTracks-1 do
 		track=reaper.GetTrack( 0, i)
 			
-		if trackInfoArray[i+1]["isThereItem"] ==true and trackInfoArray[i+1]["folderDepth"] ~= 1 and trackInfoArray[i+1]["lockState"] ~= 1 then
+		if trackInfoArray[i+1]["areThereItems"] ==true and trackInfoArray[i+1]["folderDepth"] ~= 1 and trackInfoArray[i+1]["lockState"] ~= 1 then
 			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", sizeOfEachTrack)
 		else
-			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", 1)
+			--if track has no items, or is a folder or is locked, we minimize it.
+			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", minimumTrackHeight)
 
 		end
 	end

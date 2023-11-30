@@ -1,5 +1,5 @@
--- @description Vertical zoom minimize folder keep track lock height take care of cursor position (means if no item at cursor pos track will be minimized).
--- @version 0.1
+-- @description Vertical zoom, minimize folder, keep track height locked, take care of cursor position (means if no item at cursor pos track will be minimized).
+-- @version 0.2
 -- @author Mathieu CONAN
 -- @about Author URI: https://forum.cockos.com/member.php?u=153781
 -- @licence GPL v3
@@ -12,7 +12,7 @@
 	-- @tparam curpos float is the edit cursor current position
 	function HasCrossedItems(track, curpos)
 		nbrOfItems=reaper.CountTrackMediaItems(track)
-		local isThereItem=""
+		local areThereItems=""
 		
 		--if tracks contains at least one item
 		if nbrOfItems > 0 then
@@ -23,17 +23,17 @@
 				
 				--check if the cursor is between the start and the end of the item
 				if it_pos <= curpos and it_pos + it_len >= curpos then
-					isThereItem = true 
+					areThereItems = true 
 					break --once we are the cursor pos we can break the loop
 				else 
-					isThereItem = false 
+					areThereItems = false 
 				end
 			end
 		else --if no items on track, return false
-			isThereItem = false
+			areThereItems = false
 		end
 	
-	return isThereItem
+	return areThereItems
 	end	
 	
 	--- get the minimum track height on a project. This size is theme related so it may change from on theme to another.
@@ -74,6 +74,7 @@ function Main()
 	local minimumTrackHeight=minimumTrackHeight()
 	local nbrOfTrackWithItems=0
 	local nbrOfTrackWithOutItems=0
+
 	
 	for i=0,nbrOfTracks-1 do
 	
@@ -85,11 +86,12 @@ function Main()
 		trackHeight=reaper.GetMediaTrackInfo_Value( track, "I_TCPH" )--current track height
 		trackNum=reaper.GetMediaTrackInfo_Value( track, "IP_TRACKNUMBER" ) --current track number
 		folderDepth=reaper.GetMediaTrackInfo_Value( track, "I_FOLDERDEPTH" ) --current track folder depth
-		isThereItem=HasCrossedItems(track,curPos) --is there item at edit cursor position
+		areThereItems=HasCrossedItems(track,curPos) --is there item at edit cursor position
 
-		if isThereItem == true then
+		
+		if areThereItems == true then
 			nbrOfTrackWithItems=nbrOfTrackWithItems+1
-		elseif isThereItem == false then
+		elseif areThereItems == false then
 			nbrOfTrackWithOutItems=nbrOfTrackWithOutItems+1
 		end
 
@@ -99,7 +101,7 @@ function Main()
 			trackHeight=trackHeight, 
 			lockState=lockToggle, 
 			folderDepth=folderDepth, 
-			isThereItem=isThereItem
+			areThereItems=areThereItems
 		}
 	end
 	
@@ -112,7 +114,7 @@ function Main()
 	for i=0,nbrOfTracks-1 do
 		track=reaper.GetTrack( 0, i)
 			
-		if trackInfoArray[i+1]["isThereItem"] == true and trackInfoArray[i+1]["folderDepth"] ~= 1 and trackInfoArray[i+1]["lockState"] ~= 1 then
+		if trackInfoArray[i+1]["areThereItems"] == true and trackInfoArray[i+1]["folderDepth"] ~= 1 and trackInfoArray[i+1]["lockState"] ~= 1 then
 			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", sizeOfEachTrack)
 		else
 			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", 1)
@@ -123,8 +125,9 @@ function Main()
 	--We need to update tracklist view in addition to update arrange
 	--function argument "isMinor=false" updates both TCP and MCP. "isMinor=true" updates TCP only. 
 	reaper.TrackList_AdjustWindows(true)
-end 
- --
+end
+
+--
 --[[ EXECUTION ]]--
 --
 
