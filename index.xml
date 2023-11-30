@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="86f36f892bf21ada18ac1a109e55ace8260abbb7">
+<index version="1" name="MathieuC Tools" commit="ee96f3c2c11f227c30b8813c08941a4b4fdd0e2d">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -88,7 +88,7 @@
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/4069b7162d5895d9391fda27ebd9b3985f15c11e/Arrange%20View/MC_persistent_Rename-items-to-folder-and-track-name-item-number.lua</source>
       </version>
     </reapack>
-    <reapack name="MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked.lua" type="script" desc="Vertical zoom minimize folder keep track lock height take care of cursor position (means if no item at cursor pos track will be minimized).">
+    <reapack name="MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked.lua" type="script" desc="Vertical zoom, minimize folder, keep track height locked, take care of cursor position (means if no item at cursor pos track will be minimized).">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
@@ -101,8 +101,11 @@
       <version name="0.1" author="Mathieu CONAN" time="2023-01-15T20:42:07Z">
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/1da3757948d8cb0f9711b43783da26a5c0269b6e/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked.lua</source>
       </version>
+      <version name="0.2" author="Mathieu CONAN" time="2023-11-30T23:01:23Z">
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/ee96f3c2c11f227c30b8813c08941a4b4fdd0e2d/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked.lua</source>
+      </version>
     </reapack>
-    <reapack name="MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-crusor-pos.lua" type="script" desc="Vertical zoom minimize folder keep track lock height don't care about cursor position (means operate for all arranvge view lenght).">
+    <reapack name="MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-crusor-pos.lua" type="script" desc="Vertical zoom minimizes folders, keep track lock height, doesn't take care of cursor position (means operate for all arranvge view lenght) BUT take care of tracks without items.">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
@@ -115,8 +118,11 @@
       <version name="0.1" author="Mathieu CONAN" time="2023-01-15T20:42:07Z">
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/1da3757948d8cb0f9711b43783da26a5c0269b6e/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-crusor-pos.lua</source>
       </version>
+      <version name="0.2" author="Mathieu CONAN" time="2023-11-30T23:01:23Z">
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/ee96f3c2c11f227c30b8813c08941a4b4fdd0e2d/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-crusor-pos.lua</source>
+      </version>
     </reapack>
-    <reapack name="MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-item-and-curosr-pos.lua" type="script" desc="Vertical zoom minimize folder keep track lock height doesn't care about cursor position (means operate for all arranvge view lenght) and doesn't care about items on track or not.">
+    <reapack name="MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-item-and-curosr-pos.lua" type="script" desc="Vertical zoom minimizes folders, keeps track lock height, doesn't take care of cursor position (means operate for all arranvge view lenght) AND doesn't take care of tracks without items.">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
