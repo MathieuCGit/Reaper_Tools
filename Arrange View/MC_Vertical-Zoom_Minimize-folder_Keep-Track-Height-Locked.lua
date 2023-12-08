@@ -1,6 +1,7 @@
 -- @description Vertical zoom, minimize folder, keep track height locked, take care of cursor position (means if no item at cursor pos track will be minimized).
--- @version 0.2
+-- @version 0.3
 -- @author Mathieu CONAN
+-- @changelog fix minimum track height calculation issue
 -- @about Author URI: https://forum.cockos.com/member.php?u=153781
 -- @licence GPL v3
  
