@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="4bcbd00278eeea64ff72c89777130b3c9194f80d">
+<index version="1" name="MathieuC Tools" commit="a1b989d2a06068d937850b07d8494baaec53d2f7">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -103,6 +103,10 @@
       </version>
       <version name="0.2" author="Mathieu CONAN" time="2023-11-30T23:01:23Z">
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/ee96f3c2c11f227c30b8813c08941a4b4fdd0e2d/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked.lua</source>
+      </version>
+      <version name="0.3" author="Mathieu CONAN" time="2023-12-08T13:23:09Z">
+        <changelog><![CDATA[fix minimum track height calculation issue]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/a1b989d2a06068d937850b07d8494baaec53d2f7/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked.lua</source>
       </version>
     </reapack>
     <reapack name="MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-crusor-pos.lua" type="script" desc="Vertical zoom minimizes folders, keep track lock height, doesn't take care of cursor position (means operate for all arranvge view lenght) BUT take care of tracks without items.">
