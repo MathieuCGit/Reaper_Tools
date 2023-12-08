@@ -1,6 +1,7 @@
 -- @description Vertical zoom minimizes folders, keep track lock height, doesn't take care of cursor position (means operate for all arranvge view lenght) BUT take care of tracks without items.
--- @version 0.2
+-- @version 0.3
 -- @author Mathieu CONAN
+-- @changelog fix minimum track height calculation issue
 -- @about Author URI: https://forum.cockos.com/member.php?u=153781
 -- @licence GPL v3
  
@@ -11,21 +12,27 @@
 	--- get the minimum track height on a project. This size is theme related so it may change from on theme to another.
 	-- this is a workaround by CFillion : [https://forum.cockos.com/showpost.php?p=2283520&postcount=17](https://forum.cockos.com/showpost.php?p=2283520&postcount=17)
 	function minimumTrackHeight()
-		local track = reaper.GetTrack(nil, 0)
+		reaper.PreventUIRefresh(-1)
+		local track = reaper.GetTrack(0, 0)
 		
-		lockState=reaper.GetMediaTrackInfo_Value(track, "B_HEIGHTLOCK") 
-		trackHeight=reaper.GetMediaTrackInfo_Value(track, "I_TCPH")
+		--1st track size info and lock it
+		local lockState=reaper.GetMediaTrackInfo_Value(track, "B_HEIGHTLOCK") 
+		local trackHeight=reaper.GetMediaTrackInfo_Value(track, "I_TCPH")
 		
+		--minimization of 1rst track to minimum tarck height
+		reaper.SetMediaTrackInfo_Value(track,"I_SELECTED ",0)
 		reaper.SetMediaTrackInfo_Value(track, "I_HEIGHTOVERRIDE", 1)
 		reaper.TrackList_AdjustWindows(true)
 		minimumHeight = reaper.GetMediaTrackInfo_Value(track, "I_TCPH")
 		
+		--restore 1rst track size and unlock
 		reaper.SetMediaTrackInfo_Value(track,"B_HEIGHTLOCK",lockState)
-		reaper.SetMediaTrackInfo_Value(track,"I_TCPH",trackHeight)
+		reaper.SetMediaTrackInfo_Value(track,"I_HEIGHTOVERRIDE",trackHeight)
 		reaper.TrackList_AdjustWindows(true)
 		
+		reaper.PreventUIRefresh(1)
 		return minimumHeight
-	end
+	end	
 
 	--- This function use Julian Sader method to get arrange view height and width
 	function sizeOfArrangeView()
@@ -101,7 +108,7 @@ function Main()
 			nbrOfTrackWithItems=nbrOfTrackWithItems+1
 		end
 		
-		if isVisibleTCP == 1.0 and areThereItems == false then
+		if isVisibleTCP == 1.0 and areThereItems == false and folderDepth ~= 1 then
 			nbrOfTrackWithOutItems=nbrOfTrackWithOutItems+1
 		end
 		
@@ -113,28 +120,26 @@ function Main()
 		
 	end
 	
-
-	--We get the total height of every folder height summed
 	totalFolderHeight=nbrOfFolder*minimumTrackHeight
-	--we get the arrange view dimensions
+	totalSpacerHeight=spacerHeight*nbrOfSpacer
+	
+	heightToRemove=totalFolderHeight+totalSpacerHeight
+	
 	height,width=sizeOfArrangeView()
-	--we remove the folder height from the arrange view height
-	height=height-totalFolderHeight
-	-- we remove the total size of spacer from the arrange view height
-	height= height - (spacerHeight*nbrOfSpacer)
-	--we get the size of track without items
-	height = height - (nbrOfTrackWithOutItems*minimumTrackHeight)
+	height=height-heightToRemove
 	--we get the size of each track
-	sizeOfEachTrack=math.floor(height/(nbrOfVisibleTracks-(nbrOfFolder+nbrOfTrackWithOutItems)))
+	sizeOfEachTrack=math.floor(height/(nbrOfVisibleTracks-nbrOfFolder))
 	
 	for i=0,nbrOfTracks-1 do
 		track=reaper.GetTrack( 0, i)
 			
 		if trackInfoArray[i+1]["areThereItems"] ==true and trackInfoArray[i+1]["folderDepth"] ~= 1 and trackInfoArray[i+1]["lockState"] ~= 1 then
 			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", sizeOfEachTrack)
+		-- elseif  trackInfoArray[i+1]["folderDepth"] == 1 then
+			-- reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", 1)
 		else
 			--if track has no items, or is a folder or is locked, we minimize it.
-			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", minimumTrackHeight)
+			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", 1)
 
 		end
 	end
