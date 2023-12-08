@@ -1,7 +1,8 @@
 -- @description Vertical zoom minimizes folders, keeps track lock height, doesn't take care of cursor position (means operate for all arranvge view lenght) AND doesn't take care of tracks without items.
--- @version 0.5
+-- @version 0.6
 -- @author Mathieu CONAN
 -- @about Author URI: https://forum.cockos.com/member.php?u=153781
+-- @changelog fix minimum track height calculation issue
 -- @licence GPL v3
 -- @changelog Now takes care of spacer in total arrange view height (Reaper 7 update)
  
@@ -12,15 +13,23 @@
 	--- get the minimum track height on a project. This size is theme related so it may change from on theme to another.
 	-- this is a workaround by CFillion : [https://forum.cockos.com/showpost.php?p=2283520&postcount=17](https://forum.cockos.com/showpost.php?p=2283520&postcount=17)
 	function minimumTrackHeight()
-		reaper.PreventUIRefresh(-1)
-		local track = reaper.GetTrack(0, 0)
+		--get first track avoiding folders
+		nbrTracks= reaper.CountTracks(0)
+		for i=0, nbrTracks-1 do
+			track=reaper.GetTrack(0, i)
+			if reaper.GetMediaTrackInfo_Value( track, "I_FOLDERDEPTH") ~= 1 and  reaper.IsTrackVisible(track,false )then
+				track=reaper.GetTrack(0, i)
+				break
+			end
+		end
 		
 		--1st track size info and lock it
 		local lockState=reaper.GetMediaTrackInfo_Value(track, "B_HEIGHTLOCK") 
 		local trackHeight=reaper.GetMediaTrackInfo_Value(track, "I_TCPH")
 		
+		--remove potential refresh lock state. Potentialy toggling "reaper.TrackList_AdjustWindows(true)" function in a disable state
+		reaper.PreventUIRefresh(-1)	
 		--minimization of 1rst track to minimum tarck height
-		reaper.SetMediaTrackInfo_Value(track,"I_SELECTED ",0)
 		reaper.SetMediaTrackInfo_Value(track, "I_HEIGHTOVERRIDE", 1)
 		reaper.TrackList_AdjustWindows(true)
 		minimumHeight = reaper.GetMediaTrackInfo_Value(track, "I_TCPH")
@@ -30,6 +39,7 @@
 		reaper.SetMediaTrackInfo_Value(track,"I_HEIGHTOVERRIDE",trackHeight)
 		reaper.TrackList_AdjustWindows(true)
 		
+		--return to previous refresh UI state
 		reaper.PreventUIRefresh(1)
 		return minimumHeight
 	end	
