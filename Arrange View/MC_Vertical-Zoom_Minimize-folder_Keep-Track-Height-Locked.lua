@@ -39,21 +39,27 @@
 	--- get the minimum track height on a project. This size is theme related so it may change from on theme to another.
 	-- this is a workaround by CFillion : [https://forum.cockos.com/showpost.php?p=2283520&postcount=17](https://forum.cockos.com/showpost.php?p=2283520&postcount=17)
 	function minimumTrackHeight()
-		local track = reaper.GetTrack(nil, 0)
+		reaper.PreventUIRefresh(-1)
+		local track = reaper.GetTrack(0, 0)
 		
-		lockState=reaper.GetMediaTrackInfo_Value(track, "B_HEIGHTLOCK") 
-		trackHeight=reaper.GetMediaTrackInfo_Value(track, "I_TCPH")
+		--1st track size info and lock it
+		local lockState=reaper.GetMediaTrackInfo_Value(track, "B_HEIGHTLOCK") 
+		local trackHeight=reaper.GetMediaTrackInfo_Value(track, "I_TCPH")
 		
+		--minimization of 1rst track to minimum tarck height
+		reaper.SetMediaTrackInfo_Value(track,"I_SELECTED ",0)
 		reaper.SetMediaTrackInfo_Value(track, "I_HEIGHTOVERRIDE", 1)
 		reaper.TrackList_AdjustWindows(true)
 		minimumHeight = reaper.GetMediaTrackInfo_Value(track, "I_TCPH")
 		
+		--restore 1rst track size and unlock
 		reaper.SetMediaTrackInfo_Value(track,"B_HEIGHTLOCK",lockState)
-		reaper.SetMediaTrackInfo_Value(track,"I_TCPH",trackHeight)
+		reaper.SetMediaTrackInfo_Value(track,"I_HEIGHTOVERRIDE",trackHeight)
 		reaper.TrackList_AdjustWindows(true)
 		
+		reaper.PreventUIRefresh(1)
 		return minimumHeight
-	end
+	end	
 
 	--- This function use Julian Sader method to get arrange view height and width
 	function sizeOfArrangeView()
