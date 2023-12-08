@@ -128,15 +128,13 @@ function Main()
 	height,width=sizeOfArrangeView()
 	height=height-heightToRemove
 	--we get the size of each track
-	sizeOfEachTrack=math.floor(height/(nbrOfVisibleTracks-nbrOfFolder))
+	sizeOfEachTrack=math.floor(height/(nbrOfVisibleTracks-(nbrOfFolder+nbrOfTrackWithOutItems)))
 	
 	for i=0,nbrOfTracks-1 do
 		track=reaper.GetTrack( 0, i)
 			
 		if trackInfoArray[i+1]["areThereItems"] ==true and trackInfoArray[i+1]["folderDepth"] ~= 1 and trackInfoArray[i+1]["lockState"] ~= 1 then
 			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", sizeOfEachTrack)
-		-- elseif  trackInfoArray[i+1]["folderDepth"] == 1 then
-			-- reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", 1)
 		else
 			--if track has no items, or is a folder or is locked, we minimize it.
 			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", 1)
