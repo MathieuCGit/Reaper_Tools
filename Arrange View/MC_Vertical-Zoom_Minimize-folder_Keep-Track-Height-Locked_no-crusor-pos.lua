@@ -89,6 +89,11 @@ function Main()
 		--is it shown in TCP !!WARNING : output value is 0.0 or 1.0 NOT true of false
 		isVisibleTCP=reaper.GetMediaTrackInfo_Value( track, "B_SHOWINTCP")
 
+		--if the track is a folder BUT it gets at least one item, it becomes a track and need to be zoomed
+		if folderDepth == 1 and nbrOfItems > 0 then
+			folderDepth = 0
+		end
+		
 		if nbrOfItems > 0 then 
 			areThereItems = true
 		else 
@@ -109,7 +114,7 @@ function Main()
 			nbrOfVisibleTracks=nbrOfVisibleTracks+1
 		end
 		
-		if folderDepth == 1 and isVisibleTCP == 1.0 then
+		if folderDepth == 1 and isVisibleTCP == 1.0 and areThereItems == false then
 			nbrOfFolder = nbrOfFolder+1
 		end
 		
