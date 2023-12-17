@@ -1,5 +1,5 @@
--- @description Vertical zoom minimizes folders, keep track lock height, doesn't take care of cursor position (means operate for all arranvge view lenght) BUT take care of tracks without items.
--- @version 0.4
+-- @description Vertical zoom minimizes folders, keeps track lock height, doesn't take care of cursor position (means operate for all arrange view lenght) BUT takes care of tracks without items.
+-- @version 0.5
 -- @author Mathieu CONAN
 -- @changelog fix minimum track height calculation issue
 -- @about Author URI: https://forum.cockos.com/member.php?u=153781
