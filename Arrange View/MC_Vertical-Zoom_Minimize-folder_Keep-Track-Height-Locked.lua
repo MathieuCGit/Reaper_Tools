@@ -1,7 +1,7 @@
--- @description Vertical zoom, minimize folder, keep track height locked, take care of cursor position (means if no item at cursor pos track will be minimized).
--- @version 0.4
+-- @description Vertical zoom, minimize folder, keeps track height locked, takes care of cursor position (means if no item at cursor pos track will be minimized).
+-- @version 0.5
 -- @author Mathieu CONAN
--- @changelog fix minimum track height calculation issue
+-- @changelog fix takes care of folders with items
 -- @about Author URI: https://forum.cockos.com/member.php?u=153781
 -- @licence GPL v3
  
@@ -117,6 +117,11 @@ function Main()
 		areThereItems=HasCrossedItems(track,curPos) --is there item at edit cursor position
 		--is it shown in TCP !!WARNING : output value is 0.0 or 1.0 NOT true of false
 		isVisibleTCP=reaper.GetMediaTrackInfo_Value( track, "B_SHOWINTCP")
+		
+		--if the track is a folder BUT it gets at least one item, it becomes a track and need to be zoomed
+		if folderDepth == 1 and areThereItems == true then
+			folderDepth = 0
+		end
 		
 		trackInfoArray[#trackInfoArray+1]=
 		{
