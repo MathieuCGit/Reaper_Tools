@@ -1,7 +1,7 @@
 -- @description Vertical zoom minimizes folders, keeps track lock height, doesn't take care of cursor position (means operate for all arrange view lenght) AND doesn't take care of tracks without items.
--- @version 1.1
+-- @version 1.2
 -- @author Mathieu CONAN
--- @about Author URI: https://forum.cockos.com/member.php?u=153781
+-- @about This script aims to provide a mechanism to resize tracks height. it maximizes the tracks with items height and doesn't take care of track without items. It doesn't take care of cursor position.Author URI: https://forum.cockos.com/member.php?u=153781
 -- @licence GPL v3
 -- @changelog Total rewriting. Now works with spacer, folder collapsed ("small and hidden" preferences only), takes locked track.
  
@@ -147,17 +147,10 @@ function Main()
 	for i=1, #tr_infos_array do
 		if tr_infos_array[i]["tr_lock_state"] == 0.0 and
 			tr_infos_array[i]["tr_visible_state"] == 1.0 and
-			tr_infos_array[i]["is_in_collapsed"] == 0 and
-			tr_infos_array[i]["nbr_items"] > 0 then
+			tr_infos_array[i]["is_in_collapsed"] == 0 then
 				
 				--nbr of track not locked, visible, not in a collapsed folder and with at least one item
 				tr_count=tr_count+1
-		elseif tr_infos_array[i]["tr_visible_state"] == 1.0 and 
-				tr_infos_array[i]["nbr_items"] == 0 and
-				tr_infos_array[i]["is_in_collapsed"] == 0 then
-				
-					--nbr of track visible but without items
-					tr_vis_no_item=tr_vis_no_item+1
 		end
 	end
 
@@ -177,9 +170,6 @@ function Main()
 	--we get the arrangeview size (height and width)
 	height,width=sizeOfArrangeView()
 	
-	--remove visible track with no items height
-	height=height-(tr_vis_no_item*minimum_tr_height)
-
 	--get total height lock for track height locked and remove it from height
 	local total_locked_height=0
 	for i=1,#tr_infos_array do
@@ -204,8 +194,7 @@ function Main()
 		track=reaper.GetTrack( 0, i-1)	
 		if tr_infos_array[i]["tr_lock_state"] == 0.0 and
 			tr_infos_array[i]["tr_visible_state"] == 1.0 and
-			tr_infos_array[i]["is_in_collapsed"] == 0 and
-			tr_infos_array[i]["nbr_items"] > 0 then
+			tr_infos_array[i]["is_in_collapsed"] == 0 then
 			
 			--if track is not locked, is visible in TCP, is not in collapsed folder and has at least one item we apply the new track height
 			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", sizeOfEachTrack)
