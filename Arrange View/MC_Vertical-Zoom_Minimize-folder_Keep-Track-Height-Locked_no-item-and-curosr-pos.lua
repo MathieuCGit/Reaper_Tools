@@ -98,7 +98,7 @@ function Main()
 	local nbr_tr_proj=reaper.CountTracks(0)
 	local is_in_collapsed=0
 	local tr_infos_array={}
-	local minimum_tr_height=minimum_tr_height()
+	local minimum_tr_height=minimumTrackHeight()
 	local spacer_in_collapsed=0
 	
 --------------------------------------------------------------------------	
