@@ -2,7 +2,7 @@
 -- @version 1.0
 -- @author Mathieu CONAN
 -- @changelog Total rewriting. Now works with spacer, folder collapsed ("small and hidden" preferences only), takes locked track.
--- @about This script aims to provide a mechanism to resize tracks height. it maximizes the tracks with items height and doesn't take care of track without items. It doesn't take care of cursor position. Author URI: https://forum.cockos.com/member.php?u=153781
+-- @about This script aims to provide a mechanism to resize tracks height. it maximizes the tracks with items height and takes care of track without items (they are minimized too). It doesn't take care of cursor position. Author URI: https://forum.cockos.com/member.php?u=153781
 -- @licence GPL v3
  
 --
