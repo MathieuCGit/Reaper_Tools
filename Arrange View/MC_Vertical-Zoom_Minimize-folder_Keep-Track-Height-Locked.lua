@@ -245,8 +245,6 @@ function Main()
 			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", sizeOfEachTrack)
 		elseif tr_infos_array[i]["tr_lock_state"] == 0.0 then
 			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", 1)
-		else
-			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", minimum_tr_height)
 		end
 	end
 	--We need to update tracklist view in addition to update arrange
