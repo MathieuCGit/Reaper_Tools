@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="23a42af90d6b5d55110bc404069f146cc7c3adc5">
+<index version="1" name="MathieuC Tools" commit="fa650f554f896fba1d33df607ba716fb7e09545b">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -120,6 +120,10 @@
         <changelog><![CDATA[Total rewriting. Now works with spacer, folder collapsed ("small and hidden" preferences only), takes locked track.]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/23a42af90d6b5d55110bc404069f146cc7c3adc5/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked.lua</source>
       </version>
+      <version name="1.4" author="Mathieu CONAN" time="2024-01-02T22:34:23Z">
+        <changelog><![CDATA[Total rewriting. Now works with spacer, folder collapsed ("small and hidden" preferences only), takes locked track.]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/fa650f554f896fba1d33df607ba716fb7e09545b/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked.lua</source>
+      </version>
     </reapack>
     <reapack name="MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-crusor-pos.lua" type="script" desc="Vertical zoom minimizes folders, keeps track lock height, doesn't take care of cursor position (means operate for all arrange view lenght) BUT takes care of tracks without items.">
       <metadata>
@@ -127,7 +131,7 @@
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
-{\pard \ql \f0 \sa180 \li0 \fi0 This script aims to provide a mechanism to resize tracks height. it maximizes the tracks with items height and takes care of track without items (they are minimized too). It doesn't take care of cursor position. Author URI: https://forum.cockos.com/member.php?u=153781\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 This script aims to provide a mechanism to resize tracks height. it maximizes the tracks with items height and doesn't take care of track without items. It doesn't take care of cursor position.Author URI: https://forum.cockos.com/member.php?u=153781\par}
 }
 ]]></description>
       </metadata>
@@ -152,6 +156,10 @@
       <version name="1.0" author="Mathieu CONAN" time="2023-12-29T21:41:55Z">
         <changelog><![CDATA[Total rewriting. Now works with spacer, folder collapsed ("small and hidden" preferences only), takes locked track.]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/d3b29f83a39bf2c36ebeeabf4de8d0a3c3880a04/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-crusor-pos.lua</source>
+      </version>
+      <version name="1.4" author="Mathieu CONAN" time="2024-01-02T22:34:23Z">
+        <changelog><![CDATA[Total rewriting. Now works with spacer, folder collapsed ("small and hidden" preferences only), takes, tracks locked, fixed item lanes.]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/fa650f554f896fba1d33df607ba716fb7e09545b/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-crusor-pos.lua</source>
       </version>
     </reapack>
     <reapack name="MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-item-and-curosr-pos.lua" type="script" desc="Vertical zoom minimizes folders, keeps track lock height, doesn't take care of cursor position (means operate for all arrange view lenght) AND doesn't take care of tracks without items.">
@@ -197,6 +205,10 @@
       <version name="1.2" author="Mathieu CONAN" time="2023-12-29T21:47:29Z">
         <changelog><![CDATA[Total rewriting. Now works with spacer, folder collapsed ("small and hidden" preferences only), takes locked track.]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/1c5d1a60cf39fdb9ba48bf0e74d3d831ec8f2006/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-item-and-curosr-pos.lua</source>
+      </version>
+      <version name="1.4" author="Mathieu CONAN" time="2024-01-02T22:34:23Z">
+        <changelog><![CDATA[Total rewriting. Now works with spacer, folder collapsed ("small and hidden" preferences only), takes, tracks locked, fixed item lanes.]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/fa650f554f896fba1d33df607ba716fb7e09545b/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-item-and-curosr-pos.lua</source>
       </version>
     </reapack>
   </category>
