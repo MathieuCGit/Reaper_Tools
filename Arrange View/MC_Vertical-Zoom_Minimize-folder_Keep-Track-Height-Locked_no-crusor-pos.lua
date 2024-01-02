@@ -1,30 +1,35 @@
 -- @description Vertical zoom minimizes folders, keeps track lock height, doesn't take care of cursor position (means operate for all arrange view lenght) BUT takes care of tracks without items.
--- @version 1.0
+-- @version 1.4
 -- @author Mathieu CONAN
--- @changelog Total rewriting. Now works with spacer, folder collapsed ("small and hidden" preferences only), takes locked track.
--- @about This script aims to provide a mechanism to resize tracks height. it maximizes the tracks with items height and takes care of track without items (they are minimized too). It doesn't take care of cursor position. Author URI: https://forum.cockos.com/member.php?u=153781
+-- @changelog Total rewriting. Now works with spacer, folder collapsed ("small and hidden" preferences only), takes, tracks locked, fixed item lanes.
+-- @about This script aims to provide a mechanism to resize tracks height. it maximizes the tracks with items height and doesn't take care of track without items. It doesn't take care of cursor position.Author URI: https://forum.cockos.com/member.php?u=153781
 -- @licence GPL v3
  
 --
 --[[ FUNCTIONS ]]--
 --
-
 	--- get the minimum track height on a project. This size is theme related so it may change from on theme to another.
 	-- this is a workaround by CFillion : [https://forum.cockos.com/showpost.php?p=2283520&postcount=17](https://forum.cockos.com/showpost.php?p=2283520&postcount=17)
+	-- @warning due to the workaround use here, screen will quickly blink once while looking for min track height.
 	function minimumTrackHeight()
-		--get first track avoiding folders
-		nbrTracks= reaper.CountTracks(0)
-		for i=0, nbrTracks-1 do
+		--get first track avoiding folders and fixed lanes
+		local nbr_tr= reaper.CountTracks(0)		
+		
+		for i=0, nbr_tr-1 do
 			track=reaper.GetTrack(0, i)
-			if reaper.GetMediaTrackInfo_Value( track, "I_FOLDERDEPTH") ~= 1 and  reaper.IsTrackVisible(track,false )then
+			tr_lock_state=reaper.GetMediaTrackInfo_Value(track, "B_HEIGHTLOCK") 
+			tr_height=reaper.GetMediaTrackInfo_Value(track, "I_TCPH")
+			is_tr_fil, _ = reaper.GetSetMediaTrackInfo_String( track, "P_LANENAME:0", "", 0 ) -- check track to get FIL true/false
+			
+			if reaper.GetMediaTrackInfo_Value( track, "I_FOLDERDEPTH") ~= 1 and  
+			reaper.IsTrackVisible(track,false ) and
+			tr_lock_state == 0.0 and
+			is_tr_fil == false then
+			--if the track is not a folder, is visible and hasn't lanes wee keep it
 				track=reaper.GetTrack(0, i)
 				break
 			end
 		end
-		
-		--1st track size info and lock it
-		local lockState=reaper.GetMediaTrackInfo_Value(track, "B_HEIGHTLOCK") 
-		local trackHeight=reaper.GetMediaTrackInfo_Value(track, "I_TCPH")
 		
 		--remove potential refresh lock state. Potentialy toggling "reaper.TrackList_AdjustWindows(true)" function in a disable state
 		reaper.PreventUIRefresh(-1)	
@@ -34,14 +39,14 @@
 		minimumHeight = reaper.GetMediaTrackInfo_Value(track, "I_TCPH")
 		
 		--restore 1rst track size and unlock
-		reaper.SetMediaTrackInfo_Value(track,"B_HEIGHTLOCK",lockState)
-		reaper.SetMediaTrackInfo_Value(track,"I_HEIGHTOVERRIDE",trackHeight)
+		reaper.SetMediaTrackInfo_Value(track,"B_HEIGHTLOCK",tr_lock_state)
+		reaper.SetMediaTrackInfo_Value(track,"I_HEIGHTOVERRIDE",tr_height)
 		reaper.TrackList_AdjustWindows(true)
 		
 		--return to previous refresh UI state
 		reaper.PreventUIRefresh(1)
 		return minimumHeight
-	end	
+	end
 
 	--- This function use Julian Sader method to get arrange view height and width
 	function sizeOfArrangeView()
@@ -50,7 +55,7 @@
 		heightOfArrangeView = bottom - top
 		return heightOfArrangeView, widthOfArrangeView
 	end
-	
+
 	---This function returns the number of spacer in the project and the size of a spacer
 	function nbr_spacer()
 		local nbrOfTracks=reaper.CountTracks(0)
@@ -78,7 +83,7 @@
 		
 		return nbrOfSpacer,spacerHeight
 	end
-	
+
 	---This function get the top level track folder from a given track even if there are other folders in the between
 	function get_top_level_track(track)
 		while true do
@@ -90,15 +95,17 @@
 			end
 		end
 	end
-	
+
+	---This function rounds the number passed in argument to the upper interger
+	function round(num) 
+		return math.floor(num + 0.5)
+	end
 --
 --[[ CORE ]]--
 --
-
 function Main()
 
 	local nbr_tr_proj=reaper.CountTracks(0)
-	local is_in_collapsed=0
 	local tr_infos_array={}
 	local minimum_tr_height=minimumTrackHeight()
 	local spacer_in_collapsed=0
@@ -116,6 +123,8 @@ function Main()
 		tr_height=reaper.GetMediaTrackInfo_Value( tr, "I_TCPH" )--current track height
 		nbr_items=reaper.CountTrackMediaItems(tr) --number of items on the current track
 
+		--[ MANAGE COLLAPSED FOLDERS AND SPACERS IN COLLAPSED FOLDER ]--
+		local is_in_collapsed=0
 		top_level_tr=get_top_level_track(tr) --find the top level folder if exists
 		parent= reaper.GetParentTrack(tr) --get the parent folder track
 		if parent then
@@ -130,13 +139,29 @@ function Main()
 		else
 			is_in_collapsed=0
 		end
+
+		--[ MANAGE FIXED ITEM LANES TRACK (multiple lanes) ]--
+		is_tr_fil, _ = reaper.GetSetMediaTrackInfo_String( tr, "P_LANENAME:0", "", 0 ) -- check track to get FIL true/false
+		if is_tr_fil then --if we are on a fixed item lane track
+			num_items = reaper.CountTrackMediaItems(tr)
+			item_for_height=reaper.GetTrackMediaItem(tr, 0)
+			if item_for_height then
+				nbr_fil_lanes = round(1 / reaper.GetMediaItemInfo_Value(item_for_height, 'F_FREEMODE_H')) -- with check lane height with any items on track
+			else
+				nbr_fil_lanes=0
+			end
+		end
+
 		
+		--put everything in an array
 		tr_infos_array[#tr_infos_array+1]=
 		{	
 			tr_lock_state=tr_lock_state,
 			tr_visible_state=tr_visible_state,
 			tr_height=tr_height,
 			is_in_collapsed=is_in_collapsed,
+			is_tr_fil=is_tr_fil,
+			nbr_fil_lanes=nbr_fil_lanes,
 			nbr_items=nbr_items
 		}	
 	end
@@ -149,20 +174,20 @@ function Main()
 	for i=1, #tr_infos_array do
 		if tr_infos_array[i]["tr_lock_state"] == 0.0 and
 			tr_infos_array[i]["tr_visible_state"] == 1.0 and
-			tr_infos_array[i]["is_in_collapsed"] == 0 and
-			tr_infos_array[i]["nbr_items"] > 0 then
+			tr_infos_array[i]["nbr_items"] > 0 and
+			tr_infos_array[i]["is_in_collapsed"] == 0 then
 				
-				--nbr of track not locked, visible, not in a collapsed folder and with at least one item
+				--nbr of track not locked, visible, not in a collapsed folder
 				tr_count=tr_count+1
+		
 		elseif tr_infos_array[i]["tr_visible_state"] == 1.0 and 
-				tr_infos_array[i]["nbr_items"] == 0 and
-				tr_infos_array[i]["is_in_collapsed"] == 0 then
-				
-					--nbr of track visible but without items
-					tr_vis_no_item=tr_vis_no_item+1
+			tr_infos_array[i]["nbr_items"] == 0 and
+			tr_infos_array[i]["is_in_collapsed"] == 0 then
+		
+			--nbr of track visible but without items
+			tr_vis_no_item=tr_vis_no_item+1
 		end
 	end
-
 --------------------------------------------------------------------------	
 	--[[ 		GET SPACERS INFORMATIONS 	]]--
 --------------------------------------------------------------------------	
@@ -179,9 +204,6 @@ function Main()
 	--we get the arrangeview size (height and width)
 	height,width=sizeOfArrangeView()
 	
-	--remove visible track with no items height
-	height=height-(tr_vis_no_item*minimum_tr_height)
-
 	--get total height lock for track height locked and remove it from height
 	local total_locked_height=0
 	for i=1,#tr_infos_array do
@@ -195,24 +217,41 @@ function Main()
 	--we remove the spacers height from height
 	height=height-(total_spacers*spacer_height)
 	
+	--we remove visible tracks without items height
+	height=height-(tr_vis_no_item*minimum_tr_height)
+	
 	--we divide the height of the arrange view by the track count
 	sizeOfEachTrack=math.floor(height/tr_count)
-
+	
 --------------------------------------------------------------------------	
 	--[[ 		APPLY NEW TRACK HEIGHT	]]--
 --------------------------------------------------------------------------	
 	--resizing each track regarding state lock and other criteras
 	for i=1,#tr_infos_array do
-		track=reaper.GetTrack( 0, i-1)	
+		tr=reaper.GetTrack( 0, i-1)
+		
 		if tr_infos_array[i]["tr_lock_state"] == 0.0 and
 			tr_infos_array[i]["tr_visible_state"] == 1.0 and
-			tr_infos_array[i]["is_in_collapsed"] == 0 and
-			tr_infos_array[i]["nbr_items"] > 0 then
+			tr_infos_array[i]["is_tr_fil"] == false and
+			tr_infos_array[i]["nbr_items"] > 0 and
+			tr_infos_array[i]["is_in_collapsed"] == 0 then
 			
-			--if track is not locked, is visible in TCP, is not in collapsed folder and has at least one item we apply the new track height
-			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", sizeOfEachTrack)
+			--if track is not locked, is visible in TCP, is not in collapsed folder we apply the new track height
+			reaper.SetMediaTrackInfo_Value( tr, "I_HEIGHTOVERRIDE", sizeOfEachTrack)
+		
+		elseif tr_infos_array[i]["tr_lock_state"] == 0.0 and
+				tr_infos_array[i]["tr_visible_state"] == 1.0 and
+				tr_infos_array[i]["is_tr_fil"] == true and
+				tr_infos_array[i]["nbr_items"] > 0 and
+				tr_infos_array[i]["is_in_collapsed"] == 0 then
+			
+			fil_tr_height=sizeOfEachTrack/tr_infos_array[i]["nbr_fil_lanes"]
+			reaper.SetMediaTrackInfo_Value( tr, "I_HEIGHTOVERRIDE", fil_tr_height)
+			
 		elseif tr_infos_array[i]["tr_lock_state"] == 0.0 then
-			reaper.SetMediaTrackInfo_Value( track, "I_HEIGHTOVERRIDE", 1)
+		
+			reaper.SetMediaTrackInfo_Value( tr, "I_HEIGHTOVERRIDE", 1)
+			
 		end
 	end
 	--We need to update tracklist view in addition to update arrange
