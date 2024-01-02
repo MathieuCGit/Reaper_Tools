@@ -170,17 +170,16 @@ function Main()
 	--[[ 		COUNT VISIBLE TRACKS	]]--
 --------------------------------------------------------------------------
 	local tr_count=0
-	local tr_vis_no_item=0
 	for i=1, #tr_infos_array do
 		if tr_infos_array[i]["tr_lock_state"] == 0.0 and
 			tr_infos_array[i]["tr_visible_state"] == 1.0 and
-			tr_infos_array[i]["nbr_items"] > 0 and
 			tr_infos_array[i]["is_in_collapsed"] == 0 then
 				
 				--nbr of track not locked, visible, not in a collapsed folder
 				tr_count=tr_count+1
 		end
 	end
+	
 --------------------------------------------------------------------------	
 	--[[ 		GET SPACERS INFORMATIONS 	]]--
 --------------------------------------------------------------------------	
@@ -247,7 +246,7 @@ function Main()
 	reaper.TrackList_AdjustWindows(true)
 end
 
- --
+--
 --[[ EXECUTION ]]--
 --
 
