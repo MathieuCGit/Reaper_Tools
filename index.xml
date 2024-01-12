@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="c145c45f0eb5eb3edcaee15c6401c79e19863570">
+<index version="1" name="MathieuC Tools" commit="c5b801c87e0fd911272284bbcfa4de4d9bb0bd60">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -295,7 +295,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Rebuild embeded database for portable installation\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 This script aims to rebuild the media explorer database for portable reaper installation. For example, you may have a Reaer portable installation on an USB stick\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 {\b {\f1 SAMPLE_LIB_FOLDER}}\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 This constant points to the folder you've created at reaper portable root folder (generally "REAPER")\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 This constant points to the folder you've created at reaper portable root folder (generally "REAPER"). In other words, inside the portable installation, samples are in SAMPLE_LIB_FOLDER folder.\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 You can also add this script to you reaper __startup.lua file, in this case it will automaticaly update your portable database when reaper starts.\par}
 }
 ]]></description>
@@ -303,7 +303,7 @@
       </metadata>
       <version name="0.1" author="Mathieu CONAN" time="2024-01-12T09:00:18Z">
         <changelog><![CDATA[Initial release]]></changelog>
-        <source main="mediaexplorer">https://github.com/MathieuCGit/Reaper_Tools/raw/c145c45f0eb5eb3edcaee15c6401c79e19863570/Media%20explorer/MC_portable-install_rebuild-embeded-database.lua</source>
+        <source main="mediaexplorer">https://github.com/MathieuCGit/Reaper_Tools/raw/c5b801c87e0fd911272284bbcfa4de4d9bb0bd60/Media%20explorer/MC_portable-install_rebuild-embeded-database.lua</source>
       </version>
     </reapack>
   </category>
