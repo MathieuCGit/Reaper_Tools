@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="f2d26d7ba266645b7f60c460138d9bb2c75e5adc">
+<index version="1" name="MathieuC Tools" commit="27f8fb58b50818e7eb7ff87cf6ccf1c2e9c03cb4">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -285,7 +285,7 @@
     </reapack>
   </category>
   <category name="Media explorer">
-    <reapack name="MC_portable-install_rebuild-embeded-database.lua" type="script" desc="MC - Media Explorer embeded database rebuild (for portable install)">
+    <reapack name="MC_portable-install_rebuild-embeded-database.lua" type="script" desc="Media Explorer embeded database rescan/rebuild (for portable install)">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
@@ -301,7 +301,7 @@
       </metadata>
       <version name="0.1" author="Mathieu CONAN" time="2024-01-12T09:00:18Z">
         <changelog><![CDATA[Initial release]]></changelog>
-        <source main="mediaexplorer">https://github.com/MathieuCGit/Reaper_Tools/raw/f2d26d7ba266645b7f60c460138d9bb2c75e5adc/Media%20explorer/MC_portable-install_rebuild-embeded-database.lua</source>
+        <source main="mediaexplorer">https://github.com/MathieuCGit/Reaper_Tools/raw/27f8fb58b50818e7eb7ff87cf6ccf1c2e9c03cb4/Media%20explorer/MC_portable-install_rebuild-embeded-database.lua</source>
       </version>
     </reapack>
   </category>
