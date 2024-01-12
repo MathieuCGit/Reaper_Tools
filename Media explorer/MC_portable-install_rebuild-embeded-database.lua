@@ -1,4 +1,4 @@
--- @description MC - Media Explorer embeded database rebuild (for portable install)
+-- @description Media Explorer embeded database rescan/rebuild (for portable install)
 -- @author Mathieu CONAN   
 -- @version 0.1
 -- @changelog Initial release
