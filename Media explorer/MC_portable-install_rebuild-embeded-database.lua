@@ -12,7 +12,7 @@
 --
 --   **``SAMPLE_LIB_FOLDER``**
 --
---    This constant points to the folder you've created at reaper portable root folder (generally "REAPER")
+--    This constant points to the folder you've created at reaper portable root folder (generally "REAPER"). In other words, inside the portable installation, samples are in SAMPLE_LIB_FOLDER folder.
 --
 --   You can also add this script to you reaper __startup.lua file, in this case it will automaticaly update your portable database when reaper starts.
 
@@ -117,7 +117,7 @@ reaper.Undo_BeginBlock()
 Main()
 
 -- End of the undo block. Leave it at the bottom of your main function.
-reaper.Undo_EndBlock("MC_MathieuC_SandBox", - 1) 
+reaper.Undo_EndBlock("Media Explorer embeded database rescan/rebuild", - 1) 
   
 -- update arrange view UI
 reaper.UpdateArrange()
