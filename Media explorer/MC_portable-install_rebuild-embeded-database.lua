@@ -25,7 +25,13 @@ SAMPLE_LIB_FOLDER="SampleLib"
 --
 --[[ FUNCTION ]]--
 --
-
+--- See if the file exists
+function file_exists(file)
+	local f = io.open(file, "rb")
+	if f then f:close() end
+	return f ~= nil
+end
+	
 -- Function to read a file and replace FILE paths. It parse file path to avoid special chars
 function replaceFilePathsInFile(file_path, old_path, new_path)
 	local file = io.open(file_path, "r") -- Open the file in read mode
