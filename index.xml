@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="8bf1adf447fa4ffaab9128e5f1cf960a0030990d">
+<index version="1" name="MathieuC Tools" commit="f2d26d7ba266645b7f60c460138d9bb2c75e5adc">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -281,6 +281,27 @@
       <version name="0.1" author="Mathieu CONAN" time="2023-02-22T17:16:37Z">
         <changelog><![CDATA[initial release]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/d5cdaf55496e795a7399832515ad8cd531538383/Markers%20and%20regions/MC_insert-region-to%20selected-items-if-no-time-selection.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="Media explorer">
+    <reapack name="MC_portable-install_rebuild-embeded-database.lua" type="script" desc="MC - Media Explorer embeded database rebuild (for portable install)">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 This script aims to rebuild embeded database for portable installation\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Rebuild embeded database for portable installation\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 This script aims to rebuild the media explorer database for portable reaper installation. For example, you may have a Reaer portable installation on an USB stick\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\b {\f1 SAMPLE_LIB_FOLDER}} This constant points to the folder you've create at reaper portable root folder (generally "REAPER")\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/Reaper_Tools/tree/main">Github repository</link>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2024-01-12T09:00:18Z">
+        <changelog><![CDATA[Initial release]]></changelog>
+        <source main="mediaexplorer">https://github.com/MathieuCGit/Reaper_Tools/raw/f2d26d7ba266645b7f60c460138d9bb2c75e5adc/Media%20explorer/MC_portable-install_rebuild-embeded-database.lua</source>
       </version>
     </reapack>
   </category>
