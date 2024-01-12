@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="c5b801c87e0fd911272284bbcfa4de4d9bb0bd60">
+<index version="1" name="MathieuC Tools" commit="11df37845177dea491f37007360f46ff3ac2e393">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -303,7 +303,7 @@
       </metadata>
       <version name="0.1" author="Mathieu CONAN" time="2024-01-12T09:00:18Z">
         <changelog><![CDATA[Initial release]]></changelog>
-        <source main="mediaexplorer">https://github.com/MathieuCGit/Reaper_Tools/raw/c5b801c87e0fd911272284bbcfa4de4d9bb0bd60/Media%20explorer/MC_portable-install_rebuild-embeded-database.lua</source>
+        <source main="mediaexplorer">https://github.com/MathieuCGit/Reaper_Tools/raw/11df37845177dea491f37007360f46ff3ac2e393/Media%20explorer/MC_portable-install_rebuild-embeded-database.lua</source>
       </version>
     </reapack>
   </category>
