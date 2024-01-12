@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="11df37845177dea491f37007360f46ff3ac2e393">
+<index version="1" name="MathieuC Tools" commit="009ed22dd43d4436a935b14367c44988bd683635">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -284,29 +284,6 @@
       </version>
     </reapack>
   </category>
-  <category name="Media explorer">
-    <reapack name="MC_portable-install_rebuild-embeded-database.lua" type="script" desc="Media Explorer embeded database rescan/rebuild (for portable install)">
-      <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
-{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
-\widowctrl\hyphauto
-
-{\pard \ql \f0 \sa180 \li0 \fi0 This script aims to rebuild embeded database for portable installation\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Rebuild embeded database for portable installation\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 This script aims to rebuild the media explorer database for portable reaper installation. For example, you may have a Reaer portable installation on an USB stick\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 {\b {\f1 SAMPLE_LIB_FOLDER}}\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 This constant points to the folder you've created at reaper portable root folder (generally "REAPER"). In other words, inside the portable installation, samples are in SAMPLE_LIB_FOLDER folder.\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 You can also add this script to you reaper __startup.lua file, in this case it will automaticaly update your portable database when reaper starts.\par}
-}
-]]></description>
-        <link rel="website" href="https://github.com/MathieuCGit/Reaper_Tools/tree/main">Github repository</link>
-      </metadata>
-      <version name="0.1" author="Mathieu CONAN" time="2024-01-12T09:00:18Z">
-        <changelog><![CDATA[Initial release]]></changelog>
-        <source main="mediaexplorer">https://github.com/MathieuCGit/Reaper_Tools/raw/11df37845177dea491f37007360f46ff3ac2e393/Media%20explorer/MC_portable-install_rebuild-embeded-database.lua</source>
-      </version>
-    </reapack>
-  </category>
   <category name="MIDI Editor">
     <reapack name="MC_hide-velocity-handles-notes.lua" type="script" desc="MIDI Editor - force option &quot;View: Show velocity handles on notes&quot; to off">
       <metadata>
@@ -388,6 +365,29 @@
       </version>
       <version name="0.2" author="Mathieu CONAN" time="2023-11-28T13:55:29Z">
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/2a8f14c9269dd4982d6e67628a45801cae5ac40a/Tracks/MC_Toggle-solo-track-under-mouse.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="Utilities">
+    <reapack name="MC_portable-install_rebuild-embeded-database.lua" type="script" desc="Media Explorer embeded database rescan/rebuild (for portable install)">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 This script aims to rebuild embeded database for portable installation\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Rebuild embeded database for portable installation\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 This script aims to rebuild the media explorer database for portable reaper installation. For example, you may have a Reaer portable installation on an USB stick\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\b {\f1 SAMPLE_LIB_FOLDER}}\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 This constant points to the folder you've created at reaper portable root folder (generally "REAPER"). In other words, inside the portable installation, samples are in SAMPLE_LIB_FOLDER folder.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 You can also add this script to you reaper __startup.lua file, in this case it will automaticaly update your portable database when reaper starts.\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/Reaper_Tools/tree/main">Github repository</link>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2024-01-12T09:37:08Z">
+        <changelog><![CDATA[Initial release]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/009ed22dd43d4436a935b14367c44988bd683635/Utilities/MC_portable-install_rebuild-embeded-database.lua</source>
       </version>
     </reapack>
   </category>
