@@ -25,15 +25,9 @@ SAMPLE_LIB_FOLDER="SampleLib"
 --
 --[[ FUNCTION ]]--
 --
---- See if the file exists
-function file_exists(file)
-	local f = io.open(file, "rb")
-	if f then f:close() end
-	return f ~= nil
-end
 	
 -- Function to read a file and replace FILE paths. It parse file path to avoid special chars
-function replaceFilePathsInFile(file_path, old_path, new_path)
+function replace_file_paths_in_db(file_path, old_path, new_path)
 	local file = io.open(file_path, "r") -- Open the file in read mode
 	--if no file we quit
 	if not file then return	end
@@ -76,19 +70,6 @@ function Main()
 	--Get db file path with file name (default Reaper DB)
 	db_path=exec_path..sep.."MediaDB"..sep.."00.ReaperFileList"
 	
-	--backup existing db if backup doesn't already exist
-	if file_exists(db_path..".back") == false then
-		--get the content of 1st file
-		db_file= io.open(db_path, "rb")
-		source_content = db_file:read("*all")
-		db_file:close()
-		
-		--write the content of 1st file in another file *.back
-		db_file = io.open(db_path..".back", "wb")
-		db_file:write(source_content)
-		db_file:close()
-	end
-
 	--  Read the file
 	local db_file = io.open(db_path, "r")
 	local content = db_file:read("*all")
@@ -97,14 +78,14 @@ function Main()
 	_,idx_end=string.find(content, "PATH ")
 	old_path=string.sub(string.match(content,"[^\r\n]+",idx_end+2),1,-2)
 
-	replaceFilePathsInFile(db_path, old_path, sample_lib_path)
+	replace_file_paths_in_db(db_path, old_path, sample_lib_path)
 
 	--rescan all files with new path
 	--snippet from Julian Sader : <https://forum.cockos.com/showpost.php?p=2398335&postcount=3>
 	explorerHWND = reaper.OpenMediaExplorer("", false)
 	reaper.JS_Window_OnCommand(explorerHWND, 42050) -- Media Explore : Rescan all files in database	
 	reaper.JS_Window_OnCommand(explorerHWND, 42087) --Remove missing files from all databases
-	
+	reaper.JS_Window_OnCommand(explorerHWND, 42085) --Scan all databases for new files
 end
 
 --
