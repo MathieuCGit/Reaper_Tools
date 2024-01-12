@@ -11,7 +11,10 @@
 --   For example, you may have a Reaer portable installation on an USB stick
 --
 --   **``SAMPLE_LIB_FOLDER``**
---    This constant points to the folder you've create at reaper portable root folder (generally "REAPER")
+--
+--    This constant points to the folder you've created at reaper portable root folder (generally "REAPER")
+--
+--   You can also add this script to you reaper __startup.lua file, in this case it will automaticaly update your portable database when reaper starts.
 
 
 --
