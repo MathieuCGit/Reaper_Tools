@@ -1,11 +1,11 @@
---[[--
+<<--[[--
    * ReaScript Name: Toggle solo track under mouse
    * Lua script for Cockos REAPER
    * Author: Mathieu CONAN
    * Author URI: https://forum.cockos.com/member.php?u=153781
    * Licence: GPL v3
    * REAPER: 7.0
-   * version: 0.2
+   * version: 0.3
    * Extensions: None
 --]]
 
@@ -16,20 +16,14 @@
 --
 function Main()
 
-	--get the mouse context to be sure the cursor is over a track
-	_, segment, _ = reaper.BR_GetMouseCursorContext()
-	
 	reaper.Main_OnCommand( 41110, 0 ) --Track: Select track under mouse
 	track=reaper.GetSelectedTrack( 0, 0 )
-	
-	if segment == "track" then
-		if reaper.GetMediaTrackInfo_Value(track, 'B_MUTE') == 1 then
-			reaper.SetMediaTrackInfo_Value(track, 'B_MUTE', 0)
-		else
-			reaper.SetMediaTrackInfo_Value(track, 'B_MUTE', 1)
-		end
-	end
 
+	if reaper.GetMediaTrackInfo_Value(track, 'B_MUTE') == 1 then
+		reaper.SetMediaTrackInfo_Value(track, 'B_MUTE', 0)
+	else
+		reaper.SetMediaTrackInfo_Value(track, 'B_MUTE', 1)
+	end
 end
 
 
