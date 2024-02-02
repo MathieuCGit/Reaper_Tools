@@ -1,4 +1,4 @@
-<<--[[--
+--[[--
    * ReaScript Name: Toggle solo track under mouse
    * Lua script for Cockos REAPER
    * Author: Mathieu CONAN
