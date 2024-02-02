@@ -1,5 +1,5 @@
 --[[--
-   * ReaScript Name: Toggle solo track under mouse
+   * ReaScript Name: Toggle mute track under mouse
    * Lua script for Cockos REAPER
    * Author: Mathieu CONAN
    * Author URI: https://forum.cockos.com/member.php?u=153781
