@@ -104,7 +104,6 @@
 --[[ CORE ]]--
 --
 function Main()
-
 	local nbr_tr_proj=reaper.CountTracks(0)
 	local tr_infos_array={}
 	local minimum_tr_height=minimumTrackHeight()
@@ -134,11 +133,11 @@ function Main()
 		top_level_tr=get_top_level_track(tr)
 		tr_depth=reaper.GetTrackDepth(tr)
 
-		if tr_depth > 1 and tr_visible_state == 1.0 then
+        if tr_depth >= 1 and tr_visible_state == 1.0 then
 			parent=reaper.GetParentTrack(tr)				
             while parent do
                 --if there is a parent track and this parent track is a collapsed folder or the top level track is a collapsed folder
-                if reaper.GetMediaTrackInfo_Value( parent, "I_FOLDERCOMPACT" ) > 0 and tr_visible_state == 1.0 then
+                if reaper.GetMediaTrackInfo_Value( parent, "I_FOLDERCOMPACT" ) > 0 then
                     is_in_collapsed=1
                 end
             parent=reaper.GetParentTrack(parent)
@@ -287,7 +286,9 @@ function Main()
 	--We need to update tracklist view in addition to update arrange
 	--function argument "isMinor=false" updates both TCP and MCP. "isMinor=true" updates TCP only. 
 	reaper.TrackList_AdjustWindows(true)
+
 end
+
 
  --
 --[[ EXECUTION ]]--
