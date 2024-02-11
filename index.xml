@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="220691fded802c15381557a378a0fbc9659e625b">
+<index version="1" name="MathieuC Tools" commit="dbd3c6d0186e32fbad35d1f80e05e9eda012bce1">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -220,7 +220,7 @@
       </version>
       <version name="1.5" author="Mathieu CONAN" time="2024-02-11T21:42:15Z">
         <changelog><![CDATA[Fix folder increment count error and spacer improvment.]]></changelog>
-        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/220691fded802c15381557a378a0fbc9659e625b/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-item-and-curosr-pos.lua</source>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/dbd3c6d0186e32fbad35d1f80e05e9eda012bce1/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-item-and-curosr-pos.lua</source>
       </version>
     </reapack>
   </category>
