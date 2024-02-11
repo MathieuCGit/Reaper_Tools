@@ -237,9 +237,6 @@ function Main()
 	--we remove the spacers height from height
 	height=height-(spacer_to_remove*spacer_height)
 	
-	--we remove visible tracks without items height
-	height=height-(tr_vis_no_item*minimum_tr_height)
-	
 	--we divide the height of the arrange view by the track count
 	size_of_each_track=math.floor(height/tr_count)
 	
