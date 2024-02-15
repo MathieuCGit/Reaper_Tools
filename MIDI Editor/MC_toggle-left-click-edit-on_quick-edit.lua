@@ -1,4 +1,5 @@
 -- @description MIDI Editor - Quick edit: Toggle the left click between entering notes or default behaviour (move edit cursor)
+-- @version 0.1
 -- @link Github repository  https://forum.cockos.com/member.php?u=153781
 -- @author Mathieu CONAN
 -- @changelog initial release
