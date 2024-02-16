@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="dbd3c6d0186e32fbad35d1f80e05e9eda012bce1">
+<index version="1" name="MathieuC Tools" commit="089143db46e6511462936e8cc9d973c048e8671b">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -359,6 +359,22 @@
       <version name="0.1" author="Mathieu CONAN" time="2023-03-13T23:50:33Z">
         <changelog><![CDATA[initial release]]></changelog>
         <source main="midi_editor">https://github.com/MathieuCGit/Reaper_Tools/raw/6765723c5c3975f81b86f729f08b136205e7a283/MIDI%20Editor/MC_Remove_time-selection_otherwise_close_MIDI-editor.lua</source>
+      </version>
+    </reapack>
+    <reapack name="MC_toggle-left-click-edit-on_quick-edit.lua" type="script" desc="MIDI Editor - Quick edit: Toggle the left click between entering notes or default behaviour (move edit cursor)">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 This script aims to provide a quic way to enter notes in the midi editor by toggling between the default behaviour (left click move edit cursor), and a mouse modifier option : left click enter note\par}
+}
+]]></description>
+        <link rel="website" href="https://forum.cockos.com/member.php?u=153781">Github repository</link>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2024-02-15T15:24:55Z">
+        <changelog><![CDATA[initial release]]></changelog>
+        <source main="midi_editor">https://github.com/MathieuCGit/Reaper_Tools/raw/089143db46e6511462936e8cc9d973c048e8671b/MIDI%20Editor/MC_toggle-left-click-edit-on_quick-edit.lua</source>
       </version>
     </reapack>
   </category>
