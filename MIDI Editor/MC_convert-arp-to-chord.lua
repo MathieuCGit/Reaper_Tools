@@ -1,7 +1,7 @@
 -- @description Convert MIDI arp to chord
 -- @author Mathieu CONAN   
--- @version 0.1
--- @changelog Initial release
+-- @version 0.2
+-- @changelog Fix random issue due to Reaper overlapping action implementation
 -- @about This script aims to convert a bunch of selected notes into a chord into the active MIDI editor, according to grid division settings.
 
 --
@@ -30,7 +30,6 @@
 --
 function Main()
 
-	
 	--Get the opened MIDI editor
 	active_midi_editor=reaper.MIDIEditor_GetActive()
 	--Get the active take for this MIDI editor
@@ -57,30 +56,30 @@ function Main()
 	grid_div_start=0
 	grid_div_end=ppq_in_grid_div
 
-
 	if nbr_selected_notes(take) == 0 then
 		reaper.MB( "Please select at least one note", "No note selected", 0)
-	else				
+	else
 		--for example, for each half note (grid div=2)
 		for i=1, nbr_grid_div do
 			--we go throught every notes in the active take
 			for j=0, nbr_notes do
 				--and get some informations. Is the note selected, its start position and end position
-				_, selected, _, startppqpos, endppqpos, _, _, _ = reaper.MIDI_GetNote( take, j )
+				_, selected, _, startppqpos, endppqpos, _, pitch, _ = reaper.MIDI_GetNote( take, j )
 				if selected and startppqpos >= grid_div_start and endppqpos <= grid_div_end then
 					--we change note information to set its start and end at the grid div (for example half note)
 					reaper.MIDI_SetNote( take, j, 1,0, grid_div_start, grid_div_end)
 				end
 			end
 			
-			--prepare next section start and end. For example if gri_div is set to 2.0 (half notes) we take start and end of next half note.
+			--prepare next section start and end. For example if grid_div is set to 2.0 (half notes) we take start and end of next half note.
 			--Once the loop will have run 2 times we have got throught 1 measure.
 			grid_div_start=grid_div_start+ppq_in_grid_div
 			grid_div_end=grid_div_end+ppq_in_grid_div
+
 		end
 		
-		--merge overlapping notes
-		reaper.MIDIEditor_OnCommand( active_midi_editor, 40659 ) --Correct overlapping notes
+		--join selected overlapping notes
+		reaper.MIDIEditor_OnCommand( active_midi_editor, 40456 ) --Edit: Join notes
 	end
 end
 
