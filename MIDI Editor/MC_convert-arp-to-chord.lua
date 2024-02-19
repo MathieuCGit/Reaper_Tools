@@ -1,6 +1,6 @@
 -- @description Convert MIDI arp to chord
 -- @author Mathieu CONAN   
--- @version 0.3
+-- @version 0.4
 -- @changelog Total rebuild with stronger implementation ( first part = data collect then second part = remove selected notes then, last part = write new data).
 -- @about This script aims to convert a bunch of selected notes into a chord into the active MIDI editor, according to grid division settings.
 
@@ -127,8 +127,14 @@ function Main()
 		--remove duplicates entries from the table
 		cleaned_arr=removeDuplicates(notes_array)
 		
-		--remove selected notes from MIDI take
-		reaper.MIDIEditor_OnCommand( active_midi_editor,40002) --Edit: Delete notes
+		--to avoid removing notes longer than an arp we add this condition
+		if #cleaned_arr > 0 then
+			--remove selected notes from MIDI take
+			reaper.MIDIEditor_OnCommand( active_midi_editor,40002) --Edit: Delete notes
+		else
+			--we split note at grid lines
+			reaper.MIDIEditor_OnCommand( active_midi_editor,40641) --Split notes on grid
+		end
 
 
 	 ----------------------------------------
