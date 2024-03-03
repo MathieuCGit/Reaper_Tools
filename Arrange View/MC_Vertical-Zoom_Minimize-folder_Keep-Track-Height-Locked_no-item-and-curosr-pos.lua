@@ -104,7 +104,9 @@
 --[[ CORE ]]--
 --
 function Main()
-
+	--we can't get the master track real height so we use a 
+	local master_tr_height = 80
+	local master_tr_vis = reaper.GetMasterTrackVisibility()
 	local nbr_tr_proj=reaper.CountTracks(0)
 	local tr_infos_array={}
 	local minimum_tr_height=minimumTrackHeight()
@@ -221,6 +223,14 @@ function Main()
 --------------------------------------------------------------------------
 	--we get the arrangeview size (height and width)
 	height,width=sizeOfArrangeView()
+
+	--if master track is visible, we remove its height from total height and we minimize it
+	if master_tr_vis == 1 then
+		height=height-master_tr_height
+		mst_tr= reaper.GetMasterTrack(0)
+		reaper.SetTrackSelected( mst_tr, true )
+		reaper.Main_OnCommand(reaper.NamedCommandLookup('_SWS_MINTRACKS'),0)--SWS: Minimize selected track(s)
+	end	
 	
 	--get total height lock for track height locked and remove it from height
 	local total_locked_height=0
