@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="331c92e4348e0d4b6d4d837435687223406acc8e">
+<index version="1" name="MathieuC Tools" commit="bab0d2ea905d8aebf6dcc38f0e5593162c90bc53">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -128,6 +128,10 @@
         <changelog><![CDATA[Fix folder increment count error and spacer improvment]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/cfe7b5a7428d621bf4f2acfa539f7827c1f86b75/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked.lua</source>
       </version>
+      <version name="1.6" author="Mathieu CONAN" time="2024-03-03T22:18:48Z">
+        <changelog><![CDATA[Fix Master track visibility in TCP]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/bab0d2ea905d8aebf6dcc38f0e5593162c90bc53/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked.lua</source>
+      </version>
     </reapack>
     <reapack name="MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-crusor-pos.lua" type="script" desc="Vertical zoom minimizes folders, keeps track lock height, doesn't take care of cursor position (means operate for all arrange view lenght) BUT takes care of tracks without items.">
       <metadata>
@@ -168,6 +172,10 @@
       <version name="1.5" author="Mathieu CONAN" time="2024-02-11T20:43:39Z">
         <changelog><![CDATA[Fix folder increment count error and spacer improvment]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/bc7b1a43e4250b41c13ce8f52bc6a46f7b146c8d/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-crusor-pos.lua</source>
+      </version>
+      <version name="1.6" author="Mathieu CONAN" time="2024-03-03T22:18:48Z">
+        <changelog><![CDATA[Fix Master track visibility in TCP]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/bab0d2ea905d8aebf6dcc38f0e5593162c90bc53/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-crusor-pos.lua</source>
       </version>
     </reapack>
     <reapack name="MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-item-and-curosr-pos.lua" type="script" desc="Vertical zoom minimizes folders, keeps track lock height, doesn't take care of cursor position (means operate for all arrange view lenght) AND doesn't take care of tracks without items.">
@@ -221,6 +229,10 @@
       <version name="1.5" author="Mathieu CONAN" time="2024-02-11T21:42:15Z">
         <changelog><![CDATA[Fix folder increment count error and spacer improvment.]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/dbd3c6d0186e32fbad35d1f80e05e9eda012bce1/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-item-and-curosr-pos.lua</source>
+      </version>
+      <version name="1.6" author="Mathieu CONAN" time="2024-03-03T22:18:48Z">
+        <changelog><![CDATA[Fix Master track visibility in TCP]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/bab0d2ea905d8aebf6dcc38f0e5593162c90bc53/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-item-and-curosr-pos.lua</source>
       </version>
     </reapack>
   </category>
