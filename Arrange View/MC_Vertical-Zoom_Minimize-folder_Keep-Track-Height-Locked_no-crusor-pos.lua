@@ -104,6 +104,9 @@
 --[[ CORE ]]--
 --
 function Main()
+	--we can't get the master track real height so we use a 
+	local master_tr_height = 80
+	local master_tr_vis = reaper.GetMasterTrackVisibility()
 	local nbr_tr_proj=reaper.CountTracks(0)
 	local tr_infos_array={}
 	local minimum_tr_height=minimumTrackHeight()
@@ -152,7 +155,7 @@ function Main()
 		else
 			has_spacer=0
 		end
-				
+
 	--[[ MANAGE FIXED ITEM LANES TRACK (multiple lanes) ]]--
 		-- check track to get FIL true/false
 		is_tr_fil, _ = reaper.GetSetMediaTrackInfo_String( tr, "P_LANENAME:0", "", 0 ) 
@@ -168,8 +171,7 @@ function Main()
 				nbr_fil_lanes=0
 			end
 		end
-
-		
+	
 		--put everything in an array
 		tr_infos_array[#tr_infos_array+1]=
 		{	
@@ -231,6 +233,14 @@ function Main()
 	--we get the arrangeview size (height and width)
 	height,width=sizeOfArrangeView()
 	
+	--if master track is visible, we remove its height from total height and we minimize it
+	if master_tr_vis == 1 then
+		height=height-master_tr_height
+		mst_tr= reaper.GetMasterTrack(0)
+		reaper.SetTrackSelected( mst_tr, true )
+		reaper.Main_OnCommand(reaper.NamedCommandLookup('_SWS_MINTRACKS'),0)--SWS: Minimize selected track(s)
+	end	
+
 	--get total height lock for track height locked and remove it from height
 	local total_locked_height=0
 	local tr_locked_count=0
