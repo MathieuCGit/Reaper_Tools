@@ -1,7 +1,7 @@
 -- @description Vertical zoom, minimize folder, keeps track height locked, takes care of cursor position (means if no item at cursor pos track will be minimized).
--- @version 1.5
+-- @version 1.6
 -- @author Mathieu CONAN
--- @changelog Fix folder increment count error and spacer improvment
+-- @changelog Fix Master track visibility in TCP
 -- @about This script aims to provide a mechanism to resize tracks height. it maximizes the tracks with items height and takes care of track without items (they are minimized too). It also takes care of cursor position. Author URI: https://forum.cockos.com/member.php?u=153781
 -- @licence GPL v3
  
