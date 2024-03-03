@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="0c1415ce8b34637deebf451e39ce05fe80226a1f">
+<index version="1" name="MathieuC Tools" commit="331c92e4348e0d4b6d4d837435687223406acc8e">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -318,6 +318,10 @@
       <version name="0.3" author="Mathieu CONAN" time="2024-02-19T17:01:33Z">
         <changelog><![CDATA[Total rebuild with stronger implementation ( first part = data collect then second part = remove selected notes then, last part = write new data).]]></changelog>
         <source main="midi_editor">https://github.com/MathieuCGit/Reaper_Tools/raw/0c1415ce8b34637deebf451e39ce05fe80226a1f/MIDI%20Editor/MC_convert-arp-to-chord.lua</source>
+      </version>
+      <version name="0.4" author="Mathieu CONAN" time="2024-02-19T17:25:12Z">
+        <changelog><![CDATA[Total rebuild with stronger implementation ( first part = data collect then second part = remove selected notes then, last part = write new data).]]></changelog>
+        <source main="midi_editor">https://github.com/MathieuCGit/Reaper_Tools/raw/331c92e4348e0d4b6d4d837435687223406acc8e/MIDI%20Editor/MC_convert-arp-to-chord.lua</source>
       </version>
     </reapack>
     <reapack name="MC_hide-velocity-handles-notes.lua" type="script" desc="MIDI Editor - force option &quot;View: Show velocity handles on notes&quot; to off">
