@@ -105,7 +105,7 @@
 --
 function Main()
 	--we can't get the master track real height so we use a 
-	local master_tr_height = 80
+	local master_tr_height = 74
 	local master_tr_vis = reaper.GetMasterTrackVisibility()
 	local nbr_tr_proj=reaper.CountTracks(0)
 	local tr_infos_array={}
