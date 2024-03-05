@@ -1,9 +1,9 @@
 -- @description Vertical zoom minimizes folders, keeps track lock height, doesn't take care of cursor position (means operate for all arrange view lenght) AND doesn't take care of tracks without items.
--- @version 1.6
+-- @version 1.7
 -- @author Mathieu CONAN
 -- @about This script aims to provide a mechanism to resize tracks height. it maximizes the tracks with items height and doesn't take care of track without items. It doesn't take care of cursor position.Author URI: https://forum.cockos.com/member.php?u=153781
 -- @licence GPL v3
--- @changelog Fix Master track visibility in TCP
+-- @changelog Take care of env lane height but do not change env lane height
  
 --
 --[[ FUNCTIONS ]]--
@@ -171,7 +171,30 @@ function Main()
 			end
 		end
 
+	--[[ MANAGE ENVELOPE (visible and in lanes or not) ]]--
+	--for each track we check if there is at least one envelope
+		nbr_env= reaper.CountTrackEnvelopes(tr)
+		nbr_env_lane=0
+		envs_height_per_tr=0
 		
+		if nbr_env > 0 then
+			--for each envelope on the track we get its height
+			for i=0, nbr_env-1 do
+				env= reaper.GetTrackEnvelope( tr, i)
+				br_env=reaper.BR_EnvAlloc( env, true )
+				_, visible, _, inLane, _, _, _, _, _, _, _, _ = reaper.BR_EnvGetProperties( br_env )
+				if inLane and visible then
+					--keep env lane height
+					lane_height = reaper.GetEnvelopeInfo_Value( env, "I_TCPH" )
+					envs_height_per_tr=envs_height_per_tr+lane_height
+					nbr_env_lane=nbr_env_lane+1
+
+				end
+				--free ressource, as indicate by reaper.BR_EnvAlloc documentation
+				reaper.BR_EnvFree( bf_env, true )
+			end
+		end
+			
 		--put everything in an array
 		tr_infos_array[#tr_infos_array+1]=
 		{	
@@ -182,10 +205,25 @@ function Main()
 			is_tr_fil=is_tr_fil,
 			nbr_fil_lanes=nbr_fil_lanes,
 			nbr_items=nbr_items,
-			has_spacer=has_spacer
+			has_spacer=has_spacer,
+			nbr_env_lane=nbr_env_lane,
+			envs_height_per_tr=envs_height_per_tr			
 		}	
 	end
 
+------------------------------------------------------------	
+	--[[		GET TOTAL HEIGHT OF VISIBLE ENVELOPE	]]--
+------------------------------------------------------------
+
+	--count the total height (in pixel) for every envelopes in lane
+	proj_envs_height=0
+	for i=1, #tr_infos_array do
+		if tr_infos_array[i]["nbr_env_lane"] > 0 and
+			tr_infos_array[i]["is_in_collapsed"] == 0 then
+			proj_envs_height= proj_envs_height +tr_infos_array[i]["envs_height_per_tr"]
+		end
+	end
+	
 --------------------------------------------------------------------------	
 	--[[		COUNT VISIBLE TRACKS	]]--
 --------------------------------------------------------------------------
@@ -243,6 +281,9 @@ function Main()
 		end
 	end
 	height=height-total_locked_height
+
+	--we remove minimized track envelope
+	height=height-proj_envs_height
 	
 	--we remove the spacers height from height
 	height=height-(spacer_to_remove*spacer_height)
