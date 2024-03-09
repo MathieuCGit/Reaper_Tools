@@ -98,10 +98,6 @@
 }
 ]]></description>
       </metadata>
-      <version name="1.7" author="Mathieu CONAN" time="2024-03-09T14:34:26Z">
-        <changelog><![CDATA[Take care of env lane height but do not change env lane height]]></changelog>
-        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/5ba8650ae6e32621f38dee1373beae501472c395/Arrange%20View/MC_reaticulate-window-filter.lua</source>
-      </version>
       <version name="0.1" author="Mathieu CONAN" time="2024-03-09T14:35:06Z">
         <changelog><![CDATA[Take care of env lane height but do not change env lane height]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/0fa7531c2fdb6b3b80be817dff9c2d3cb1a28721/Arrange%20View/MC_reaticulate-window-filter.lua</source>
