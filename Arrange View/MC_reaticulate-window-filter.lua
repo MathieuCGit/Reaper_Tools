@@ -5,7 +5,7 @@
 -- @about It prevent reaticulate window to be popped up when you use SWS "SWS/S&M: Toggle float FX 1 for selected tracks" to show your VST instrument GUI. Author URI: https://forum.cockos.com/member.php?u=153781
 -- @licence GPL v3
 
--
+--
 --[[ CORE ]]--
 --
 function Main()
