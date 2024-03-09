@@ -1,5 +1,5 @@
 -- @description Reaticulate - create a filter to prevent reaticulate shows up when using toggle instrument on/off
--- @version 1.7
+-- @version 0.1
 -- @author Mathieu CONAN
 -- @changelog Take care of env lane height but do not change env lane height
 -- @about It prevent reaticulate window to be popped up when you use SWS "SWS/S&M: Toggle float FX 1 for selected tracks" to show your VST instrument GUI. Author URI: https://forum.cockos.com/member.php?u=153781
