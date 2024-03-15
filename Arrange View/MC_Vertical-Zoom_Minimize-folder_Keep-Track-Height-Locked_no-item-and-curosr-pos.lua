@@ -1,9 +1,9 @@
 -- @description Vertical zoom minimizes folders, keeps track lock height, doesn't take care of cursor position (means operate for all arrange view lenght) AND doesn't take care of tracks without items.
--- @version 1.7
+-- @version 1.8
 -- @author Mathieu CONAN
 -- @about This script aims to provide a mechanism to resize tracks height. it maximizes the tracks with items height and doesn't take care of track without items. It doesn't take care of cursor position.Author URI: https://forum.cockos.com/member.php?u=153781
 -- @licence GPL v3
--- @changelog Take care of env lane height but do not change env lane height
+-- @changelog Fix osx issue
  
 --
 --[[ FUNCTIONS ]]--
@@ -51,8 +51,13 @@
 	--- This function use Julian Sader method to get arrange view height and width
 	function sizeOfArrangeView()
 		local _, left, top, right, bottom = reaper.JS_Window_GetClientRect( reaper.JS_Window_FindChildByID( reaper.GetMainHwnd(), 1000) )
+		
+		if reaper.GetOS() == "Win32" or reaper.GetOS() == "Win64" or reaper.GetOS() == "Other" then
+		    heightOfArrangeView = bottom - top
+		elseif reaper.GetOS() == "OSX32" or reaper.GetOS() == "OSX64" or "macOS-amd64" then
+			heightOfArrangeView = top - bottom
+		end
 		widthOfArrangeView = right - left
-		heightOfArrangeView = bottom - top
 		return heightOfArrangeView, widthOfArrangeView
 	end
 
