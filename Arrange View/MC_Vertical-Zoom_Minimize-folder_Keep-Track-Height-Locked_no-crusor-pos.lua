@@ -201,11 +201,15 @@ function Main()
 			end
 		end
 		
+		--[[ GET MUTE STATE ]]--
+		tr_mute_state = reaper.GetMediaTrackInfo_Value( tr, "B_MUTE" )
+		
 		--put everything in an array
 		tr_infos_array[#tr_infos_array+1]=
 		{	
 			tr_lock_state=tr_lock_state,
 			tr_visible_state=tr_visible_state,
+			tr_mute_state=tr_mute_state,
 			tr_height=tr_height,
 			is_in_collapsed=is_in_collapsed,
 			is_tr_fil=is_tr_fil,
@@ -235,11 +239,13 @@ function Main()
 --------------------------------------------------------------------------
 	local tr_count=0
 	local tr_vis_no_item=0
+	local tr_muted=0
 	for i=1, #tr_infos_array do
 		if tr_infos_array[i]["tr_lock_state"] == 0.0 and
 			tr_infos_array[i]["tr_visible_state"] == 1.0 and
 			tr_infos_array[i]["nbr_items"] > 0 and
-			tr_infos_array[i]["is_in_collapsed"] == 0 then
+			tr_infos_array[i]["is_in_collapsed"] == 0 and
+			tr_infos_array[i]["tr_mute_state"] == 0.0	then
 				
 				--nbr of track not locked, visible, not in a collapsed folder
 				tr_count=tr_count+1
@@ -248,8 +254,16 @@ function Main()
 			tr_infos_array[i]["nbr_items"] == 0 and
 			tr_infos_array[i]["is_in_collapsed"] == 0 then
 		
-			--nbr of track visible but without items
-			tr_vis_no_item=tr_vis_no_item+1
+				--nbr of track visible but without items
+				tr_vis_no_item=tr_vis_no_item+1
+			
+		elseif tr_infos_array[i]["tr_visible_state"] == 1.0 and 
+			tr_infos_array[i]["is_in_collapsed"] == 0 and
+			tr_infos_array[i]["tr_mute_state"] == 1.0 then
+				
+				--we want to also minimized muted tracks
+				tr_muted=tr_muted+1
+			
 		end
 	end
 	
@@ -303,8 +317,8 @@ function Main()
 	--we remove the spacers height from height
 	height=height-(spacer_to_remove*spacer_height)
 	
-	--we remove visible tracks without items height
-	height=height-(tr_vis_no_item*minimum_tr_height)
+	--we remove visible tracks without items height and muted tracks
+	height=height-((tr_vis_no_item+tr_muted)*minimum_tr_height)
 	
 	--we divide the height of the arrange view by the track count
 	size_of_each_track=math.floor(height/tr_count)
@@ -320,9 +334,10 @@ function Main()
 			tr_infos_array[i]["tr_visible_state"] == 1.0 and
 			tr_infos_array[i]["is_tr_fil"] == false and
 			tr_infos_array[i]["nbr_items"] > 0 and
-			tr_infos_array[i]["is_in_collapsed"] == 0 then
+			tr_infos_array[i]["is_in_collapsed"] == 0 and
+			tr_infos_array[i]["tr_mute_state"] == 0.0	then
 			
-			--if track is not locked, is visible in TCP, is not in collapsed folder we apply the new track height
+			--if track is not locked, is visible in TCP, is not in collapsed folder ans is not muted we apply the new track height
 			reaper.SetMediaTrackInfo_Value( tr, "I_HEIGHTOVERRIDE", size_of_each_track)
 		
 		elseif tr_infos_array[i]["tr_lock_state"] == 0.0 and
@@ -333,10 +348,14 @@ function Main()
 			
 			fil_tr_height=size_of_each_track/tr_infos_array[i]["nbr_fil_lanes"]
 			reaper.SetMediaTrackInfo_Value( tr, "I_HEIGHTOVERRIDE", fil_tr_height)
-			
-		elseif tr_infos_array[i]["tr_lock_state"] == 0.0 then
 		
-			reaper.SetMediaTrackInfo_Value( tr, "I_HEIGHTOVERRIDE", 1)
+		elseif tr_infos_array[i]["tr_mute_state"] == 1.0 then
+			--if track is muted wew minimized it
+			reaper.SetMediaTrackInfo_Value( tr, "I_HEIGHTOVERRIDE", minimum_tr_height)
+		
+		elseif tr_infos_array[i]["tr_lock_state"] == 0.0 then
+			--for every other tracks we apply minimization
+			reaper.SetMediaTrackInfo_Value( tr, "I_HEIGHTOVERRIDE", minimum_tr_height)
 			
 		end
 	end
@@ -346,8 +365,7 @@ function Main()
 
 end
 
-
- --
+--
 --[[ EXECUTION ]]--
 --
 
