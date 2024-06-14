@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="74fd263d0f3022e56b82a0a19a55c8e3ed1ac420">
+<index version="1" name="MathieuC Tools" commit="f5aaf2f4350e06feab90eed82352082df66405e8">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -37,6 +37,21 @@
       <version name="0.3" author="Mathieu CONAN" time="2023-04-18T23:12:14Z">
         <changelog><![CDATA[add: You can now specify the folder depth (see FOLDER_DEPTH in script header)]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/a6bbc08116e407ec5c61c08e9c79770e0f5fcfb0/Arrange%20View/MC_ALaLogic_TCP-folder-separator.lua</source>
+      </version>
+    </reapack>
+    <reapack name="MC_collpase-uncollapse_folder-containg-tracj-under-mouse.lua" type="script" desc="collapse / uncollapse folder folder containing track under mouse cursor">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 This script aims to provide fast way to collapse uncollapse folders, making it easier to switch from instrument groups (for example: drums, keys,strings,etc.). It works even if you have tracks selected accros multiple folders\par}
+}
+]]></description>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2024-06-14T16:42:35Z">
+        <changelog><![CDATA[init]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/f5aaf2f4350e06feab90eed82352082df66405e8/Arrange%20View/MC_collpase-uncollapse_folder-containg-tracj-under-mouse.lua</source>
       </version>
     </reapack>
     <reapack name="MC_collpase-uncollapse_top-level_folder.lua" type="script" desc="If top level folder is collapsed, script uncollapsed (and vice versa)">
