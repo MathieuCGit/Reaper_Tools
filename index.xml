@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="1a5c197b901c87ac5fcd9e2fd6375d70d0d0e6ba">
+<index version="1" name="MathieuC Tools" commit="1780467d2fc053e8095e913802fed28fe4cd4b68">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -67,6 +67,11 @@
       <version name="0.1" author="Mathieu CONAN" time="2024-04-08T15:19:58Z">
         <changelog><![CDATA[init]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/74fd263d0f3022e56b82a0a19a55c8e3ed1ac420/Arrange%20View/MC_collpase-uncollapse_top-level_folder.lua</source>
+      </version>
+    </reapack>
+    <reapack name="MC_item_tracking_during_playback.lua" type="script" desc="Item Tracking During Playback">
+      <version name="0.1" author="Mathieu CONAN" time="2024-07-04T14:42:09Z">
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/1780467d2fc053e8095e913802fed28fe4cd4b68/Arrange%20View/MC_item_tracking_during_playback.lua</source>
       </version>
     </reapack>
     <reapack name="MC_Move-edit-cursor-to-the-end-of-time-selection-while-playing.lua" type="script" desc="Move edit cursor to the end of time selection while playing">
