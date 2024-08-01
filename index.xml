@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="1780467d2fc053e8095e913802fed28fe4cd4b68">
+<index version="1" name="MathieuC Tools" commit="390aeaaee1422aa63d496e8e356dedd30fb69dd4">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -504,6 +504,23 @@
     </reapack>
   </category>
   <category name="Tracks">
+    <reapack name="MC_manage-multiple-sends-volume.lua" type="script" desc="Manage Multiple Sends Volume">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 Manage Multiple Sends Volume\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 This script monitors send volume changes for the track under the mouse cursor and applies the same changes to other selected tracks. It uses logarithm approach to preserve relative volume in dedibel.\par}
+}
+]]></description>
+        <link rel="website">https://github.com/MathieuCGit/Reaper_Tools</link>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2024-08-01T20:49:34Z">
+        <changelog><![CDATA[Initial release.]]></changelog>
+        <source main="main" file="Manage Multiple Sends Volume.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/390aeaaee1422aa63d496e8e356dedd30fb69dd4/Tracks/MC_manage-multiple-sends-volume.lua</source>
+      </version>
+    </reapack>
     <reapack name="MC_Toggle-mute-track-under-mouse.lua" type="script" desc="Toggle mute track under mouse">
       <version name="0.1" author="Mathieu CONAN" time="2023-11-28T13:53:17Z">
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/13133419c11ab6367184cf4a7069d65c6132e030/Tracks/MC_Toggle-mute-track-under-mouse.lua</source>
