@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="390aeaaee1422aa63d496e8e356dedd30fb69dd4">
+<index version="1" name="MathieuC Tools" commit="ad4fbe2fa01297a72c5426c8f5f8508a1275ca77">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -519,6 +519,10 @@
       <version name="0.1" author="Mathieu CONAN" time="2024-08-01T20:49:34Z">
         <changelog><![CDATA[Initial release.]]></changelog>
         <source main="main" file="Manage Multiple Sends Volume.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/390aeaaee1422aa63d496e8e356dedd30fb69dd4/Tracks/MC_manage-multiple-sends-volume.lua</source>
+      </version>
+      <version name="0.2" author="Mathieu CONAN" time="2024-08-02T14:23:51Z">
+        <changelog><![CDATA[Fix logarithmic mathematic function to convert linear to db and db to linear. Now script really respect dB scale]]></changelog>
+        <source main="main" file="Manage Multiple Sends Volume.lua">https://github.com/MathieuCGit/Reaper_Tools/raw/ad4fbe2fa01297a72c5426c8f5f8508a1275ca77/Tracks/MC_manage-multiple-sends-volume.lua</source>
       </version>
     </reapack>
     <reapack name="MC_Toggle-mute-track-under-mouse.lua" type="script" desc="Toggle mute track under mouse">
