@@ -1,5 +1,5 @@
 -- @description Manage Multiple Sends Volume
--- @version 0.2
+-- @version 0.3
 -- @author Mathieu CONAN
 -- @link https://github.com/MathieuCGit/Reaper_Tools
 -- @about
@@ -8,7 +8,7 @@
 -- @provides
 --   [main] . > Manage Multiple Sends Volume.lua
 -- @changelog
---   Fix logarithmic mathematic function to convert linear to db and db to linear. Now script really respect dB scale
+--   Fix manage the case of reaper preferences > track/send default > send defautl gain is set to "-inf"
 
 -- Conversion functions
 function linearToDb(linear)
@@ -45,6 +45,13 @@ function apply_changes(delta_vol_db, cur_tr_rcv_num, cur_tr_guid)
                 if cur_tr_rcv_num == tr_rcv_num then
                     -- we get the send volume of this track in dB
                     local current_send_vol = reaper.GetTrackSendInfo_Value(cur_track, 0, j, "D_VOL")
+					
+					-- we check if the send volume is -inf.
+					if current_send_vol <= 0.0 or tonumber(current_send_vol) == nil then
+						--if send vol is -inf, we give it a minimal value
+						current_send_vol=0.00001
+					end
+					
                     local current_send_vol_db = linearToDb(current_send_vol)
                     -- and apply the delta in dB to its current send volume
                     local new_send_vol_db = current_send_vol_db + delta_vol_db
@@ -85,6 +92,13 @@ function mon_send_vol()
             for j = 0, send_count - 1 do
                 -- we get send volume in dB
                 local send_vol = reaper.GetTrackSendInfo_Value(cur_track, 0, j, "D_VOL") -- 0 for regular sends
+				
+				-- we check if the send volume is -inf.
+				if send_vol <= 0.0 or tonumber(send_vol) == nil then
+					--if send vol is -inf, we give it a minimal value
+					send_vol=0.00001
+				end
+				
                 local send_vol_db = linearToDb(send_vol)
                 -- but also track destination
                 local receive = reaper.GetTrackSendInfo_Value(cur_track, 0, j, "P_DESTTRACK")
