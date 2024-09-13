@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="d5136aa1173c5affd28890284a8cb1fb0709e84b">
+<index version="1" name="MathieuC Tools" commit="fde3fc2ff20b1c09525df674abfca2fb26ada320">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -564,6 +564,22 @@
       <version name="0.1" author="Mathieu CONAN" time="2024-01-12T09:37:08Z">
         <changelog><![CDATA[Initial release]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/c2755f78303b872fe600501069d69e204b037dfc/Utilities/MC_portable-install_rebuild-embeded-database.lua</source>
+      </version>
+    </reapack>
+    <reapack name="MC_set-default-VST-parameter.lua" type="script" desc="set VST parameters fo portable install (Vital)">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Set some default preferences for some VST instruments. It aims to provide a default environment for portable reaper installation (typicaly on an USB stick or on the Desktop). Actualy supported:\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/Reaper_Tools/tree/main">Github repository</link>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2024-09-13T10:19:37Z">
+        <changelog><![CDATA[Initial release]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/1d1996b5bb68cf25837f6d9f2a589b7d4f1cccff/Utilities/MC_set-default-VST-parameter.lua</source>
       </version>
     </reapack>
   </category>
