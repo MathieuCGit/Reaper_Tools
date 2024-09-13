@@ -47,6 +47,9 @@ end
 						
 						-- if the destination track is the same as the track we are moving the button on
 						if cur_tr_rcv_num == tr_rcv_num then
+						
+						--[[ TODO: check also than channels are the same]]--
+						
 							-- we get the send volume of this track in dB
 							local current_send_vol = reaper.GetTrackSendInfo_Value(cur_track, 0, j, "D_VOL")
 								
