@@ -1,4 +1,4 @@
--- @description set VST parameters fo portable install (Vital)
+-- @description Set VST parameters fo portable install (Vital)
 -- @author Mathieu CONAN   
 -- @version 0.1
 -- @changelog Initial release
@@ -8,43 +8,11 @@
 --	  - Vital synth
 --
 
-
 --
 --
 --[[	FILES AND FOLDERS FUNCTIONS	]]--
 --
 --
-	-- Function to create a new directory, cross-platform
-	function create_dir(dir_path)
-		-- Detect the operating system
-		local isWindows = package.config:sub(1,1) == '\\'
-		
-		-- Command to create the directory
-		local command
-		
-		if isWindows then
-			command = 'mkdir "' .. dir_path .. '"'
-		else
-			command = 'mkdir -p "' .. dir_path .. '"'
-		end
-
-		-- Execute the command
-		local result = os.execute(command)
-		
-		if result == 0 then
-			print("Directory created:", dir_path)
-			return true
-		else
-			print("Failed to create directory:", dir_path)
-			return false
-		end
-	end
-
-	function file_exists(name)
-	   local f=io.open(name,"r")
-	   if f~=nil then io.close(f) return true else return false end
-	end
-
 	--- Check if a file or directory exists in this path
 	function exists(file)
 	   local ok, err, code = os.rename(file, file)
@@ -57,44 +25,23 @@
 	   return ok, err
 	end
 
-	--- Check if a directory exists in this path
-	function isdir(path)
-	   -- "/" works on both Unix and Windows
-	   return exists(path.."/")
-	end
-
-	-- Check if folder exists --
-	function FolderExists(strFolderName)
-	  local fileHandle, strError = io.open(strFolderName.."\\*.*","r")
-	  if fileHandle ~= nil then
-		io.close(fileHandle)
-		return true
-	  else
-		if string.match(strError,"No such file or directory") then
-		  return false
-		else
-		  return true
-		end
-	  end
-	end
 
 	--This method attempts to rename the path to itself, which will succeed for files but fail for directories on some systems.
+	-- Function to check if a path is a file, folder, or does not exist (cross-platform)
 	function is_file_or_folder(path)
-		-- Try to open the path as a file
 		local file = io.open(path, "r")
 
+		-- If it can be opened, it's a file
 		if file then
 			file:close()
-
-			-- Check if it can be renamed to itself (works on most systems)
-			if os.rename(path, path) then
-				return "file"
-			else
-				return "folder"
-			end
+			return "file"
 		else
-			-- If opening fails, check if it's a directory
-			if os.rename(path, path) then
+			-- Try os.rename, which behaves differently for files and folders
+			local ok, err, code = os.rename(path, path)
+			if ok then
+				return "folder"
+			elseif code == 13 then
+				-- Permission denied, but it exists (likely a folder)
 				return "folder"
 			else
 				return "does not exist"
@@ -104,21 +51,23 @@
 
 	-- Function to create a new directory, cross-platform
 	function create_directory(dir_path)
-		local is_windows = package.config:sub(1,1) == '\\'
+		local current_os = reaper.GetOS()
 		local command
-		
-		if is_windows then
+
+		-- Use "mkdir -p" for Unix-based systems (macOS, Linux), and "mkdir" for Windows
+		if current_os == "Win64" then
 			command = 'mkdir "' .. dir_path .. '"'
-		else
+		else 
 			command = 'mkdir -p "' .. dir_path .. '"'
 		end
-		
+
+		-- Execute the command
 		local result = os.execute(command)
-		
-		if result == 0 then
+
+		-- Check result and print error if directory creation failed
+		if result == 0 or result == true then
 			return true
 		else
-			print("Failed to create directory:", dir_path)
 			return false
 		end
 	end
@@ -126,35 +75,51 @@
 	-- Function to read all files and directories in a directory
 	function get_items_in_directory(dir_path)
 		local items = {}
-		local p = io.popen('dir "' .. dir_path .. '" /b /a')  -- For Windows: /b (bare format), /a (include directories)
-		if not p then
+		local current_os = reaper.GetOS()
+
+		-- Use the appropriate command for each operating system
+		local p
+		if current_os == "Win64" then
+			p = io.popen('dir "' .. dir_path .. '" /b /a')  -- For Windows: /b (bare format), /a (include directories)
+		else
 			p = io.popen('ls -A "' .. dir_path .. '"')  -- For Unix-like systems: -A (show all except . and ..)
 		end
+
+		-- Collect the results with the full file name and extension
 		for item in p:lines() do
 			table.insert(items, item)
 		end
 		p:close()
+
 		return items
 	end
 
-	-- Function to copy a file
+	-- Function to copy a file, preserving its extension
 	function copy_file(src, dest)
+		-- Open the source file in binary mode for reading
 		local input_file = io.open(src, "rb")
 		if not input_file then
-			print("Error: Cannot open source file:", src)
 			return false
 		end
 
+		-- Open the destination file in binary mode for writing
 		local output_file = io.open(dest, "wb")
-		if not output_file then
-			print("Error: Cannot open destination file:", dest)
 			input_file:close()
 			return false
 		end
 
+		-- Read the entire content of the source file
 		local content = input_file:read("*all")
+
+		-- Handle case where content is nil (should be rare)
+		if content == nil then
+			content = ""  -- Treat as an empty file
+		end
+
+		-- Write content to the destination file
 		output_file:write(content)
 
+		-- Close both files
 		input_file:close()
 		output_file:close()
 
@@ -163,7 +128,7 @@
 
 	-- Recursive function to copy all files and subdirectories from one directory to another
 	function copy_directory_recursive(src_dir, dest_dir)
-		-- Ensure both directories end with a separator (works on every systems including Windows)
+		-- Ensure both directories end with a separator (works on every system including Windows)
 		if string.sub(src_dir, -1) ~= '/' then src_dir = src_dir .. '/' end
 		if string.sub(dest_dir, -1) ~= '/' then dest_dir = dest_dir .. '/' end
 
@@ -172,16 +137,19 @@
 
 		-- Get the list of items in the source directory
 		local items = get_items_in_directory(src_dir)
-		
+
 		-- Copy each item to the destination directory
 		for _, item in ipairs(items) do
-			local src_path = src_dir .. item
-			local dest_path = dest_dir .. item
-			
-			if io.open(src_path, "rb") then
+			local src_path = src_dir .. item  -- Full path to the source item
+			local dest_path = dest_dir .. item -- Full path to the destination item
+
+			-- Check if the source is a file or directory
+			local item_type = is_file_or_folder(src_path)
+			if item_type == "file" then
 				-- It's a file; copy it
 				copy_file(src_path, dest_path)
-			else
+			elseif item_type == "folder" then
+				create_directory(dest_dir..sep..item)
 				-- It's a directory; recursively copy it
 				copy_directory_recursive(src_path, dest_path)
 			end
@@ -189,60 +157,41 @@
 	end
 
 
-
 function Main()
 
---[[
-OSX : ~/Library/Application Support/vital/Vital.config
-Win:C:\Users\YOURNAME\AppData\Roaming\vital
-Linux:/home/user/.local/share/vital
-]]--
+	--[[
+	OSX : ~/Library/Application Support/vital/Vital.config
+	Win:C:\Users\YOURNAME\AppData\Roaming\vital
+	Linux:/home/user/.local/share/vital
+	]]--
 
 	local current_os=reaper.GetOS()
 	--if we are in windows, separator = \ else separator = /
 	local sep = current_os:match('Win') and '\\' or '/'
-	
+
+--[[ VITAL CONFIGURATION ]]--
 	--Ressources location in the portable Reaper folder
 	local vital_def_preset_path= reaper.GetResourcePath()..sep.."presets"..sep.."VST3 Presets"..sep.."Vital"..sep
-	
-	
 	if current_os == "Win64" then
-		--vital
 		vital_config_path=os.getenv("HOMEDRIVE")..os.getenv("HOMEPATH").."\\AppData\\Roaming\\vital\\"
 		vital_preset_path=os.getenv("HOMEDRIVE")..os.getenv("HOMEPATH").."\\Documents\\Vital\\"
-		
 	elseif current_os == "OSX64" then
-		--vital
 		vital_config_path=os.getenv("HOME").."/Library/Application Support/Vital/"
 		vital_preset_path=os.getenv("HOME").."/Library/Audio/Presets/Vital/"
 	end
 
-	-- vst_table={
-		-- {vst_name="vital",
-		-- preset_path=vital_preset_path,
-		-- config_path=vital_config_path,
-		-- },
-		-- {vst_name="decent",
-		-- preset_win=0,
-		-- preset_osx=1,
-		-- dest_preset_win=2,
-		-- dest_preset_osx=3
-		-- }
-	-- }
-	-- dbg(dumpvar(vst_table))
-
-	
 	--if preset path doesn't  exists we create it
 	if not exists(vital_preset_path) and is_file_or_folder(vital_preset_path) ~= "folder" then
-		create_dir(vital_preset_path)
+		create_directory(vital_preset_path)
 	end
-	
-	-- Example usage
-	local src_dir = vital_def_preset_path
-	local dest_dir = vital_preset_path
-	copy_directory_recursive(src_dir, dest_dir)
-end
 
+	-- copy files recursively
+	if current_os == "Win64" then
+		copy_directory_recursive(vital_def_preset_path, vital_preset_path)
+	elseif current_os == "OSX64" then
+		os.execute("cp -rf \""..vital_def_preset_path.."\" \""..vital_preset_path.."\"")			
+	end
+end
 --
 --
 --[[ EXECUTION ]]--
