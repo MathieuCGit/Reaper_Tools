@@ -12,15 +12,15 @@
 --   Script now manage mute state
 
 -- Conversion functions
-function linearToDb(linear)
-    if linear == 0 then
-        return -math.huge
-    else
-        return 20 * math.log(linear, 10)
-    end
-end
+	function linearToDb(linear)
+		if linear == 0 then
+			return -math.huge
+		else
+			return 20 * math.log(linear, 10)
+		end
+	end
 
-function dbToLinear(db)
+	function dbToLinear(db)
     return 10 ^ (db / 20)
 end
 
