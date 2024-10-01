@@ -1,6 +1,6 @@
 -- @description Set VST parameters fo portable install (Vital)
 -- @author Mathieu CONAN   
--- @version 0.4
+-- @version 0.4.1
 -- @changelog FIX: copy_directory_recursive - separator OS dependant
 -- @link Github repository https://github.com/MathieuCGit/Reaper_Tools/tree/main
 -- @about Set some default preferences for some VST instruments. It aims to provide a default environment for portable reaper installation (typicaly on an USB stick or on the Desktop). 
