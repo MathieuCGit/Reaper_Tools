@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="23578d1604ea1f862a56a1cb420b04c034c06a83">
+<index version="1" name="MathieuC Tools" commit="13d8a01103077cfa8412983d14f9832ba276906e">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -588,6 +588,10 @@
       <version name="0.3" author="Mathieu CONAN" time="2024-10-01T11:18:51Z">
         <changelog><![CDATA[Fix copy_file() function issue]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/23578d1604ea1f862a56a1cb420b04c034c06a83/Utilities/MC_set-default-VST-parameter.lua</source>
+      </version>
+      <version name="0.4" author="Mathieu CONAN" time="2024-10-01T11:23:01Z">
+        <changelog><![CDATA[FIX: copy_directory_recursive - separator OS dependant]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/13d8a01103077cfa8412983d14f9832ba276906e/Utilities/MC_set-default-VST-parameter.lua</source>
       </version>
     </reapack>
   </category>
