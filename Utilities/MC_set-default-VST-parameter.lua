@@ -1,7 +1,7 @@
 -- @description Set VST parameters fo portable install (Vital)
 -- @author Mathieu CONAN   
--- @version 0.3
--- @changelog Fix copy_file() function issue
+-- @version 0.4
+-- @changelog FIX: copy_directory_recursive - separator OS dependant
 -- @link Github repository https://github.com/MathieuCGit/Reaper_Tools/tree/main
 -- @about Set some default preferences for some VST instruments. It aims to provide a default environment for portable reaper installation (typicaly on an USB stick or on the Desktop). 
 --    Actualy supported:
@@ -129,6 +129,10 @@
 
 	-- Recursive function to copy all files and subdirectories from one directory to another
 	function copy_directory_recursive(src_dir, dest_dir)
+	
+		--if we are in windows, separator = \ else separator = /
+		local sep = current_os:match('Win') and '\\' or '/'
+	
 		-- Ensure both directories end with a separator (works on every system including Windows)
 		if string.sub(src_dir, -1) ~= '/' then src_dir = src_dir .. '/' end
 		if string.sub(dest_dir, -1) ~= '/' then dest_dir = dest_dir .. '/' end
