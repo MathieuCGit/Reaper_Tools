@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="c7e591c40677ad2b1d3cc3944002fc6e6d168e58">
+<index version="1" name="MathieuC Tools" commit="23578d1604ea1f862a56a1cb420b04c034c06a83">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -584,6 +584,10 @@
       <version name="0.2" author="Mathieu CONAN" time="2024-09-21T11:43:34Z">
         <changelog><![CDATA[Fix OSX copy presets method]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/c7e591c40677ad2b1d3cc3944002fc6e6d168e58/Utilities/MC_set-default-VST-parameter.lua</source>
+      </version>
+      <version name="0.3" author="Mathieu CONAN" time="2024-10-01T11:18:51Z">
+        <changelog><![CDATA[Fix copy_file() function issue]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/23578d1604ea1f862a56a1cb420b04c034c06a83/Utilities/MC_set-default-VST-parameter.lua</source>
       </version>
     </reapack>
   </category>
