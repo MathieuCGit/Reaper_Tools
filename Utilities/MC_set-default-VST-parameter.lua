@@ -1,7 +1,7 @@
 -- @description Set VST parameters fo portable install (Vital)
 -- @author Mathieu CONAN   
--- @version 0.2
--- @changelog Fix OSX copy presets method
+-- @version 0.3
+-- @changelog Fix copy_file() function issue
 -- @link Github repository https://github.com/MathieuCGit/Reaper_Tools/tree/main
 -- @about Set some default preferences for some VST instruments. It aims to provide a default environment for portable reaper installation (typicaly on an USB stick or on the Desktop). 
 --    Actualy supported:
