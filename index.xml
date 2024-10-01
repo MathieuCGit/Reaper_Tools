@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="fde3fc2ff20b1c09525df674abfca2fb26ada320">
+<index version="1" name="MathieuC Tools" commit="c7e591c40677ad2b1d3cc3944002fc6e6d168e58">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -566,7 +566,7 @@
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/c2755f78303b872fe600501069d69e204b037dfc/Utilities/MC_portable-install_rebuild-embeded-database.lua</source>
       </version>
     </reapack>
-    <reapack name="MC_set-default-VST-parameter.lua" type="script" desc="set VST parameters fo portable install (Vital)">
+    <reapack name="MC_set-default-VST-parameter.lua" type="script" desc="Set VST parameters fo portable install (Vital)">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
@@ -580,6 +580,10 @@
       <version name="0.1" author="Mathieu CONAN" time="2024-09-13T10:19:37Z">
         <changelog><![CDATA[Initial release]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/1d1996b5bb68cf25837f6d9f2a589b7d4f1cccff/Utilities/MC_set-default-VST-parameter.lua</source>
+      </version>
+      <version name="0.2" author="Mathieu CONAN" time="2024-09-21T11:43:34Z">
+        <changelog><![CDATA[Fix OSX copy presets method]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/c7e591c40677ad2b1d3cc3944002fc6e6d168e58/Utilities/MC_set-default-VST-parameter.lua</source>
       </version>
     </reapack>
   </category>
