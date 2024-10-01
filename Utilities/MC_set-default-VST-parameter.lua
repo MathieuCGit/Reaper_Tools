@@ -104,6 +104,7 @@
 
 		-- Open the destination file in binary mode for writing
 		local output_file = io.open(dest, "wb")
+		if not output_file then
 			input_file:close()
 			return false
 		end
