@@ -131,6 +131,7 @@
 	function copy_directory_recursive(src_dir, dest_dir)
 	
 		--if we are in windows, separator = \ else separator = /
+		local current_os=reaper.GetOS()
 		local sep = current_os:match('Win') and '\\' or '/'
 	
 		-- Ensure both directories end with a separator (works on every system including Windows)
