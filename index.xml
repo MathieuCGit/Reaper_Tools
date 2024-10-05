@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="4e9107a8abe0918eabdf55466dc9b99e90670830">
+<index version="1" name="MathieuC Tools" commit="bd2e628b054b3261308d93e78d8cbaeb6070799c">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -566,7 +566,7 @@
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/c2755f78303b872fe600501069d69e204b037dfc/Utilities/MC_portable-install_rebuild-embeded-database.lua</source>
       </version>
     </reapack>
-    <reapack name="MC_set-default-VST-parameter.lua" type="script" desc="Set VST parameters fo portable install (Vital)">
+    <reapack name="MC_set-default-VST-parameter.lua" type="script" desc="Set VST parameters fo portable install (Vital,SpeeDrum lite)">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
@@ -596,6 +596,14 @@
       <version name="0.4.1" author="Mathieu CONAN" time="2024-10-01T11:30:43Z">
         <changelog><![CDATA[FIX: copy_directory_recursive - separator OS dependant]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/4e9107a8abe0918eabdf55466dc9b99e90670830/Utilities/MC_set-default-VST-parameter.lua</source>
+      </version>
+      <version name="0.4.2" author="Mathieu CONAN" time="2024-10-05T12:02:27Z">
+        <changelog><![CDATA[FIX: prevent freeze/lag/flickering when folder already exists]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/05ed2993cb254f9120f9a42476f51000670e3726/Utilities/MC_set-default-VST-parameter.lua</source>
+      </version>
+      <version name="0.4.3" author="Mathieu CONAN" time="2024-10-05T15:15:47Z">
+        <changelog><![CDATA[NEW: Add speeDrum lite support]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/bd2e628b054b3261308d93e78d8cbaeb6070799c/Utilities/MC_set-default-VST-parameter.lua</source>
       </version>
     </reapack>
   </category>
