@@ -1,7 +1,7 @@
 -- @description Set VST parameters fo portable install (Vital)
 -- @author Mathieu CONAN   
--- @version 0.4.1
--- @changelog FIX: copy_directory_recursive - separator OS dependant
+-- @version 0.4.2
+-- @changelog FIX: prevent freeze/lag/flickering when folder already exists
 -- @link Github repository https://github.com/MathieuCGit/Reaper_Tools/tree/main
 -- @about Set some default preferences for some VST instruments. It aims to provide a default environment for portable reaper installation (typicaly on an USB stick or on the Desktop). 
 --    Actualy supported:
@@ -189,6 +189,9 @@ function Main()
 	--if preset path doesn't  exists we create it
 	if not exists(vital_preset_path) and is_file_or_folder(vital_preset_path) ~= "folder" then
 		create_directory(vital_preset_path)
+	else
+		--if folder exists we stop the script
+		return true
 	end
 
 	-- copy files recursively
