@@ -1,11 +1,12 @@
--- @description Set VST parameters fo portable install (Vital)
+-- @description Set VST parameters fo portable install (Vital,SpeeDrum lite)
 -- @author Mathieu CONAN   
--- @version 0.4.2
--- @changelog FIX: prevent freeze/lag/flickering when folder already exists
+-- @version 0.4.3
+-- @changelog NEW: Add speeDrum lite support
 -- @link Github repository https://github.com/MathieuCGit/Reaper_Tools/tree/main
 -- @about Set some default preferences for some VST instruments. It aims to provide a default environment for portable reaper installation (typicaly on an USB stick or on the Desktop). 
 --    Actualy supported:
 --	  - Vital synth
+--    - SpeeDrum Lite drumrack
 --
 
 --
@@ -162,7 +163,35 @@
 		end
 	end
 
+	--check if a folder contains files or not
+	function is_folder_empty(path)
+		-- Ensure the path ends without a trailing separator
+		if path:sub(-1) == "/" or path:sub(-1) == "\\" then
+			path = path:sub(1, -2)
+		end
 
+		local command
+		if package.config:sub(1, 1) == '\\' then
+			-- For Windows
+			command = 'dir "' .. path .. '" /b /a-d /a-h /s 2>nul | find /c /v ""'
+		else
+			-- For Linux/macOS
+			command = 'ls -A "' .. path .. '" | wc -l'
+		end
+
+		local handle = io.popen(command)
+		local result = handle:read("*a")
+		handle:close()
+
+		-- Convert the result to a number and check if it's zero
+		local file_count = tonumber(result)
+		if file_count == nil or file_count == 0 then
+			return true  -- The folder is empty
+		else
+			return false -- The folder is not empty
+		end
+	end
+	
 function Main()
 
 	--[[
@@ -189,18 +218,77 @@ function Main()
 	--if preset path doesn't  exists we create it
 	if not exists(vital_preset_path) and is_file_or_folder(vital_preset_path) ~= "folder" then
 		create_directory(vital_preset_path)
-	else
-		--if folder exists we stop the script
-		return true
+	end
+	
+	if is_folder_empty(vital_preset_path) == true then
+		-- copy files recursively
+		if current_os == "Win64" then
+			copy_directory_recursive(vital_def_preset_path, vital_preset_path)
+		elseif current_os == "OSX64" then
+			os.execute("cp -rf \""..vital_def_preset_path.."\" \""..vital_preset_path.."\"")			
+		end
 	end
 
-	-- copy files recursively
+--[[ SPEEDRUM LITE CONFIGURATION ]]--
+	--Ressources location in the portable Reaper folder
+	local speedrum_def_preset_path= reaper.GetResourcePath()..sep.."presets"..sep.."VST3 Presets"..sep.."speedrum"..sep
 	if current_os == "Win64" then
-		copy_directory_recursive(vital_def_preset_path, vital_preset_path)
+		speedrum_config_path=os.getenv("HOMEDRIVE")..os.getenv("HOMEPATH").."\\AppData\\Roaming\\Apisonic\\"
 	elseif current_os == "OSX64" then
-		os.execute("cp -rf \""..vital_def_preset_path.."\" \""..vital_preset_path.."\"")			
+		speedrum_config_path=os.getenv("HOME").."/Library/Application Support/Apisonic/"
 	end
+
+	--if preset path doesn't  exists we create it
+	if not exists(speedrum_config_path) and is_file_or_folder(speedrum_config_path) ~= "folder" then
+		create_directory(speedrum_config_path)
+	end	
+	
+	--we create the default settings file regarding actual reaper location on the computer
+	if is_folder_empty(speedrum_config_path) == true then
+		--local path to config file
+		local file_path=speedrum_config_path..sep.."SpeedrumLite.settings"
+		
+		--file content
+		local file_content = [[<?xml version="1.0" encoding="UTF-8"?>
+
+		<PROPERTIES>
+		  <VALUE name="MidiNoteSelectPad" val="0"/>
+		  <VALUE name="ClearPadResetOutput" val="0"/>
+		  <VALUE name="PlayPadOnClick" val="1"/>
+		  <VALUE name="DefaultSize" val="100"/>
+		  <VALUE name="UserDir0" val="]]..speedrum_def_preset_path..[["/>
+		  <VALUE name="UserDir1" val="]]..reaper.GetResourcePath()..sep.."SampleLib"..[["/>
+		  <VALUE name="UserDir2" val=""/>
+		  <VALUE name="UserDir3" val=""/>
+		  <VALUE name="UserDir4" val=""/>
+		  <VALUE name="UserDir5" val=""/>
+		  <VALUE name="UserDir6" val=""/>
+		  <VALUE name="UserDir7" val=""/>
+		  <VALUE name="UserDir8" val=""/>
+		  <VALUE name="UserDir9" val=""/>
+		  <VALUE name="AutoplayVolume" val="0.699999988079071"/>
+		  <VALUE name="BrowserAutoplay" val="1"/>
+		  <VALUE name="BrowserAutoload" val="0"/>
+		  <VALUE name="KitSaveAsSamples" val="0"/>
+		  <VALUE name="KitSaveAsTriggerMap" val="0"/>
+		  <VALUE name="KitSaveAsCoverArt" val="0"/>
+		</PROPERTIES>
+		]]
+
+		-- Open the file in write mode
+		local file, err = io.open(file_path, "w")
+		if not file then
+			dbg("Error opening file: " .. err)
+			return false
+		end
+
+		-- Write the XML content to the file
+		file:write(file_content)
+		file:close()
+	end
+
 end
+
 --
 --
 --[[ EXECUTION ]]--
