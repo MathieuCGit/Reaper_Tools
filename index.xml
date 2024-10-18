@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="b3f96871bbc565943a986eab76b79e7aea4a3bc0">
+<index version="1" name="MathieuC Tools" commit="ce288cd576977fbcde80b539825e71cf876a9547">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -67,6 +67,22 @@
       <version name="0.1" author="Mathieu CONAN" time="2024-04-08T15:19:58Z">
         <changelog><![CDATA[init]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/74fd263d0f3022e56b82a0a19a55c8e3ed1ac420/Arrange%20View/MC_collpase-uncollapse_top-level_folder.lua</source>
+      </version>
+    </reapack>
+    <reapack name="MC_go-to-START-marker_or-project-start-if-no-marker.lua" type="script" desc="Go to marker labeled &quot;=START&quot; or at project start if no marker">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 This script inspired from Stephen "{\i Stevie}" Romer (https://forums.cockos.com/showthread.php?t=200614) let you go to =START marker if it exists and goes to beginning of the timeline if no marker exists.\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/Reaper_Tools/tree/main">Github repository</link>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2024-10-18T14:36:32Z">
+        <changelog><![CDATA[init]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/ce288cd576977fbcde80b539825e71cf876a9547/Arrange%20View/MC_go-to-START-marker_or-project-start-if-no-marker.lua</source>
       </version>
     </reapack>
     <reapack name="MC_item_tracking_during_playback.lua" type="script" desc="Item Tracking During Playback">
