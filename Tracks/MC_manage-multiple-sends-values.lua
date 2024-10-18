@@ -9,7 +9,7 @@
 -- @provides
 --   [main] . > MC_manage-multiple-sends-values.lua
 -- @changelog
---   Added a toolbar option it follows toggle state in the toolbar (thanks to HOPIX :) )
+--   Added a toolbar option it follows toggle state in the toolbar (thanks to HIPOX :) )
 
 -- Conversion functions
 	function linearToDb(linear)
