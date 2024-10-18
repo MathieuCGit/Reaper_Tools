@@ -1,7 +1,7 @@
 -- @description Go to marker labeled "=START" or at project start if no marker
 -- @author Mathieu CONAN   
--- @version 0.1
--- @changelog init
+-- @version 0.2
+-- @changelog fix marker  up to 1 but no =START
 -- @link Github repository https://github.com/MathieuCGit/Reaper_Tools/tree/main
 -- @about This script inspired from Stephen "_Stevie_" Romer (https://forums.cockos.com/showthread.php?t=200614) let you go to =START marker if it exists and goes to beginning of the timeline if no marker exists.
 
@@ -15,6 +15,9 @@ local marker_num = reaper.CountProjectMarkers(0)
 			local _, _, pos, _, name, _ = reaper.EnumProjectMarkers(i)
 			if name == "=START" then
 				reaper.SetEditCurPos(pos, true, false)
+			else
+				--if no marker exists, edit cursor goes to start of the project
+				reaper.Main_OnCommand( 40042, -1)				
 			end
 		end
 	else
