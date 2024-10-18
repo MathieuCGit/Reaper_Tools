@@ -1,5 +1,5 @@
 -- @description Manage Multiple Sends Values (volume,mute,...)
--- @version 0.4
+-- @version 0.5
 -- @author Mathieu CONAN
 -- @link https://github.com/MathieuCGit/Reaper_Tools
 -- @about
@@ -9,7 +9,7 @@
 -- @provides
 --   [main] . > MC_manage-multiple-sends-values.lua
 -- @changelog
---   Script now manage mute state
+--   Added a toolbar option it follows toggle state in the toolbar (thanks to HOPIX :) )
 
 -- Conversion functions
 	function linearToDb(linear)
@@ -160,6 +160,18 @@ end
 end
 
 
+-- Toggle state functions
+	-- suggestion by HIPOX (https://forum.cockos.com/showpost.php?p=2807921&postcount=18) to get the toolbar button follow toggle state, thank you !
+	function button_toggle_state(set) -- Set ToolBar Button State
+	  local is_new_value, filename, sec, cmd, mode, resolution, val = reaper.get_action_context()
+	  reaper.SetToggleCommandState(sec, cmd, set or 0)
+	  reaper.RefreshToolbar2(sec, cmd)
+	end
+
+	function Exit()
+	  button_toggle_state()
+	end
+
 function Main()
     -- Start monitoring send values
     prev_tr_guid = nil
@@ -167,6 +179,10 @@ function Main()
 	prev_send_vol = {}
 	prev_mute_state = {}
     mon_send_values()
+	
+	--toggle toolbar button state functions
+	button_toggle_state(1)
+	reaper.atexit(Exit)
 end
 
 --
