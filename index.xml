@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="b69781ab5e71dc98b6c0bda092d2da027ccbf0d0">
+<index version="1" name="MathieuC Tools" commit="7d04c5c1362552d092fec26136bbe6667cccbde9">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -543,6 +543,10 @@
       <version name="0.5" author="Mathieu CONAN" time="2024-10-18T11:57:50Z">
         <changelog><![CDATA[Added a toolbar option it follows toggle state in the toolbar (thanks to HIPOX :) )]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/b3f96871bbc565943a986eab76b79e7aea4a3bc0/Tracks/MC_manage-multiple-sends-values.lua</source>
+      </version>
+      <version name="0.6" author="Mathieu CONAN" time="2024-10-20T16:24:50Z">
+        <changelog><![CDATA[Now take care of channel settings to apply changes only on receive with exactly the same channel configuration]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/7d04c5c1362552d092fec26136bbe6667cccbde9/Tracks/MC_manage-multiple-sends-values.lua</source>
       </version>
     </reapack>
     <reapack name="MC_Toggle-mute-track-under-mouse.lua" type="script" desc="Toggle mute track under mouse">
