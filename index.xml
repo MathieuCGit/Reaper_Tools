@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="ce288cd576977fbcde80b539825e71cf876a9547">
+<index version="1" name="MathieuC Tools" commit="b69781ab5e71dc98b6c0bda092d2da027ccbf0d0">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -83,6 +83,10 @@
       <version name="0.1" author="Mathieu CONAN" time="2024-10-18T14:36:32Z">
         <changelog><![CDATA[init]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/ce288cd576977fbcde80b539825e71cf876a9547/Arrange%20View/MC_go-to-START-marker_or-project-start-if-no-marker.lua</source>
+      </version>
+      <version name="0.2" author="Mathieu CONAN" time="2024-10-18T23:49:31Z">
+        <changelog><![CDATA[fix marker  up to 1 but no =START]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/b69781ab5e71dc98b6c0bda092d2da027ccbf0d0/Arrange%20View/MC_go-to-START-marker_or-project-start-if-no-marker.lua</source>
       </version>
     </reapack>
     <reapack name="MC_item_tracking_during_playback.lua" type="script" desc="Item Tracking During Playback">
