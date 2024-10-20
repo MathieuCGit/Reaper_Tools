@@ -9,7 +9,7 @@
 -- @provides
 --   [main] . > MC_manage-multiple-sends-values.lua
 -- @changelog
---   Now take care of channel settings to apply changes only on receive with exactly the same channel configuration
+--   Now takes care of channel settings to apply changes only on receive with exactly the same channel configuration
 
 -- sends Channel informations
 	-- Function to extract channel offset and count from I_SRCCHAN
