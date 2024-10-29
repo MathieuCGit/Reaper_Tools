@@ -1,6 +1,6 @@
 -- @description ReaCAT - Reaper Chord Adding Tool - Chord Track
 -- @author Mathieu CONAN   
--- @version 0.2-alpha
+-- @version 0.2
 -- @provides
 --    [main=main,midi_editor] .
 --    [nomain] Analyzer.lua
