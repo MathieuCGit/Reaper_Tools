@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="679454b3f281ec2e9462bcaac6560b4ee0c85365">
+<index version="1" name="MathieuC Tools" commit="83cb49ceaaf97c9b7ab6dd00cce2f6d69d00f67e">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -406,6 +406,22 @@
     </reapack>
   </category>
   <category name="Markers and regions">
+    <reapack name="MC_convert-empty-text-notes-item-to-markers.lua" type="script" desc="Convert empty item notes to markers">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 This script convert text notes from the empty media item to markers\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/Reaper_Tools/tree/main">Github repository</link>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2024-11-18T12:34:17Z">
+        <changelog><![CDATA[init]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/83cb49ceaaf97c9b7ab6dd00cce2f6d69d00f67e/Markers%20and%20regions/MC_convert-empty-text-notes-item-to-markers.lua</source>
+      </version>
+    </reapack>
     <reapack name="MC_insert-region-to selected-items-if-no-time-selection.lua" type="script" desc="Regions - insert region to time selection / selected items / razor edit areas">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
