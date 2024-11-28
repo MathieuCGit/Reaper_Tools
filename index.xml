@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="c11b997076113dbdc7edb6b8e26851a5c1359ef8">
+<index version="1" name="MathieuC Tools" commit="1a780cf3bee3217a529679bb23779312e6f8a09e">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -621,6 +621,22 @@
       <version name="0.1" author="Mathieu CONAN" time="2024-01-12T09:37:08Z">
         <changelog><![CDATA[Initial release]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/c2755f78303b872fe600501069d69e204b037dfc/Utilities/MC_portable-install_rebuild-embeded-database.lua</source>
+      </version>
+    </reapack>
+    <reapack name="MC_rename-source-files.lua" type="script" desc="Rename Audio Source Files">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Renames audio source files according to the pattern user enter. Wildcards available are $project, $tracknumber, $track, $take\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/Reaper_Tools/tree/main">Github repository</link>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2024-11-28T13:23:36Z">
+        <changelog><![CDATA[init]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/1a780cf3bee3217a529679bb23779312e6f8a09e/Utilities/MC_rename-source-files.lua</source>
       </version>
     </reapack>
     <reapack name="MC_set-default-VST-parameter.lua" type="script" desc="Set VST parameters fo portable install (Vital,SpeeDrum lite)">
