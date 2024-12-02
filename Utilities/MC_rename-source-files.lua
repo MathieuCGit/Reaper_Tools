@@ -1,7 +1,10 @@
 -- @description Rename Audio Source Files
 -- @author Mathieu CONAN   
--- @version 0.1
--- @changelog init
+-- @version 0.2
+-- @changelog FIX: Auto install rtk.lua library (adding repository and install rtk.lua)
+-- @provides
+--    [main=main] .
+--    [nomain] rtk.lua
 -- @link Github repository https://github.com/MathieuCGit/Reaper_Tools/tree/main
 -- @about Renames audio source files according to the pattern user enter. Wildcards available are $project, $tracknumber, $track, $take
 
@@ -22,7 +25,7 @@ function sanitize_file_name(name)
     return name:gsub("[<>:\"/\\|%?%*%.]", "-"):gsub("%s+", "_")
 end
 
--- Copy file using Lua I/O
+-- Copy file using Lua I/O (means os independant)
 function copy_file(src, dest)
     local inputFile = io.open(src, "rb")
     if not inputFile then
@@ -145,11 +148,6 @@ end
 --[[ 	RTK WINDOW ]]--
 -----------------------
 
--- rtk-based Rename Audio Source Files Script
--- Set package path to find rtk installed via ReaPack
-package.path = reaper.GetResourcePath() .. '/Scripts/rtk/1/?.lua'
-local rtk = require('rtk') -- Import the rtk library
-
 function show_rename_ui()
 
     -- Create the main window
@@ -220,10 +218,49 @@ end
 
 
 function Main()
-	
-	-- Show the UI to gather the renaming scheme
-   rtk.call(show_rename_ui)
 
+ -- Determine the appropriate path separator based on the operating system
+    local separator = package.config:sub(1, 1)
+    local rtk_path = table.concat({reaper.GetResourcePath(), "Scripts", "rtk", "1", "rtk.lua"}, separator)
+	local file = io.open(rtk_path, "r")
+ 
+    if file then
+        file:close()		
+        -- Load rtk
+        package.path = reaper.GetResourcePath() .. '/Scripts/rtk/1/?.lua'
+        local rtk = require('rtk')
+
+        -- Show the UI to gather the renaming scheme
+        rtk.call(show_rename_ui)
+    else
+        local userinput = reaper.MB("Required library 'rtk.lua' is missing." .. "\n\n" ..
+            "You need to install the 'rtk' library to run this script." .. "\n\n".."Do you want to install?",
+            "MC_rename-source-files.lua", 4)
+        
+        if userinput == 6 then
+            if reaper.APIExists('ReaPack_BrowsePackages') then
+                -- Check if the repository is already set in user ReaPack preferences
+                local repo_exists = reaper.ReaPack_AboutRepository("https://reapertoolkit.dev/index.xml")
+                
+                if repo_exists then
+                    -- If yes, browse for rtk
+                    reaper.ReaPack_BrowsePackages("rtk")
+                else
+                    -- If repo doesn't exist, install repo
+                    local retval, error = reaper.ReaPack_AddSetRepository(
+                        "rtk",
+                        "https://reapertoolkit.dev/index.xml",
+                        true,
+                        1
+                    )
+                    reaper.ReaPack_ProcessQueue(true)
+                end
+            else
+                reaper.ShowConsoleMsg("ReaPack not found. Opening the website to install the ReaPack plugin extension...\n")
+                OpenURL("https://reapack.com/")
+            end
+        end
+    end
 end
 
 --
