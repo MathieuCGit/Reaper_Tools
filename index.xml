@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="1a780cf3bee3217a529679bb23779312e6f8a09e">
+<index version="1" name="MathieuC Tools" commit="0abc207d561ac7923942bc98a3f4d7d8d825b2b9">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -637,6 +637,10 @@
       <version name="0.1" author="Mathieu CONAN" time="2024-11-28T13:23:36Z">
         <changelog><![CDATA[init]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/1a780cf3bee3217a529679bb23779312e6f8a09e/Utilities/MC_rename-source-files.lua</source>
+      </version>
+      <version name="0.2" author="Mathieu CONAN" time="2024-12-02T10:41:11Z">
+        <changelog><![CDATA[FIX: Auto install rtk.lua library (adding repository and install rtk.lua)]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/0abc207d561ac7923942bc98a3f4d7d8d825b2b9/Utilities/MC_rename-source-files.lua</source>
       </version>
     </reapack>
     <reapack name="MC_set-default-VST-parameter.lua" type="script" desc="Set VST parameters fo portable install (Vital,SpeeDrum lite)">
