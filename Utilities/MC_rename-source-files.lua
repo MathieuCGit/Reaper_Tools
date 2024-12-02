@@ -2,9 +2,6 @@
 -- @author Mathieu CONAN   
 -- @version 0.2
 -- @changelog FIX: Auto install rtk.lua library (adding repository and install rtk.lua)
--- @provides
---    [main=main] .
---    [nomain] rtk.lua
 -- @link Github repository https://github.com/MathieuCGit/Reaper_Tools/tree/main
 -- @about Renames audio source files according to the pattern user enter. Wildcards available are $project, $tracknumber, $track, $take
 
