@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="0abc207d561ac7923942bc98a3f4d7d8d825b2b9">
+<index version="1" name="MathieuC Tools" commit="520c19702b681f6430f94f2683d13e0374eaa8a9">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -553,6 +553,22 @@
     </reapack>
   </category>
   <category name="Tracks">
+    <reapack name="MC_Auto-disabling-record-for-folders.lua" type="script" desc="Auto-disabling record arm button and input for folders">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Runs in background and prevent folders to be set to any input other than "none" and set record to disable. If the folder becomes a normal track, record options will be restored.\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/Reaper_Tools/tree/main">Github repository</link>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2025-01-03T22:14:42Z">
+        <changelog><![CDATA[init]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/520c19702b681f6430f94f2683d13e0374eaa8a9/Tracks/MC_Auto-disabling-record-for-folders.lua</source>
+      </version>
+    </reapack>
     <reapack name="MC_manage-multiple-sends-values.lua" type="script" desc="Manage Multiple Sends Values (volume,mute,...)">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
