@@ -1,7 +1,7 @@
 -- @description Vertical zoom, minimize folder, keeps track height locked, takes care of cursor position (means if no item at cursor pos track will be minimized).
--- @version 1.9
+-- @version 2.0
 -- @author Mathieu CONAN
--- @changelog Now it minimizes muted tracks
+-- @changelog Better management of fixed item lanes
 -- @about This script aims to provide a mechanism to resize tracks height. it maximizes the tracks with items height and takes care of track without items (they are minimized too). It also takes care of cursor position. Author URI: https://forum.cockos.com/member.php?u=153781
 -- @licence GPL v3
  
@@ -11,31 +11,35 @@
 	--- Function copy/pasted and a bit of tweaking from awesome MPL "Script: mpl_Toggle show tracks if edit cursor crossing any of their items.lua"
 	-- @tparam tr track is a reaper track
 	-- @tparam curpos float is the edit cursor current position
-	function HasCrossedItems(track, curpos)
-		nbrOfItems=reaper.CountTrackMediaItems(track)
-		local areThereItems=0
-		
-		--if tracks contains at least one item
-		if nbrOfItems > 0 then
-			for i = 0, nbrOfItems-1 do
-				local item = reaper.GetTrackMediaItem( track, i )
-				local it_pos = reaper.GetMediaItemInfo_Value( item, 'D_POSITION')
-				local it_len = reaper.GetMediaItemInfo_Value( item, 'D_LENGTH')
+	function has_crossed_items(track, curpos)
+		-- Get the number of media items on the track
+		local itemCount = reaper.CountTrackMediaItems(track)
 
-				--check if the cursor is between the start and the end of the item
-				if it_pos <= curpos and it_pos + it_len >= curpos then
-					areThereItems = 1 
-					break --once we are at the cursor pos we can break the loop
-				else 
-					areThereItems = 0 
+		-- Return early if there are no items
+		if itemCount == 0 then
+			return 0
+		end
+
+		for i = 0, itemCount - 1 do
+			local item = reaper.GetTrackMediaItem(track, i)
+
+			-- Check if the item's lane is marked as playable
+			local lanePlayStatus = reaper.GetMediaItemInfo_Value(item, "C_LANEPLAYS")
+			if lanePlayStatus == 1 or lanePlayStatus == 2 then
+				local itemStart = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+				local itemLength = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
+				local itemEnd = itemStart + itemLength
+
+				-- Check if the cursor is within the item's range
+				if curpos >= itemStart and curpos <= itemEnd then
+					return 1
 				end
 			end
-		else --if no items on track, return 0
-			areThereItems = 0
 		end
-	
-	return areThereItems
-	end     
+
+		-- No items found at the cursor position on playable lanes
+		return 0
+	end   
 	
 	--- get the minimum track height on a project. This size is theme related so it may change from on theme to another.
 	-- this is a workaround by CFillion : [https://forum.cockos.com/showpost.php?p=2283520&postcount=17](https://forum.cockos.com/showpost.php?p=2283520&postcount=17)
@@ -161,9 +165,8 @@ function Main()
 		tr_visible_state=reaper.GetMediaTrackInfo_Value( tr, "B_SHOWINTCP") 
 		--current track height
 		tr_height=reaper.GetMediaTrackInfo_Value( tr, "I_TCPH" )		
-		--number of -tems at edit cursor position
-		nbr_items=HasCrossedItems(tr,curPos)
-
+		--number of items at edit cursor position
+		nbr_items=has_crossed_items(tr,curPos)
 
 	--[[ MANAGE COLLAPSED FOLDERS ]]--
 		local is_in_collapsed=0
@@ -192,20 +195,40 @@ function Main()
 		end
 				
 	--[[ MANAGE FIXED ITEM LANES TRACK (multiple lanes) ]]--
-		-- check track to get FIL true/false
-		is_tr_fil, _ = reaper.GetSetMediaTrackInfo_String( tr, "P_LANENAME:0", "", 0 ) 
-		
-		--if we are on a fixed item lane track
-		if is_tr_fil then 
-			num_items = reaper.CountTrackMediaItems(tr)
-			item_for_height=reaper.GetTrackMediaItem(tr, 0)
-			if item_for_height then
-				--we check lane height with any items on track
-				nbr_fil_lanes = round(1 / reaper.GetMediaItemInfo_Value(item_for_height, 'F_FREEMODE_H')) 
-			else
-				nbr_fil_lanes=0
-			end
+	-- Get track information
+	is_tr_fil, _ = reaper.GetSetMediaTrackInfo_String(tr, "P_LANENAME:0", "", 0)
+	lanes_collapsed = reaper.GetMediaTrackInfo_Value(tr, "C_LANESCOLLAPSED")
+	num_fixed_lanes = reaper.GetMediaTrackInfo_Value(tr, "I_NUMFIXEDLANES")
+	lane_settings = reaper.GetMediaTrackInfo_Value(tr, "C_LANESETTINGS") -- Get fixed lane settings
+
+	-- Check if the "big lanes" flag is set (&8)
+	is_big_lane = (lane_settings & 8) ~= 0
+
+	if is_tr_fil then
+	-- Initialize lane count
+	nbr_fil_lanes = 0
+		-- Lanes are collapsed (1) or displayed as non-fixed lanes but exist hidden (2)
+		if lanes_collapsed == 1 or lanes_collapsed == 2 then
+			
+			nbr_fil_lanes = 1.0
+		-- More than one lane and lanes aren't collapsed
+		elseif num_fixed_lanes > 1 and lanes_collapsed < 1 then
+			
+			-- Check for and change big lanes to small lanes
+			if is_big_lane then
+				--Clear the big lanes flag (&8)
+				new_lane_settings = lane_settings & ~8
+				reaper.SetMediaTrackInfo_Value(tr, "C_LANESETTINGS", new_lane_settings)
+			end		
+			
+			-- Fixed lanes are active, count the number of lanes
+			nbr_fil_lanes = num_fixed_lanes
+		else
+		--by default we consider only one lane
+			nbr_fil_lanes = 1.0
 		end
+	end
+
 
 	--[[ MANAGE ENVELOPE (visible and in lanes or not) ]]--
 	--for each track we check if there is at least one envelope
@@ -361,23 +384,13 @@ function Main()
 		
 		if tr_infos_array[i]["tr_lock_state"] == 0.0 and
 			tr_infos_array[i]["tr_visible_state"] == 1.0 and
-			tr_infos_array[i]["is_tr_fil"] == false and
 			tr_infos_array[i]["nbr_items"] > 0 and
 			tr_infos_array[i]["is_in_collapsed"] == 0 and
 			tr_infos_array[i]["tr_mute_state"] == 0.0	then
 			
 			--if track is not locked, is visible in TCP, is not in collapsed folder ans is not muted we apply the new track height
 			reaper.SetMediaTrackInfo_Value( tr, "I_HEIGHTOVERRIDE", size_of_each_track)
-		
-		elseif tr_infos_array[i]["tr_lock_state"] == 0.0 and
-				tr_infos_array[i]["tr_visible_state"] == 1.0 and
-				tr_infos_array[i]["is_tr_fil"] == true and
-				tr_infos_array[i]["nbr_items"] > 0 and
-				tr_infos_array[i]["is_in_collapsed"] == 0 then
 			
-			fil_tr_height=size_of_each_track/tr_infos_array[i]["nbr_fil_lanes"]
-			reaper.SetMediaTrackInfo_Value( tr, "I_HEIGHTOVERRIDE", fil_tr_height)
-		
 		elseif tr_infos_array[i]["tr_mute_state"] == 1.0 then
 			--if track is muted wew minimized it
 			reaper.SetMediaTrackInfo_Value( tr, "I_HEIGHTOVERRIDE", minimum_tr_height)
