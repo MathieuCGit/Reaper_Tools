@@ -1,9 +1,9 @@
 -- @description Vertical zoom minimizes folders, keeps track lock height, doesn't take care of cursor position (means operate for all arrange view lenght) AND doesn't take care of tracks without items.
--- @version 1.9
+-- @version 2.0
 -- @author Mathieu CONAN
 -- @about This script aims to provide a mechanism to resize tracks height. it maximizes the tracks with items height and doesn't take care of track without items. It doesn't take care of cursor position.Author URI: https://forum.cockos.com/member.php?u=153781
 -- @licence GPL v3
--- @changelog Update : minimize folders with no items
+-- @changelog Now have a better behaviour with fixed item lanes
  
 --
 --[[ FUNCTIONS ]]--
@@ -329,7 +329,6 @@ function Main()
 		--if track is not locked, is visible in TCP, is not in collapsed folder we apply the new track height
 		if tr_infos_array[i]["tr_lock_state"] == 0.0 and
 			tr_infos_array[i]["tr_visible_state"] == 1.0 and
-			tr_infos_array[i]["is_tr_fil"] == false and
 			tr_infos_array[i]["is_in_collapsed"] == 0 then
 
 			--if the track is a folder and has no items, we minimize it
@@ -338,15 +337,6 @@ function Main()
 			else
 				reaper.SetMediaTrackInfo_Value( tr, "I_HEIGHTOVERRIDE", size_of_each_track)
 			end
-		
-		elseif tr_infos_array[i]["tr_lock_state"] == 0.0 and
-				tr_infos_array[i]["tr_visible_state"] == 1.0 and
-				tr_infos_array[i]["is_tr_fil"] == true and
-				tr_infos_array[i]["is_in_collapsed"] == 0 then
-			
-			--if track contains fixed item lanes, size of the track is divided by number of fixed item lanes
-			fil_tr_height=size_of_each_track/tr_infos_array[i]["nbr_fil_lanes"]
-			reaper.SetMediaTrackInfo_Value( tr, "I_HEIGHTOVERRIDE", fil_tr_height)
 				
 		elseif tr_infos_array[i]["tr_lock_state"] == 0.0 then
 		
@@ -358,7 +348,6 @@ function Main()
 	--function argument "isMinor=false" updates both TCP and MCP. "isMinor=true" updates TCP only. 
 	reaper.TrackList_AdjustWindows(true)
 end
-
 --
 --[[ EXECUTION ]]--
 --
