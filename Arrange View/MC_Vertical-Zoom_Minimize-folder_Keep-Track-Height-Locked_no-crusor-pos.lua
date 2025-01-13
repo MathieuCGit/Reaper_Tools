@@ -1,7 +1,7 @@
 -- @description Vertical zoom minimizes folders, keeps track lock height, doesn't take care of cursor position (means operate for all arrange view lenght) BUT takes care of tracks without items.
--- @version 1.9
+-- @version 2.0
 -- @author Mathieu CONAN
--- @changelog Now it minimizes muted tracks
+-- @changelog Improve behaviour when working with fixed item lanes by switching them to small lanes
 -- @about This script aims to provide a mechanism to resize tracks height. it maximizes the tracks with items height and doesn't take care of track without items. It doesn't take care of cursor position.Author URI: https://forum.cockos.com/member.php?u=153781
 -- @licence GPL v3
  
@@ -136,7 +136,15 @@ function Main()
 
 
 	--[[ MANAGE COLLAPSED FOLDERS ]]--
-		local is_in_collapsed=0
+		--return 0 for normal track, 1 for folder and -1 for last track in folder
+		folderdepth=reaper.GetMediaTrackInfo_Value( tr, "I_FOLDERDEPTH" )
+		if folderdepth == 1 then
+			is_a_folder=true
+		else
+			is_a_folder=false
+		end
+		
+		is_in_collapsed=0
 		--find the top level folder if exists
 		top_level_tr=get_top_level_track(tr)
 		tr_depth=reaper.GetTrackDepth(tr)
@@ -161,21 +169,43 @@ function Main()
 			has_spacer=0
 		end
 
-	--[[ MANAGE FIXED ITEM LANES TRACK (multiple lanes) ]]--
-		-- check track to get FIL true/false
-		is_tr_fil, _ = reaper.GetSetMediaTrackInfo_String( tr, "P_LANENAME:0", "", 0 ) 
-		
-		--if we are on a fixed item lane track
-		if is_tr_fil then 
-			num_items = reaper.CountTrackMediaItems(tr)
-			item_for_height=reaper.GetTrackMediaItem(tr, 0)
-			if item_for_height then
-				--we check lane height with any items on track
-				nbr_fil_lanes = round(1 / reaper.GetMediaItemInfo_Value(item_for_height, 'F_FREEMODE_H')) 
-			else
-				nbr_fil_lanes=0
-			end
+
+	--[[ MANAGE FIXED ITEM LANES TRACK (multiple lanes) ]]
+
+	-- Get track information
+	is_tr_fil, _ = reaper.GetSetMediaTrackInfo_String(tr, "P_LANENAME:0", "", 0)
+	lanes_collapsed = reaper.GetMediaTrackInfo_Value(tr, "C_LANESCOLLAPSED")
+	num_fixed_lanes = reaper.GetMediaTrackInfo_Value(tr, "I_NUMFIXEDLANES")
+	lane_settings = reaper.GetMediaTrackInfo_Value(tr, "C_LANESETTINGS") -- Get fixed lane settings
+
+	-- Check if the "big lanes" flag is set (&8)
+	is_big_lane = (lane_settings & 8) ~= 0
+
+	if is_tr_fil then
+	-- Initialize lane count
+	nbr_fil_lanes = 0
+		-- Lanes are collapsed (1) or displayed as non-fixed lanes but exist hidden (2)
+		if lanes_collapsed == 1 or lanes_collapsed == 2 then
+			
+			nbr_fil_lanes = 1.0
+		-- More than one lane and lanes aren't collapsed
+		elseif num_fixed_lanes > 1 and lanes_collapsed < 1 then
+			
+			-- Check for and change big lanes to small lanes
+			if is_big_lane then
+				--Clear the big lanes flag (&8)
+				new_lane_settings = lane_settings & ~8
+				reaper.SetMediaTrackInfo_Value(tr, "C_LANESETTINGS", new_lane_settings)
+			end		
+			
+			-- Fixed lanes are active, count the number of lanes
+			nbr_fil_lanes = num_fixed_lanes
+		else
+		--by default we consider only one lane
+			nbr_fil_lanes = 1.0
 		end
+	end
+
 		
 	--[[ MANAGE ENVELOPE (visible and in lanes or not) ]]--
 	--for each track we check if there is at least one envelope
@@ -211,6 +241,7 @@ function Main()
 			tr_visible_state=tr_visible_state,
 			tr_mute_state=tr_mute_state,
 			tr_height=tr_height,
+			is_a_folder=is_a_folder,
 			is_in_collapsed=is_in_collapsed,
 			is_tr_fil=is_tr_fil,
 			nbr_fil_lanes=nbr_fil_lanes,
@@ -252,7 +283,7 @@ function Main()
 		
 		elseif tr_infos_array[i]["tr_visible_state"] == 1.0 and 
 			tr_infos_array[i]["nbr_items"] == 0 and
-			tr_infos_array[i]["is_in_collapsed"] == 0 then
+			tr_infos_array[i]["is_in_collapsed"] == 0  then
 		
 				--nbr of track visible but without items
 				tr_vis_no_item=tr_vis_no_item+1
@@ -284,13 +315,13 @@ function Main()
 				spacer_to_remove = spacer_to_remove+1
 		end
 	end
-	
+
 --------------------------------------------------------------------------	
 	--[[		GET ARRANGE VIEW SIZE	]]--
 --------------------------------------------------------------------------
 	--we get the arrangeview size (height and width)
 	height,width=sizeOfArrangeView()
-	
+
 	--if master track is visible, we remove its height from total height and we minimize it
 	if master_tr_vis == 1 then
 		height=height-master_tr_height
@@ -313,77 +344,44 @@ function Main()
 	
 	--we remove minimized track envelope
 	height=height-proj_envs_height
-	
+
 	--we remove the spacers height from height
 	height=height-(spacer_to_remove*spacer_height)
-	
-	--we remove visible tracks without items height and muted tracks
+
+	--we remove visible tracks without items and muted tracks
 	height=height-((tr_vis_no_item+tr_muted)*minimum_tr_height)
-	
+
 	--we divide the height of the arrange view by the track count
 	size_of_each_track=math.floor(height/tr_count)
+
 	
 --------------------------------------------------------------------------	
 	--[[ 		APPLY NEW TRACK HEIGHT	]]--
 --------------------------------------------------------------------------	
-	--resizing each track regarding state lock and other criteras
+	-- Resizing each track regarding state lock and other criteria
 	for i=1,#tr_infos_array do
-		tr=reaper.GetTrack( 0, i-1)
+		tr=reaper.GetTrack(0, i-1)
 		
 		if tr_infos_array[i]["tr_lock_state"] == 0.0 and
 			tr_infos_array[i]["tr_visible_state"] == 1.0 and
-			tr_infos_array[i]["is_tr_fil"] == false and
 			tr_infos_array[i]["nbr_items"] > 0 and
 			tr_infos_array[i]["is_in_collapsed"] == 0 and
-			tr_infos_array[i]["tr_mute_state"] == 0.0	then
+			tr_infos_array[i]["tr_mute_state"] == 0.0 then
 			
-			--if track is not locked, is visible in TCP, is not in collapsed folder ans is not muted we apply the new track height
-			reaper.SetMediaTrackInfo_Value( tr, "I_HEIGHTOVERRIDE", size_of_each_track)
-		
-		elseif tr_infos_array[i]["tr_lock_state"] == 0.0 and
-				tr_infos_array[i]["tr_visible_state"] == 1.0 and
-				tr_infos_array[i]["is_tr_fil"] == true and
-				tr_infos_array[i]["nbr_items"] > 0 and
-				tr_infos_array[i]["is_in_collapsed"] == 0 then
-			
-			fil_tr_height=size_of_each_track/tr_infos_array[i]["nbr_fil_lanes"]
-			reaper.SetMediaTrackInfo_Value( tr, "I_HEIGHTOVERRIDE", fil_tr_height)
-		
+			-- Regular track resizing
+			reaper.SetMediaTrackInfo_Value(tr, "I_HEIGHTOVERRIDE", size_of_each_track)
+	
 		elseif tr_infos_array[i]["tr_mute_state"] == 1.0 then
-			--if track is muted wew minimized it
-			reaper.SetMediaTrackInfo_Value( tr, "I_HEIGHTOVERRIDE", minimum_tr_height)
+			-- Completely minimize muted tracks
+			reaper.SetMediaTrackInfo_Value(tr, "I_HEIGHTOVERRIDE", minimum_tr_height)
 		
 		elseif tr_infos_array[i]["tr_lock_state"] == 0.0 then
-			--for every other tracks we apply minimization
-			reaper.SetMediaTrackInfo_Value( tr, "I_HEIGHTOVERRIDE", minimum_tr_height)
-			
+			-- Minimize all other tracks
+			reaper.SetMediaTrackInfo_Value(tr, "I_HEIGHTOVERRIDE", minimum_tr_height)
 		end
 	end
-	--We need to update tracklist view in addition to update arrange
-	--function argument "isMinor=false" updates both TCP and MCP. "isMinor=true" updates TCP only. 
+	-- Update track list view
 	reaper.TrackList_AdjustWindows(true)
 
+
 end
-
---
---[[ EXECUTION ]]--
---
-
--- clear console debug
-reaper.ShowConsoleMsg("")
-
-reaper.PreventUIRefresh(1)
-
--- Begining of the undo block. Leave it at the top of your main function.
-reaper.Undo_BeginBlock() 
-
--- execute script core
-Main()
- 
--- End of the undo block. Leave it at the bottom of your main function.
-reaper.Undo_EndBlock("Vertical zoom minimize folder keep track lock height", - 1) 
-  
--- update arrange view UI
-reaper.UpdateArrange()
-
-reaper.PreventUIRefresh(-1)
