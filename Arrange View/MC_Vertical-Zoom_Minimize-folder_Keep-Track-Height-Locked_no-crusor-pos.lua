@@ -1,5 +1,5 @@
 -- @description Vertical zoom minimizes folders, keeps track lock height, doesn't take care of cursor position (means operate for all arrange view lenght) BUT takes care of tracks without items.
--- @version 2.0
+-- @version 2.0.1
 -- @author Mathieu CONAN
 -- @changelog Improve behaviour when working with fixed item lanes by switching them to small lanes
 -- @about This script aims to provide a mechanism to resize tracks height. it maximizes the tracks with items height and doesn't take care of track without items. It doesn't take care of cursor position.Author URI: https://forum.cockos.com/member.php?u=153781
@@ -385,3 +385,26 @@ function Main()
 
 
 end
+
+--
+--[[ EXECUTION ]]--
+--
+
+-- clear console debug
+reaper.ShowConsoleMsg("")
+
+reaper.PreventUIRefresh(1)
+
+-- Begining of the undo block. Leave it at the top of your main function.
+reaper.Undo_BeginBlock() 
+
+-- execute script core
+Main()
+ 
+-- End of the undo block. Leave it at the bottom of your main function.
+reaper.Undo_EndBlock("Vertical zoom minimizes folders, keeps track lock height, doesn't take care of cursor position", - 1) 
+  
+-- update arrange view UI
+reaper.UpdateArrange()
+
+reaper.PreventUIRefresh(-1)
