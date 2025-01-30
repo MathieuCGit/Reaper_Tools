@@ -18,20 +18,6 @@
 --
 --[[ Various Functions]]
 --
-
-	--- Various Scripts
-	-- @module Various_Scripts
-	
-	--- TCP - Move edit cursor to the end of time selection while playing
-	-- @section TCP_Move_edit_cursor
-	
-	--- Debug function - display messages in reaper console
-	-- @tparam string String aims to be displayed in the reaper console
-	function Debug(String)
-		reaper.ShowConsoleMsg(tostring(String).."\n")
-	end
-
-
 	--- Move the edit cursor at end of time selecion
 	function moveEditCursorToEnd()
 		local start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
