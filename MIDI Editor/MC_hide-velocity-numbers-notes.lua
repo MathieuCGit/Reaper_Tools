@@ -41,7 +41,7 @@ reaper.Undo_BeginBlock()
 Main()
 
 -- End of the undo block. Leave it at the bottom of your main function.
-reaper.Undo_EndBlock("MIDI Editor - Show velocity numbers on notes", - 1)
+reaper.Undo_EndBlock("MIDI Editor - Show/hide velocity numbers on notes", - 1)
 
 -- update arrange view UI
 reaper.UpdateArrange()
