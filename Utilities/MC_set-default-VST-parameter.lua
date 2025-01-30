@@ -306,7 +306,7 @@ reaper.Undo_BeginBlock()
 Main()
 
 -- End of the undo block. Leave it at the bottom of your main function.
-reaper.Undo_EndBlock("MC_MathieuC_SandBox", - 1) 
+reaper.Undo_EndBlock("MC_set-default-VST-parameter", - 1) 
   
 -- update arrange view UI
 reaper.UpdateArrange()
