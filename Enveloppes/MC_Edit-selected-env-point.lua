@@ -7,10 +7,6 @@ Link: Github repository https://github.com/MathieuCGit/
 About: instead of having to right click a point then go to "set envelope point value..." assign this script to a shortcut and directly get a modal window to change point value. It opens a modal windowsfor each point, sequentialy. I mainly use it to tweak Video processor automation.
 --]]
 
-function dbg(msg)
-	reaper.ShowConsoleMsg( tostring(msg))
-end
-
 function Main()
 	-- Get the selected take envelope
 	local env = reaper.GetSelectedEnvelope(0)
