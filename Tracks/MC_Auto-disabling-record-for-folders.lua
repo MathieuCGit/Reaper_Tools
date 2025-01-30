@@ -64,7 +64,7 @@ end
 --
 
 -- clear console debug
-reaper.ShowConsoleMsg("")
+reaper.ClearConsole()
 
 reaper.PreventUIRefresh(1)
 
