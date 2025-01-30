@@ -277,7 +277,7 @@ reaper.Undo_BeginBlock()
 Main()
 
 -- End of the undo block. Leave it at the bottom of your main function.
-reaper.Undo_EndBlock("Rename Audio Source Files", - 1) 
+reaper.Undo_EndBlock("MC_Rename Audio Source Files", - 1) 
   
 -- update arrange view UI
 reaper.UpdateArrange()
