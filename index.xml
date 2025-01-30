@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="5cee8d3e62caeeb301b9c3b7e8259eb1c0d7633d">
+<index version="1" name="MathieuC Tools" commit="3dc0d9f0e2b2b44e9dcbbaa9e3ff0ea61314fccd">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -290,7 +290,7 @@
     </reapack>
     <reapack name="MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-item-and-curosr-pos.lua" type="script" desc="Vertical zoom minimizes folders, keeps track lock height, doesn't take care of cursor position (means operate for all arrange view lenght) AND doesn't take care of tracks without items.">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -355,6 +355,10 @@
       <version name="1.9" author="Mathieu CONAN" time="2024-04-05T14:51:20Z">
         <changelog><![CDATA[Update : minimize folders with no items]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/e846f7b32ef799617cef71a2bdb29cbe1578f33c/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-item-and-curosr-pos.lua</source>
+      </version>
+      <version name="2.0" author="Mathieu CONAN" time="2025-01-13T20:59:44Z">
+        <changelog><![CDATA[Now have a better behaviour with fixed item lanes]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/3dc0d9f0e2b2b44e9dcbbaa9e3ff0ea61314fccd/Arrange%20View/MC_Vertical-Zoom_Minimize-folder_Keep-Track-Height-Locked_no-item-and-curosr-pos.lua</source>
       </version>
     </reapack>
   </category>
