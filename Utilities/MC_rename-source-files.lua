@@ -1,7 +1,7 @@
 -- @description Rename Audio Source Files
 -- @author Mathieu CONAN   
--- @version 0.2
--- @changelog FIX: Auto install rtk.lua library (adding repository and install rtk.lua)
+-- @version 0.3
+-- @changelog FIX: issue while rebuilding peaks
 -- @link Github repository https://github.com/MathieuCGit/Reaper_Tools/tree/main
 -- @about Renames audio source files according to the pattern user enter. Wildcards available are $project, $tracknumber, $track, $take
 
@@ -129,7 +129,7 @@ function rename_source_file(new_name_pattern)
 								reaper.SetMediaItemTake_Source(take, new_source)
 								
 								 -- Rebuild peaks for the new source
-								reaper.Main_OnCommand(41743, 0) -- Rebuild all peaks
+								reaper.Main_OnCommand(40048, 0) -- Rebuild all peaks
 							else
 								reaper.MB( "Failed to create new source for: " .. new_path .. "\n", "ERROR", 0 )
 							end
@@ -229,6 +229,9 @@ function Main()
 
         -- Show the UI to gather the renaming scheme
         rtk.call(show_rename_ui)
+		
+		 -- Rebuild peaks for the new source
+		reaper.Main_OnCommand(41743, 0) -- Rebuild all peaks		
     else
         local userinput = reaper.MB("Required library 'rtk.lua' is missing." .. "\n\n" ..
             "You need to install the 'rtk' library to run this script." .. "\n\n".."Do you want to install?",
