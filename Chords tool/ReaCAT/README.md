@@ -47,7 +47,7 @@ script call -> MergingTool -> Collector -> Analyzer -> SharpOrFlat (key signatur
 
 This class provides a bunch of mechanisms to analyze a chord and return a formated string like **G7(&flat;9)**.
 
-Please take in consideration that chord recognition performed by this class is not a classic array base method. indeed, it uses a more human approach. 
+Please take in consideration that chord recognition performed by this class is not a classic array base method. indeed, it uses a more human approach. This means ReaCAT always provides a valid result.
 
 It aims to get chord intervals in the good order the same way a human would perform. 
 
