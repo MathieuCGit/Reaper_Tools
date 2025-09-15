@@ -69,6 +69,21 @@
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/74fd263d0f3022e56b82a0a19a55c8e3ed1ac420/Arrange%20View/MC_collpase-uncollapse_top-level_folder.lua</source>
       </version>
     </reapack>
+    <reapack name="MC_Expand-right-item-edge-to-next-item-left-edge.lua" type="script" desc="Extend right edge of selected items until the left edge of the next item.">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 This script extends the right edge of each selected item until the left edge of the next item on the same track. It works across multiple tracks: each item is extended independently within its own track.\line Useful to automatically fill gaps between items without overlapping.\par}
+}
+]]></description>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2025-09-01T14:29:29Z">
+        <changelog><![CDATA[init]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/8f452eaead9070b45992af32ff6aac0687c254b0/Arrange%20View/MC_Expand-right-item-edge-to-next-item-left-edge.lua</source>
+      </version>
+    </reapack>
     <reapack name="MC_go-to-START-marker_or-project-start-if-no-marker.lua" type="script" desc="Go to marker labeled &quot;=START&quot; or at project start if no marker">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
