@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="080c2fb85984c97457c67f96181082815df994bb">
+<index version="1" name="MathieuC Tools" commit="b9755b7e906db33bd1a68af1ed802371d9e23a6b">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -649,6 +649,38 @@
     </reapack>
   </category>
   <category name="Utilities">
+    <reapack name="MC_FX_Pin-All.lua" type="script" desc="Enable pin for every opened FX windows">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 This script toggle ON the pin on each opened FX window to keep them foreground\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/Reaper_Tools/tree/main">Github repository</link>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2026-09-14T23:38:59Z">
+        <changelog><![CDATA[Initial release]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/b9755b7e906db33bd1a68af1ed802371d9e23a6b/Utilities/MC_FX_Pin-All.lua</source>
+      </version>
+    </reapack>
+    <reapack name="MC_FX_Unpin-All.lua" type="script" desc="Disable pin for every opened FX windows">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 This script toggle OFF the pin for each opened FX window to keep them foreground\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/Reaper_Tools/tree/main">Github repository</link>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2026-09-14T23:38:59Z">
+        <changelog><![CDATA[Initial release]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/b9755b7e906db33bd1a68af1ed802371d9e23a6b/Utilities/MC_FX_Unpin-All.lua</source>
+      </version>
+    </reapack>
     <reapack name="MC_portable-install_rebuild-embeded-database.lua" type="script" desc="Media Explorer embeded database rescan/rebuild (for portable install)">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
@@ -732,6 +764,22 @@
       <version name="0.4.3" author="Mathieu CONAN" time="2024-10-05T15:15:47Z">
         <changelog><![CDATA[NEW: Add speeDrum lite support]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/bd2e628b054b3261308d93e78d8cbaeb6070799c/Utilities/MC_set-default-VST-parameter.lua</source>
+      </version>
+    </reapack>
+    <reapack name="MC_Toggle_Auto-Pin-FX-Window.lua" type="script" desc="Auto Pin Floating FX Windows">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 This script autoamtically toggle ON the pin on each newly opened FX window to keep them foreground\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/Reaper_Tools/tree/main">Github repository</link>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2026-09-14T23:38:59Z">
+        <changelog><![CDATA[Initial release]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/b9755b7e906db33bd1a68af1ed802371d9e23a6b/Utilities/MC_Toggle_Auto-Pin-FX-Window.lua</source>
       </version>
     </reapack>
   </category>
