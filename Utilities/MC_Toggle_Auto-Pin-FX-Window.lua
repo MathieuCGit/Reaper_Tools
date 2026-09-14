@@ -1,3 +1,11 @@
+-- @description Auto Pin Floating FX Windows
+-- @author Mathieu CONAN   
+-- @version 0.1
+-- @changelog Initial release
+-- @link Github repository https://github.com/MathieuCGit/Reaper_Tools/tree/main
+-- @about This script autoamtically toggle ON the pin on each newly opened FX window to keep them foreground
+--
+
 --[[
   REAPER - Auto Pin Floating FX Windows
   -------------------------------------
