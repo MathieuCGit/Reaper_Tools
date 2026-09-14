@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="b9755b7e906db33bd1a68af1ed802371d9e23a6b">
+<index version="1" name="MathieuC Tools" commit="7e4bf408fbed7f886f0a3ea9a684b1b09484a9e7">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -143,15 +143,19 @@
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
-{\pard \ql \f0 \sa180 \li0 \fi0 This script aims to rename item with folder name (if track is in folder) - track name - item position in the track\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 WARNING : it's a persistent script, continuously running in background.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 This script renames items with:\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab folder name (if track is in a folder)\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab track name\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab item position number in the track\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 The script runs continuously in the background.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 It can be used as a toggle action in REAPER toolbars.\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 USER OPTIONS\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 {\b {\f1 SHOW_PARENT_FOLDER}} If this option is set to 1 folder name will appear in item name. 0 to not show the folder name\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 {\b {\f1 SHOW_TRACK_NAME}} If this option is set to 1 track name will appear in item name. 0 to not show the track name\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 {\b {\f1 SHOW_ITEM_NBR}} If this option is set to 1 item number will appear in item name. 0 to not show the item number\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 SHOW_PARENT_FOLDER 1 = show parent folder name 0 = don't show parent folder name\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 SHOW_TRACK_NAME 1 = show track name 0 = don't show track name\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 SHOW_ITEM_NBR 1 = show item number 0 = don't show item number\par}
 }
 ]]></description>
-        <link rel="website" href="https://github.com/MathieuCGit/MC_VariousScripts">Github repository</link>
+        <link rel="website" href="https://github.com/MathieuCGit/Reaper_Tools/tree/main">Github repository</link>
       </metadata>
       <version name="0.0.3" author="Mathieu CONAN" time="2023-01-07T19:44:49Z">
         <changelog><![CDATA[Fix better rendering in renaming with underscore position.]]></changelog>
@@ -160,6 +164,11 @@
       <version name="0.3" author="Mathieu CONAN" time="2023-01-15T20:52:09Z">
         <changelog><![CDATA[:  Fix better rendering in renaming with underscore position.]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/4069b7162d5895d9391fda27ebd9b3985f15c11e/Arrange%20View/MC_persistent_Rename-items-to-folder-and-track-name-item-number.lua</source>
+      </version>
+      <version name="0.4" author="Mathieu CONAN" time="2026-09-14T23:50:22Z">
+        <changelog><![CDATA[:
+0.4 - Added real ON/OFF toggle support for Action List and toolbars.]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/7e4bf408fbed7f886f0a3ea9a684b1b09484a9e7/Arrange%20View/MC_persistent_Rename-items-to-folder-and-track-name-item-number.lua</source>
       </version>
     </reapack>
     <reapack name="MC_reaticulate-window-filter.lua" type="script" desc="Reaticulate - create a filter to prevent reaticulate shows up when using toggle instrument on/off">
