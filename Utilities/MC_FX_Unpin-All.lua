@@ -1,6 +1,6 @@
 -- @description Disable pin for every opened FX windows
--- @author Mathieu CONAN   
 -- @version 0.1
+-- @author Mathieu CONAN   
 -- @changelog Initial release
 -- @link Github repository https://github.com/MathieuCGit/Reaper_Tools/tree/main
 -- @about This script toggle OFF the pin for each opened FX window to keep them foreground
