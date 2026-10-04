@@ -359,6 +359,80 @@ local function drawOverlay(now)
         state.overlayLogged = true
     end
 
+    -- Convert REAPER's native theme colors to opaque ReaImGui colors.
+    local function themeColor(themeId, fallback)
+        local nativeColor = reaper.GetThemeColor(themeId, 0)
+        if not nativeColor or nativeColor < 0 then return fallback end
+        return ImGui.ColorConvertNative(nativeColor) * 256 + 255
+    end
+
+    local function luminance(color)
+        local red, green, blue = ImGui.ColorConvertU32ToDouble4(color)
+        local function linearize(channel)
+            if channel <= 0.04045 then return channel / 12.92 end
+            return ((channel + 0.055) / 1.055) ^ 2.4
+        end
+        return 0.2126 * linearize(red)
+            + 0.7152 * linearize(green)
+            + 0.0722 * linearize(blue)
+    end
+
+    local function contrastRatio(luminanceA, luminanceB)
+        local lighter = math.max(luminanceA, luminanceB)
+        local darker = math.min(luminanceA, luminanceB)
+        return (lighter + 0.05) / (darker + 0.05)
+    end
+
+    local function ensureContrast(color, backgroundLuminance, minimumRatio)
+        if contrastRatio(luminance(color), backgroundLuminance) >= minimumRatio then
+            return color
+        end
+        return backgroundLuminance > 0.45 and 0x15191fff or 0xf2f2f2ff
+    end
+
+    local backgroundColor = themeColor('col_main_bg2', 0x252525ff)
+    local backgroundLuminance = luminance(backgroundColor)
+    local darkTheme = backgroundLuminance < 0.45
+    local textColor = ensureContrast(
+        themeColor('col_main_text', 0xe0e0e0ff), backgroundLuminance, 4.5)
+    local mutedTextColor = ensureContrast(
+        themeColor('col_main_text2', 0xa0a0a0ff), backgroundLuminance, 3.0)
+
+    -- Preserve the theme's highlight hue, but force distinct values for
+    -- selected and hovered rows so they remain visible on both light and dark themes.
+    local accentColor = themeColor('col_main_3dhl', 0x547da0ff)
+    local accentRed, accentGreen, accentBlue = ImGui.ColorConvertU32ToDouble4(accentColor)
+    local accentHue, accentSaturation = ImGui.ColorConvertRGBtoHSV(
+        accentRed, accentGreen, accentBlue)
+    if accentSaturation < 0.25 then
+        accentHue, accentSaturation = 0.58, 0.65
+    else
+        accentSaturation = math.max(accentSaturation, 0.55)
+    end
+
+    local function accentAt(value)
+        local red, green, blue = ImGui.ColorConvertHSVtoRGB(
+            accentHue, accentSaturation, value)
+        return ImGui.ColorConvertDouble4ToU32(red, green, blue, 1.0)
+    end
+
+    local selectedColor = accentAt(darkTheme and 0.78 or 0.30)
+    local hoveredColor = accentAt(darkTheme and 0.48 or 0.82)
+    local selectedTextColor = darkTheme and 0x15191fff or 0xf2f2f2ff
+
+    local themeColors = {
+        { ImGui.Col_WindowBg, backgroundColor },
+        { ImGui.Col_ChildBg, backgroundColor },
+        { ImGui.Col_PopupBg, backgroundColor },
+        { ImGui.Col_Border, themeColor('col_main_3dsh', 0x555555ff) },
+        { ImGui.Col_Text, textColor },
+        { ImGui.Col_TextDisabled, mutedTextColor },
+        { ImGui.Col_Header, selectedColor },
+        { ImGui.Col_HeaderHovered, hoveredColor },
+        { ImGui.Col_HeaderActive, selectedColor },
+        { ImGui.Col_Separator, themeColor('col_main_3dsh', 0x555555ff) },
+    }
+
     local rows = math.min(#state.items, MAX_ROWS)
     local lineHeight = ImGui.GetTextLineHeightWithSpacing(ctx)
     -- Convert the native window center into the coordinate space used by
@@ -383,7 +457,12 @@ local function drawOverlay(now)
     -- A secondary REAPER window (such as the Action List) may still own
     -- focus on another monitor; explicitly focus the switcher while open.
     ImGui.SetNextWindowFocus(ctx)
+    for _, entry in ipairs(themeColors) do
+        ImGui.PushStyleColor(ctx, entry[1], entry[2])
+    end
     ImGui.PushStyleVar(ctx, ImGui.StyleVar_WindowPadding, 12, 10)
+    ImGui.PushStyleVar(ctx, ImGui.StyleVar_WindowBorderSize, 0.25)
+    ImGui.PushStyleVar(ctx, ImGui.StyleVar_WindowRounding, 6)
     local visible = ImGui.Begin(ctx, OVERLAY_NAME, nil, flags)
     if visible then
         ImGui.TextDisabled(ctx, 'Tab / Shift+Tab: navigate  -  Enter: select  -  Escape: cancel')
@@ -392,10 +471,13 @@ local function drawOverlay(now)
         -- Each selectable row carries a stable hidden suffix so duplicate
         -- window titles still have distinct ImGui identifiers.
         for i, item in ipairs(state.items) do
+            local selected = i == state.sel
+            if selected then ImGui.PushStyleColor(ctx, ImGui.Col_Text, selectedTextColor) end
             if ImGui.Selectable(ctx, item.title .. '##' .. i, i == state.sel) then
                 state.sel = i
                 result = 'commit'
             end
+            if selected then ImGui.PopStyleColor(ctx) end
             if i == state.sel and state.scroll then ImGui.SetScrollHereY(ctx) end
         end
         state.scroll = false
@@ -416,7 +498,8 @@ local function drawOverlay(now)
 
         ImGui.End(ctx)
     end
-    ImGui.PopStyleVar(ctx)
+    ImGui.PopStyleVar(ctx, 3)
+    ImGui.PopStyleColor(ctx, #themeColors)
     return result
 end
 
