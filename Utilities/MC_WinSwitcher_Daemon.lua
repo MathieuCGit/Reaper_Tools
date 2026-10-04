@@ -342,6 +342,21 @@ local function closeSwitcher(commit)
         reaper.JS_Window_SetForeground(target)
         reaper.JS_Window_SetFocus(target)
         mru[reaper.JS_Window_AddressFromHandle(target)] = reaper.time_precise()
+        if commit and reaper.APIExists('JS_Mouse_SetPosition') then
+            local gotRect, left, top, right, bottom = reaper.JS_Window_GetRect(target)
+            if gotRect then
+                local centerX = math.floor((left + right) / 2)
+                local centerY = math.floor((top + bottom) / 2)
+                if reaper.JS_Mouse_SetPosition(centerX, centerY) then
+                    debugLog(string.format(
+                        'Moved mouse to target center: (%d, %d).', centerX, centerY))
+                else
+                    debugLog('Could not move mouse to the target window center.')
+                end
+            else
+                debugLog('Could not read the target window rectangle; mouse was not moved.')
+            end
+        end
     elseif target then
         debugLog('Target window is no longer valid; foreground was not changed.')
     end
