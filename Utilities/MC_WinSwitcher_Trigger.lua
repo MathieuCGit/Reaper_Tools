@@ -43,12 +43,6 @@ local EXT = 'WinSwitcher'
 -- Use REAPER's monotonic clock for the heartbeat and trigger timestamp.
 local now = reaper.time_precise()
 
-local function debugLog(message)
-    reaper.ShowConsoleMsg('[WinSwitcher Trigger] ' .. message .. '\n')
-end
-
-debugLog(string.format('Executed at %.6f.', now))
-
 -----------------------------------------------------------------------
 -- CHECK THAT THE DAEMON IS RUNNING
 -----------------------------------------------------------------------
@@ -57,7 +51,6 @@ debugLog(string.format('Executed at %.6f.', now))
 -- or stale timestamp as an inactive daemon and show a setup reminder.
 local alive = tonumber(reaper.GetExtState(EXT, 'alive') or '')
 if not alive or now - alive > 2 then
-    debugLog(string.format('Daemon heartbeat missing or stale; value=%s.', tostring(alive)))
     reaper.MB(
         'WinSwitcher_Daemon.lua is not running.\nStart it from the Action List, '
             .. 'ideally when REAPER starts.',
@@ -79,10 +72,6 @@ if reaper.APIExists('JS_Mouse_GetState') then
     local keyState = reaper.JS_Mouse_GetState(4 | 8 | 16 | 32)
     mods = keyState & (4 | 16 | 32)
     shift = (keyState & 8) ~= 0
-    debugLog(string.format('Key state=%d; commit modifiers=%d; reverse=%s.',
-        keyState, mods, tostring(shift)))
-else
-    debugLog('JS_Mouse_GetState is unavailable; sending the trigger without modifiers.')
 end
 
 -----------------------------------------------------------------------
@@ -94,4 +83,3 @@ end
 -- are identical. Persistence is disabled because this is runtime state.
 local trigger = string.format('%.6f|%s|%d', now, shift and 'prev' or 'next', mods)
 reaper.SetExtState(EXT, 'trigger', trigger, false)
-debugLog('Wrote ExtState trigger: ' .. trigger)

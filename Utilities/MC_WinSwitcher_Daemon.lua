@@ -50,19 +50,11 @@ local MAX_ROWS          = 14
 local DEFAULT_HOTKEY_VK = 0x09
 local DEFAULT_HOTKEY_MODS = 4
 local MODIFIER_MASK      = 4 | 16 | 32
--- Set true only for diagnostics; normal mode filters out other applications.
-local LIST_ALL_TOPLEVEL = false
 -- Ignore auxiliary windows whose native titles are not useful in the switcher.
 local EXCLUDED_WINDOW_TITLES = {
     ['tb'] = true,
     ['track names display'] = true,
 }
-
--- Write concise diagnostics to REAPER's ReaScript console. These messages
--- are emitted only at startup and when the switcher changes state.
-local function debugLog(message)
-    reaper.ShowConsoleMsg('[WinSwitcher Daemon] ' .. message .. '\n')
-end
 
 -----------------------------------------------------------------------
 -- CHECK DEPENDENCIES AND LOAD REAIMGUI
@@ -71,17 +63,14 @@ end
 -- Check the API functions before calling them so missing extensions
 -- produce a clear message instead of a Lua runtime error.
 if not reaper.APIExists('ImGui_CreateContext') then
-    debugLog('Startup stopped: ReaImGui API is unavailable.')
     reaper.MB('ReaImGui is required. Install it through ReaPack.', OVERLAY_NAME, 0)
     return
 end
 if not reaper.APIExists('JS_Window_ArrayAllTop') then
-    debugLog('Startup stopped: js_ReaScriptAPI is unavailable.')
     reaper.MB('js_ReaScriptAPI is required. Install it through ReaPack.', OVERLAY_NAME, 0)
     return
 end
 if not reaper.APIExists('JS_VKeys_GetDown') or not reaper.APIExists('JS_Mouse_GetState') then
-    debugLog('Startup stopped: js_ReaScriptAPI keyboard-state functions are unavailable.')
     reaper.MB('Current js_ReaScriptAPI keyboard-state functions are required.', OVERLAY_NAME, 0)
     return
 end
@@ -94,11 +83,9 @@ if not ok then
     ok, ImGui = pcall(function() return require 'imgui' '0.9.3' end)
 end
 if not ok then
-    debugLog('Startup stopped: unsupported ReaImGui version: ' .. tostring(ImGui))
     reaper.MB('Unsupported ReaImGui version: ' .. tostring(ImGui), OVERLAY_NAME, 0)
     return
 end
-debugLog('Dependencies loaded; daemon is starting.')
 
 -----------------------------------------------------------------------
 -- SHARED STATE
@@ -144,20 +131,14 @@ local function primaryScreenCenter()
         -- On Windows, the primary display contains the screen origin (0, 0).
         local left, top, right, bottom = getViewport(0, 0, 1, 1, false)
         if left and top and right and bottom then
-            local centerX, centerY = (left + right) / 2, (top + bottom) / 2
-            debugLog(string.format(
-                'Primary display bounds: (%s, %s)-(%s, %s); center=(%.1f, %.1f).',
-                tostring(left), tostring(top), tostring(right), tostring(bottom), centerX, centerY))
-            return centerX, centerY
+            return (left + right) / 2, (top + bottom) / 2
         end
     end
 
     -- Older js_ReaScriptAPI builds may not expose monitor viewport queries.
-    debugLog('Primary display query unavailable; falling back to the REAPER main window center.')
     local _, left, top, right, bottom = reaper.JS_Window_GetRect(main)
     local centerX = ((left or 0) + (right or 0)) / 2
     local centerY = ((top or 0) + (bottom or 0)) / 2
-    debugLog(string.format('Fallback native center=(%.1f, %.1f).', centerX, centerY))
     return centerX, centerY
 end
 
@@ -169,7 +150,7 @@ local function ownedByReaper(hwnd)
     -- On Windows, ArrayAllTop can include windows from other applications.
     -- Walk the owner chain and accept only windows that ultimately belong
     -- to REAPER's main window. Other platforms do not use this filter here.
-    if LIST_ALL_TOPLEVEL or not isWin then return true end
+    if not isWin then return true end
     local ownerWindow = hwnd
     for _ = 1, 8 do
         local owner = reaper.JS_Window_GetRelated(ownerWindow, 'OWNER')
@@ -189,11 +170,7 @@ local function collect()
     -- retaining the allocated capacity for the returned window handles.
     arr.resize(0)
     local n = reaper.JS_Window_ArrayAllTop(arr)
-    debugLog(string.format('JS_Window_ArrayAllTop returned %s handle(s).', tostring(n)))
     if n < 0 then
-        debugLog(string.format(
-            'Window enumeration failed: the output array needs at least %d free slot(s).',
-            -n))
         n = 0
     end
 
@@ -282,10 +259,7 @@ end
 local function openSwitcher(dir, mods, now)
     local items, hasCurrent = collect()
     local itemCount = #items
-    if itemCount < 2 then
-        debugLog(string.format('No switcher opened: only %d eligible window(s) found.', itemCount))
-        return
-    end
+    if itemCount < 2 then return end
 
     -- Forward starts after the current window; reverse starts at the last
     -- item. If the foreground window was not found, start at the first item.
@@ -308,12 +282,6 @@ local function openSwitcher(dir, mods, now)
         nx = centerX,
         ny = centerY,
     }
-    debugLog(string.format(
-        'Switcher opened: %d windows; direction=%s; modifiers=%d; sticky=%s; current-found=%s.',
-        itemCount, tostring(dir), mods, tostring(sticky), tostring(hasCurrent)))
-    for index, item in ipairs(items) do
-        debugLog(string.format('Switcher item #%d: %s', index, item.title))
-    end
 end
 
 local function advance(dir, now)
@@ -331,9 +299,6 @@ local function closeSwitcher(commit)
     -- original window was collected, the target is nil and focus is left
     -- unchanged.
     local target = commit and state.items[state.sel].hwnd or state.origin
-    local targetTitle = commit and state.items[state.sel].title or 'original foreground window'
-    debugLog(string.format('Closing switcher: commit=%s; target=%s.',
-        tostring(commit), tostring(targetTitle)))
     state.open = false
     ctx = nil
 
@@ -347,18 +312,9 @@ local function closeSwitcher(commit)
             if gotRect then
                 local centerX = math.floor((left + right) / 2)
                 local centerY = math.floor((top + bottom) / 2)
-                if reaper.JS_Mouse_SetPosition(centerX, centerY) then
-                    debugLog(string.format(
-                        'Moved mouse to target center: (%d, %d).', centerX, centerY))
-                else
-                    debugLog('Could not move mouse to the target window center.')
-                end
-            else
-                debugLog('Could not read the target window rectangle; mouse was not moved.')
+                reaper.JS_Mouse_SetPosition(centerX, centerY)
             end
         end
-    elseif target then
-        debugLog('Target window is no longer valid; foreground was not changed.')
     end
 end
 
@@ -369,10 +325,6 @@ end
 local function drawOverlay(now)
     -- Create the context only while the overlay is needed.
     if not ctx then ctx = ImGui.CreateContext(OVERLAY_NAME) end
-    if not state.overlayLogged then
-        debugLog('Drawing the ReaImGui switcher overlay.')
-        state.overlayLogged = true
-    end
 
     -- Convert REAPER's native theme colors to opaque ReaImGui colors.
     local function themeColor(themeId, fallback)
@@ -453,12 +405,6 @@ local function drawOverlay(now)
     -- Convert the native window center into the coordinate space used by
     -- ReaImGui, then center the overlay over that point.
     local centerX, centerY = ImGui.PointConvertNative(ctx, state.nx, state.ny)
-    if not state.positionLogged then
-        debugLog(string.format(
-            'Overlay position: native=(%.1f, %.1f); ReaImGui=(%.1f, %.1f).',
-            state.nx, state.ny, centerX, centerY))
-        state.positionLogged = true
-    end
     ImGui.SetNextWindowPos(ctx, centerX, centerY, ImGui.Cond_Always, 0.5, 0.5)
     ImGui.SetNextWindowSize(ctx, WIN_WIDTH, lineHeight * (rows + 2) + 30, ImGui.Cond_Always)
 
@@ -541,7 +487,6 @@ local function loop()
     -- running. Refresh it twice per second without writing persistent state.
     if now - lastBeat > 0.5 then
         reaper.SetExtState(EXT, 'alive', tostring(now), false)
-        if lastBeat == 0 then debugLog('Heartbeat published to ExtState.') end
         lastBeat = now
     end
 
@@ -563,7 +508,6 @@ local function loop()
     local triggerReceived = trigger ~= lastTrigger
     if triggerReceived then
         lastTrigger = trigger
-        debugLog('Received ExtState trigger: ' .. trigger)
         local timestamp, direction, modifiers = trigger:match('^(.-)|(.-)|(.-)$')
         modifiers = tonumber(modifiers) or 0
         timestamp = tonumber(timestamp) or now
@@ -579,9 +523,6 @@ local function loop()
                     hotkeyRequiredMods = modifiers
                     reaper.SetExtState(EXT, 'hotkey',
                         string.format('%d|%d', hotkeyVk, hotkeyRequiredMods), true)
-                    debugLog(string.format(
-                        'Learned fallback hotkey: VK=%d; required modifiers=%d.',
-                        hotkeyVk, hotkeyRequiredMods))
                     break
                 end
             end
@@ -590,8 +531,6 @@ local function loop()
         -- Prefer the action message if both paths observed the same keypress.
         if now - lastFallbackHotkeyTime > 0.15 then
             dispatchTrigger(direction, modifiers, now)
-        else
-            debugLog('Ignored duplicate Trigger action for a polled hotkey.')
         end
         lastActionTriggerTime = timestamp
     end
@@ -602,9 +541,6 @@ local function loop()
         lastFallbackHotkeyTime = now
         local direction = (keyState & 8) ~= 0 and 'prev' or 'next'
         local modifiers = keyState & MODIFIER_MASK
-        debugLog(string.format(
-            'Detected fallback hotkey: VK=%d; modifiers=%d; direction=%s.',
-            hotkeyVk, modifiers, direction))
         dispatchTrigger(direction, modifiers, now)
     end
 
