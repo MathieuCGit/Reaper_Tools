@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="7e4bf408fbed7f886f0a3ea9a684b1b09484a9e7">
+<index version="1" name="MathieuC Tools" commit="3711b8d50e9e9fd80a935866f4af6737211237bd">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -789,6 +789,69 @@
       <version name="0.1" author="Mathieu CONAN" time="2026-09-14T23:38:59Z">
         <changelog><![CDATA[Initial release]]></changelog>
         <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/b9755b7e906db33bd1a68af1ed802371d9e23a6b/Utilities/MC_Toggle_Auto-Pin-FX-Window.lua</source>
+      </version>
+    </reapack>
+    <reapack name="MC_WinSwitcher_Daemon.lua" type="script" desc="WinSwitcher - Alt+Tab-style window switcher daemon for REAPER">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Run this background action to provide a window switcher for WinSwitcher_Trigger.lua.\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/Reaper_Tools/tree/main">GitHub repository</link>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2026-10-04T11:47:25Z">
+        <changelog><![CDATA[Initial release]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/464dfae394e3d4264123e79214ec26a872b369a1/Utilities/MC_WinSwitcher_Daemon.lua</source>
+      </version>
+    </reapack>
+    <reapack name="MC_WinSwitcher_Trigger.lua" type="script" desc="WinSwitcher - keyboard trigger for the REAPER window switcher">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Assign this action to a shortcut to cycle through REAPER windows.\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/Reaper_Tools/tree/main">GitHub repository</link>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2026-10-04T11:47:25Z">
+        <changelog><![CDATA[Initial release]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/464dfae394e3d4264123e79214ec26a872b369a1/Utilities/MC_WinSwitcher_Trigger.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="video">
+    <reapack name="MC_video-key-frame_transform-zoom.lua" type="script" desc="Video - Transform and zoom selected video items in the preview">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Adjust a selected video's position and zoom directly in REAPER's video preview. The script uses the native Video processor preset "Image overlay" and writes keyframes to its X offset, Y offset, and zoom parameter envelopes.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Requirements:\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER 7 or newer\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab js_ReaScriptAPI, available through ReaPack\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab The native "Image overlay" preset for the Video processor\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Start this action and leave it running while using the mouse gestures below. Select the video item to edit in the arrange view before interacting with the video preview.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Gestures over the video preview:\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Left-drag: move the image. Unanimated parameters are changed as static values; animated parameters receive a keyframe at the playhead.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Shift + left-drag: move the image more slowly for fine adjustments.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Ctrl + mouse wheel: change zoom and always insert or update a zoom keyframe.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Ctrl + left-click: insert or update X/Y keyframes using the current position.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Alt + left-click: copy the preceding X/Y position to the playhead.\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Configuration: Edit CFG below to change the zoom step, fine-drag speed, drag direction, automatic FX insertion, or the interpolation shape of new envelope points.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 The mouse interception is provided by js_ReaScriptAPI. The native preset makes this script usable without third-party video-control presets.\par}
+}
+]]></description>
+        <link rel="website" href="https://github.com/MathieuCGit/Reaper_Tools/tree/main/video">GitHub repository</link>
+      </metadata>
+      <version name="0.1" author="Mathieu CONAN" time="2026-10-28T15:43:45Z">
+        <changelog><![CDATA[Initial release]]></changelog>
+        <source main="main">https://github.com/MathieuCGit/Reaper_Tools/raw/3711b8d50e9e9fd80a935866f4af6737211237bd/video/MC_video-key-frame_transform-zoom.lua</source>
       </version>
     </reapack>
   </category>
