@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="MathieuC Tools" commit="3711b8d50e9e9fd80a935866f4af6737211237bd">
+<index version="1" name="MathieuC Tools" commit="7abde3d4bec77d76a0e9c6b96ac6fcf5f28c9f83">
   <category name="Arrange View">
     <reapack name="MC_ALaLogic_TCP-folder-separator.lua" type="script" desc="Draw separator on folder track - aka A la Logic X">
       <metadata>
@@ -842,7 +842,7 @@
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Shift + left-drag: move the image more slowly for fine adjustments.\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Ctrl + mouse wheel: change zoom and always insert or update a zoom keyframe.\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Ctrl + left-click: insert or update X/Y keyframes using the current position.\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Alt + left-click: copy the preceding X/Y position to the playhead.\sa180\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Alt + left-click: copy the preceding X/Y position to the playhead. New keyframes are aligned to the nearest project video frame.\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Configuration: Edit CFG below to change the zoom step, fine-drag speed, drag direction, automatic FX insertion, or the interpolation shape of new envelope points.\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 The mouse interception is provided by js_ReaScriptAPI. The native preset makes this script usable without third-party video-control presets.\par}
 }
