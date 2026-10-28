@@ -24,6 +24,7 @@
 --   - Ctrl + mouse wheel: change zoom and always insert or update a zoom keyframe.
 --   - Ctrl + left-click: insert or update X/Y keyframes using the current position.
 --   - Alt + left-click: copy the preceding X/Y position to the playhead.
+--   New keyframes are aligned to the nearest project video frame.
 --
 --   Configuration:
 --   Edit CFG below to change the zoom step, fine-drag speed, drag direction,
@@ -220,8 +221,22 @@ local function env_time(tg, pt)
   -- playback rate, and reject edit/play positions outside the item bounds.
   local t = (pt - tg.pos) * tg.rate
   local tmax = tg.len * tg.rate
-  if t < -1e-6 or t > tmax + 1e-6 then return nil end
-  return math.max(0, t)
+  if t < -1e-6 or t > tmax + 1e-6 then
+    return nil, "playhead is outside the selected item"
+  end
+  local fps = reaper.TimeMap_curFrameRate(0)
+  if not fps or fps <= 0 then fps = 25 end
+
+  -- Keep points on the project video-frame grid, while ensuring the snapped
+  -- time remains inside the item even when its edges fall between frames.
+  local first_frame = math.ceil(tg.pos * fps - 1e-9)
+  local last_frame = math.floor((tg.pos + tg.len) * fps + 1e-9)
+  if first_frame > last_frame then
+    return nil, "no video frame falls inside the selected item"
+  end
+  local frame = math.floor(pt * fps + 0.5)
+  frame = math.max(first_frame, math.min(last_frame, frame))
+  return math.max(0, (frame / fps - tg.pos) * tg.rate)
 end
 
 local function frame_eps(tg)
@@ -327,8 +342,8 @@ local function fmt_t(tg, t) return ("%.2f s"):format(tg.pos + t / tg.rate) end
 local function cmd_key_position()
   local tg, err = get_target(false)
   if not tg then tip("VideoKF: " .. err); return end
-  local t = env_time(tg, proj_time())
-  if not t then tip("VideoKF: playhead is outside the selected item"); return end
+  local t, time_err = env_time(tg, proj_time())
+  if not t then tip("VideoKF: " .. time_err); return end
   reaper.Undo_BeginBlock()
   local x, y = eval_param(tg, "x", t), eval_param(tg, "y", t)
   put_key(tg, "x", t, x); put_key(tg, "y", t, y)
@@ -343,8 +358,8 @@ end
 local function cmd_copy_previous_position()
   local tg, err = get_target(false)
   if not tg then tip("VideoKF: " .. err); return end
-  local t = env_time(tg, proj_time())
-  if not t then tip("VideoKF: playhead is outside the selected item"); return end
+  local t, time_err = env_time(tg, proj_time())
+  if not t then tip("VideoKF: " .. time_err); return end
 
   local previous
   -- Search both envelopes because X and Y points do not have to share times.
@@ -378,8 +393,8 @@ end
 local function cmd_key_scale()
   local tg, err = get_target(false)
   if not tg then tip("VideoKF: " .. err); return end
-  local t = env_time(tg, proj_time())
-  if not t then tip("VideoKF: playhead is outside the selected item"); return end
+  local t, time_err = env_time(tg, proj_time())
+  if not t then tip("VideoKF: " .. time_err); return end
   reaper.Undo_BeginBlock()
   local zoom = eval_param(tg, "zoom", t)
   put_key(tg, "zoom", t, zoom)
@@ -427,8 +442,8 @@ end
 local function cmd_delete()
   local tg, err = get_target(false)
   if not tg then tip("VideoKF: " .. err); return end
-  local t = env_time(tg, proj_time())
-  if not t then tip("VideoKF: playhead is outside the selected item"); return end
+  local t, time_err = env_time(tg, proj_time())
+  if not t then tip("VideoKF: " .. time_err); return end
   local eps, removed = frame_eps(tg), 0
   reaper.Undo_BeginBlock()
   for _, key in ipairs({ "x", "y", "zoom" }) do
@@ -453,7 +468,11 @@ end
 local function cmd_reset()
   local tg, err = get_target(false)
   if not tg then tip("VideoKF: " .. err); return end
-  local t = env_time(tg, proj_time())
+  local t, time_err = env_time(tg, proj_time())
+  if time_err == "no video frame falls inside the selected item" then
+    tip("VideoKF: " .. time_err)
+    return
+  end
   reaper.Undo_BeginBlock()
   for _, key in ipairs({ "x", "y", "zoom" }) do
     set_value(tg, key, t, CFG.DEFAULTS[key])
@@ -483,9 +502,9 @@ local function drag_begin(d)
   -- to count as a drag, so a plain click does not add the FX.
   local tg, err = get_target(true)
   if not tg then tip("VideoKF: " .. err); d.dead = true; return end
-  local t = env_time(tg, proj_time())
+  local t, time_err = env_time(tg, proj_time())
   if (is_animated(tg, "x") or is_animated(tg, "y") or is_animated(tg, "zoom")) and not t then
-    tip("VideoKF: playhead is outside the selected item"); d.dead = true; return
+    tip("VideoKF: " .. time_err); d.dead = true; return
   end
   reaper.Undo_BeginBlock()
   d.undo_open = true
@@ -523,8 +542,8 @@ local function wheel_scale(delta)
   -- Wheel gestures may add the preset, unlike explicit keyboard commands.
   local tg, err = get_target(true)
   if not tg then tip("VideoKF: " .. err); return end
-  local t = env_time(tg, proj_time())
-  if not t then tip("VideoKF: playhead is outside the selected item"); return end
+  local t, time_err = env_time(tg, proj_time())
+  if not t then tip("VideoKF: " .. time_err); return end
   if not wheel_undo_open then
     reaper.Undo_BeginBlock()
     wheel_undo_open = true
